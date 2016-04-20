@@ -1,7 +1,7 @@
 package mygame;
 
 
-//array swap code works but i think the objects are still centerred aroundt the wrong thing after their rotation
+//array swap code works but i think the objects are still centerred aroundt the wrong thing after their rotation -- might have to redraw array everythime 
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
@@ -14,51 +14,11 @@ import java.util.Collections;
 
 public class Main extends SimpleApplication {
 
+	
+	Cube cube;
 	ArrayList<Spatial> allCubes = new ArrayList<Spatial>();
 	
-	private ActionListener actionListener = new ActionListener() {
-		public void onAction(String name, boolean pressed, float tpf) {
-			//System.out.println(name + " = " + pressed);
-			System.out.println(name);
-			if (pressed){
-			switch (name){
-			case("right"):{
-				//rotateRightNorm();
-				rotateFrontNorm();
-			}
-			break;
-			
-			case("frontNorm"):{
-				rotateFrontNorm();
-			}
-			break;
-			
-			case("topNorm"):{
-				rotateTopNorm();
-			}
-			break;
-			
-			case("left"):{
-			
-			}
-			break;
-			
-			case("bottom"):{
-				
-			}
-			break;
-			
-			case("back"):{
-				
-			}
-			break;
-			}
-			}
-			/*if (pressed) {
-				rotateD(tpf, allCubes);
-			}*/
-		}
-	};
+	
 
 	// Nodes
 	Node bottomRow = new Node();
@@ -94,108 +54,16 @@ public class Main extends SimpleApplication {
 		RelativeVector origin = new RelativeVector(0,0,0);
 		
 		
-		
+		cube = new Cube(new Vector3f(0,0,0), assetManager);
+		assignCubesToNode(cube.getCubesArray());
 
-		Spatial cube1 = createSpatial(rootNode, "Models/C-rwb/C-rwb.j3o", origin.getRelativeVector(2, 2, 2), 180, 90, 0);
-		allCubes.add(cube1);
-
-		Spatial cube2 = createSpatial(rootNode, "Models/E-rw/E-rw.j3o", origin.getRelativeVector(0, 2, 2), 180, 90, 0);
-		allCubes.add(cube2);
-
-		Spatial cube3 = createSpatial(rootNode, "Models/C-rwg/C-rwg.j3o", origin.getRelativeVector(-2, 2, 2), 180, 90, 0);
-		allCubes.add(cube3);
-
-		Spatial cube4 = createSpatial(rootNode, "Models/E-rb/E-rb.j3o", origin.getRelativeVector(2, 0, 2), 180, 90, 0);
-		allCubes.add(cube4);
-
-		Spatial cube5 = createSpatial(rootNode, "Models/S-r/S-r.j3o", origin.getRelativeVector(0, 0, 2), 180, 90, 0);
-		allCubes.add(cube5);
-
-		Spatial cube6 = createSpatial(rootNode, "Models/E-rg/E-rg.j3o", origin.getRelativeVector(-2, 0, 2), 180, 90, 0);
-		allCubes.add(cube6);
-
-		Spatial cube7 = createSpatial(rootNode, "Models/C-ryb/C-ryb.j3o", origin.getRelativeVector(2, -2, 2), 0, 270, 180);
-		allCubes.add(cube7);
-
-		Spatial cube8 = createSpatial(rootNode, "Models/E-ry/E-ry.j3o", origin.getRelativeVector(0, -2, 2), 0, 270, 180);
-		allCubes.add(cube8);
-
-		cube9 = createSpatial(rootNode, "Models/C-ryg/C-ryg.j3o", origin.getRelativeVector(-2, -2, 2), 180, 90, 0);
-		allCubes.add(cube9);
-
-		Spatial cube10 = createSpatial(rootNode, "Models/E-bw/E-bw.j3o", origin.getRelativeVector(2, 2, 0), 0, 180, 180);
-		allCubes.add(cube10);
-
-		Spatial cube11 = createSpatial(rootNode, "Models/S-w/S-w.j3o", origin.getRelativeVector(0, 2, 0), 0, 180, 180);
-		allCubes.add(cube11);
-
-		Spatial cube12 = createSpatial(rootNode, "Models/E-gw/E-gw.j3o", origin.getRelativeVector(-2, 2, 0), 0, 270, 180);
-		allCubes.add(cube12);
-
-		Spatial cube13 = createSpatial(rootNode, "Models/S-b/S-b.j3o", origin.getRelativeVector(2, 0, 0), 0, 180, 180);
-		allCubes.add(cube13);
-
-		Spatial cube14 = createSpatial(rootNode, "Models/S-center/S-center.j3o", origin.getRelativeVector(0, 0, 0), 0, 180, 180);
-		allCubes.add(cube14);
-
-		Spatial cube15 = createSpatial(rootNode, "Models/S-g/S-g.j3o", origin.getRelativeVector(-2, 0, 0), 0, 270, 180);
-		allCubes.add(cube15);
-
-		Spatial cube16 = createSpatial(rootNode, "Models/E-by/E-by.j3o", origin.getRelativeVector(2, -2, 0), 0, 180, 180);
-		allCubes.add(cube16);
-
-		Spatial cube17 = createSpatial(rootNode, "Models/S-y/S-y.j3o", origin.getRelativeVector(0, -2, 0), 0, 180, 180);
-		allCubes.add(cube17);
-
-		Spatial cube18 = createSpatial(rootNode, "Models/E-gy/E-gy.j3o", origin.getRelativeVector(-2, -2, 0), 0, 270, 180);
-		allCubes.add(cube18);
-
-		Spatial cube19 = createSpatial(rootNode, "Models/C-bow/C-bow.j3o", origin.getRelativeVector(2, 2, -2), 0, 180, 180);
-		allCubes.add(cube19);
-
-		Spatial cube20 = createSpatial(rootNode, "Models/E-ow/E-ow.j3o", origin.getRelativeVector(0, 2, -2), 0, 180, 180);
-		allCubes.add(cube20);
-
-		Spatial cube21 = createSpatial(rootNode, "Models/C-gwo/C-gwo.j3o", origin.getRelativeVector(-2, 2, -2), 0, 270, 180);
-		allCubes.add(cube21);
-
-		Spatial cube22 = createSpatial(rootNode, "Models/E-bo/E-bo.j3o", origin.getRelativeVector(2, 0, -2), 0, 180, 180);
-		allCubes.add(cube22);
-
-		Spatial cube23 = createSpatial(rootNode, "Models/S-o/S-o.j3o", origin.getRelativeVector(0, 0, -2), 0, 180, 180);
-		allCubes.add(cube23);
-
-		Spatial cube24 = createSpatial(rootNode, "Models/E-go/E-go.j3o", origin.getRelativeVector(-2, 0, -2), 0, 270, 180);
-		allCubes.add(cube24);
-
-		Spatial cube25 = createSpatial(rootNode, "Models/C-boy/C-boy.j3o", origin.getRelativeVector(2, -2, -2), 0, 180, 180);
-		allCubes.add(cube25);
-
-		Spatial cube26 = createSpatial(rootNode, "Models/E-oy/E-oy.j3o", origin.getRelativeVector(0, -2, -2), 0, 180, 180);
-		allCubes.add(cube26);
-
-		Spatial cube27 = createSpatial(rootNode, "Models/C-gyo/C-gyo.j3o", origin.getRelativeVector(-2, -2, -2), 0, 270, 180);
-		allCubes.add(cube27);
-
-		assignCubesToNode(allCubes);
+		InputHandler inputHandler = new InputHandler(inputManager);
 
 		
-
-		inputManager.addMapping("rightNorm", new KeyTrigger(KeyInput.KEY_R));
-		inputManager.addListener( actionListener,"right");
-		
-		inputManager.addMapping("frontNorm", new KeyTrigger(KeyInput.KEY_F));
-		inputManager.addListener( actionListener,"frontNorm");
-		
-		inputManager.addMapping("topNorm", new KeyTrigger(KeyInput.KEY_T));
-		inputManager.addListener( actionListener,"topNorm");
-		//inputManager.addMapping("RotateD", new KeyTrigger(KeyInput.KEY_R));
-		//inputManager.addListener(actionListener, "RotateD");
-
 	}
 
-	public void assignCubesToNode(ArrayList<Spatial> allCubes) {
-		for (Spatial cube : allCubes) {
+	public void assignCubesToNode(ArrayList<Spatial> cubes) {
+		for (Spatial cube : cubes) {
 			rootNode.attachChild(cube);
 		}
 	}
@@ -218,6 +86,7 @@ public class Main extends SimpleApplication {
 		sun.setColor(ColorRGBA.White.mult(2));
 		rootNode.addLight(sun);
 	}
+		
 
 	Boolean added = false;
 	float degree = FastMath.PI / 2;
@@ -254,6 +123,9 @@ public class Main extends SimpleApplication {
 			testRotate.setLocalTranslation(new Vector3f(0,0,0));
 			rootNode.attachChild(testRotate);
 	}
+		
+		
+		
 		
 		testRotate.rotate(  0f,  0f, 90*FastMath.DEG_TO_RAD );
 		
@@ -351,7 +223,7 @@ public class Main extends SimpleApplication {
 		Node frontRotateNormNode = new Node();
 		
 		for (int i = 0; i < 9; i++){
-			frontRotateNormNode.attachChild(allCubes.get(i));
+			frontRotateNormNode.attachChild( cube.getCubesArray().get(i));
 		}
 		
 		rootNode.attachChild(frontRotateNormNode);
@@ -362,23 +234,16 @@ public class Main extends SimpleApplication {
 			rotateFrontNormDegrees = 0;
 		}
 		
-		/*for(int i = 0; i < 9; i++){
-			System.out.println(i + ":  " + allCubes.get(i));
-		}
-		System.out.println(allCubes+ "\n\n\n\n");*/
 		//array restructuring
 		//corners
-		Collections.swap(allCubes, 0, 6);
-		Collections.swap(allCubes, 0, 8);
-		Collections.swap(allCubes, 0, 2);
+		Collections.swap(cube.getCubesArray(), 0, 6);
+		Collections.swap(cube.getCubesArray(), 0, 8);
+		Collections.swap(cube.getCubesArray(), 0, 2);
 		
 		//edges
-		Collections.swap(allCubes, 1, 3);
-		Collections.swap(allCubes, 1, 7);
-		Collections.swap(allCubes, 1, 5);
-		/*for(int i = 0; i < 9; i++){
-			System.out.println(i + ":  " + allCubes.get(i));
-		}*/
+		Collections.swap(cube.getCubesArray(), 1, 3);
+		Collections.swap(cube.getCubesArray(), 1, 7);
+		Collections.swap(cube.getCubesArray(), 1, 5);
 		
 	}
 	
@@ -390,17 +255,17 @@ public class Main extends SimpleApplication {
 		
 		Node topRotateNormNode = new Node();
 		
-		topRotateNormNode.attachChild(allCubes.get(0));
-		topRotateNormNode.attachChild(allCubes.get(1));
-		topRotateNormNode.attachChild(allCubes.get(2));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(0));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(1));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(2));
 		
-		topRotateNormNode.attachChild(allCubes.get(9));
-		topRotateNormNode.attachChild(allCubes.get(10));
-		topRotateNormNode.attachChild(allCubes.get(11));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(9));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(10));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(11));
 		
-		topRotateNormNode.attachChild(allCubes.get(18));
-		topRotateNormNode.attachChild(allCubes.get(19));
-		topRotateNormNode.attachChild(allCubes.get(20));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(18));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(19));
+		topRotateNormNode.attachChild(cube.getCubesArray().get(20));
 		
 		rootNode.attachChild(topRotateNormNode);
 		topRotateNormNode.rotate(  0f,rotateFrontNormDegrees*FastMath.DEG_TO_RAD,  0f );
@@ -411,42 +276,15 @@ public class Main extends SimpleApplication {
 		}
 		
 		//array restructuring
-		
-		
-		/*System.out.println(0 + ": " + allCubes.get(0));
-		System.out.println(1 + ": " + allCubes.get(1));
-		System.out.println(2 + ": " + allCubes.get(2));
-		
-		System.out.println(9 + ": " + allCubes.get(9));
-		System.out.println(10 + ": " + allCubes.get(10));
-		System.out.println(11 + ": " + allCubes.get(11));
-		
-		System.out.println(18 + ": " + allCubes.get(18));
-		System.out.println(19 + ": " + allCubes.get(19));
-		System.out.println(20 + ": " + allCubes.get(20) + "\n\n\n\n\n");*/
-		
-		
 		//corners
-		
-		Collections.swap(allCubes, 0, 2);
-		Collections.swap(allCubes, 0, 20);
-		Collections.swap(allCubes, 0, 18);
+		Collections.swap(cube.getCubesArray(), 0, 2);
+		Collections.swap(cube.getCubesArray(), 0, 20);
+		Collections.swap(cube.getCubesArray(), 0, 18);
 		
 		//edges
-		Collections.swap(allCubes, 1, 11);
-		Collections.swap(allCubes, 1, 19);
-		Collections.swap(allCubes, 1, 9);
-		/*System.out.println(0 + ": " + allCubes.get(0));
-		System.out.println(1 + ": " + allCubes.get(1));
-		System.out.println(2 + ": " + allCubes.get(2));
-		
-		System.out.println(9 + ": " + allCubes.get(9));
-		System.out.println(10 + ": " + allCubes.get(10));
-		System.out.println(11 + ": " + allCubes.get(11));
-		
-		System.out.println(18 + ": " + allCubes.get(18));
-		System.out.println(19 + ": " + allCubes.get(19));
-		System.out.println(20 + ": " + allCubes.get(20)  + "\n\n\n\n\n" );*/
+		Collections.swap(cube.getCubesArray(), 1, 11);
+		Collections.swap(cube.getCubesArray(), 1, 19);
+		Collections.swap(cube.getCubesArray(), 1, 9);
 	}
 	
 	
@@ -460,17 +298,7 @@ public class Main extends SimpleApplication {
 
 	}
 
-	public Spatial createSpatial(Node node, String modelPath, Vector3f translation, float rotX, float rotY,
-			float rotZ) {
-
-		Spatial object = assetManager.loadModel(modelPath);
-		object.scale(1, 1, 1);
-		object.rotate(FastMath.DEG_TO_RAD * rotX, FastMath.DEG_TO_RAD * rotY, FastMath.DEG_TO_RAD * rotZ);
-		object.setLocalTranslation(translation);
-		node.attachChild(object);
-
-		return object;
-	}
+	
 
 	public static void delay(int time) {
 		long startDelay = System.currentTimeMillis();

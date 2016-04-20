@@ -15,6 +15,11 @@ public class RelativeVector {
 		this.baseVectorZ = z;
 	}
 	
+	public void setOriginPoint(int x, int y, int z){
+		baseVectorX = x;
+		baseVectorY = y;
+		baseVectorZ = z;
+	}
 	public Vector3f getRelativeVector(int x, int y, int z){
 		
 		return new Vector3f(baseVectorX + x, baseVectorY + y, baseVectorZ + z);
