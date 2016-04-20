@@ -1,11 +1,8 @@
 package mygame;
 
-
-//array swap code works but i think the objects are still centerred aroundt the wrong thing after their rotation -- might have to redraw array everythime 
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.*;
 import com.jme3.math.*;
 import com.jme3.scene.*;
@@ -13,52 +10,78 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Main extends SimpleApplication {
+	InputHandler inputHandler;
+	
+	private  ActionListener actionListener = new ActionListener() {
+	public void onAction(String name, boolean pressed, float tpf) {
 
+	inputHandler.inputEvent(name, pressed);	
+	String keysPressed = inputHandler.getKeysPressed();
+	
+		if (pressed){
+			System.out.println(keysPressed);
+			switch (keysPressed){
+		case("right"):{
+			
+		}
+		break;
+		
+		case("f"):{
+			
+			rotateFrontNorm();
+			
+		}
+		break;
+		
+		case("xf"):{
+			rotateFrontInverse();
+			
+		}
+		break;
+		
+		case("left"):{
+		
+		}
+		break;
+		
+		case("bottom"):{
+			
+		}
+		break;
+		
+		case("back"):{
+			
+		}
+		break;
+		}
+		
+		}
+		
+	}
+	
+};
 	
 	Cube cube;
-	ArrayList<Spatial> allCubes = new ArrayList<Spatial>();
-	
-	
-
-	// Nodes
-	Node bottomRow = new Node();
-	Node frontFace = new Node();
-	Node testRow = new Node();
 	Node lightingNode = new Node();
-	// Quaternion rotation=(new Quaternion()).fromAngles(145 ,78, 19);
-	// Quaternion rotation=(new Quaternion()).fromAngles(0, 0,0);
-	Quaternion rotation = (new Quaternion()).fromAngleAxis(FastMath.PI / 2, new Vector3f(1, 0, 0));
-	Quaternion rotationVelocity = (new Quaternion()).fromAngles(0.1f, .1f, .1f);
-
-	Spatial cube9;
+	
 
 	public static void main(String[] args) {
 		Main app = new Main();
 		app.start();
+		//triggers the simpleInitApp() method
 	}
 
 	@Override
 	public void simpleInitApp() {
-		rootNode.attachChild(bottomRow);
 		rootNode.attachChild(lightingNode);
-		// set lighting
 		initLighting();
-
-		// rotation & pan
-		Node pivot = new Node("pivot");
-		pivot.rotate(2f, 2f, 2f);
-		rootNode.attachChild(pivot); // put this node in the scene
-
 		flyCam.setMoveSpeed(10);
-		
-		RelativeVector origin = new RelativeVector(0,0,0);
-		
+		initInputHandler();
 		
 		cube = new Cube(new Vector3f(0,0,0), assetManager);
 		assignCubesToNode(cube.getCubesArray());
 
-		InputHandler inputHandler = new InputHandler(inputManager);
-
+		
 		
 	}
 
@@ -68,6 +91,12 @@ public class Main extends SimpleApplication {
 		}
 	}
 
+	public void initInputHandler(){
+		inputHandler = new InputHandler(inputManager, actionListener);
+		inputHandler.addKeyListener("f",KeyInput.KEY_F);
+		inputHandler.addKeyListener("right",KeyInput.KEY_R);
+		inputHandler.addKeyListener("x",KeyInput.KEY_LCONTROL);
+	}
 	public void initLighting() {
 		addDirectionalLight(lightingNode, new Vector3f(0f, 0f, 0f));
 		addDirectionalLight(lightingNode, new Vector3f(1f, 0f, 0f));
@@ -77,7 +106,6 @@ public class Main extends SimpleApplication {
 		addDirectionalLight(lightingNode, new Vector3f(-1f, -1f, -1f));
 
 		rootNode.attachChild(lightingNode);
-
 	}
 
 	public void addDirectionalLight(Node node, Vector3f direction) {
@@ -86,139 +114,9 @@ public class Main extends SimpleApplication {
 		sun.setColor(ColorRGBA.White.mult(2));
 		rootNode.addLight(sun);
 	}
-		
-
-	Boolean added = false;
-	float degree = FastMath.PI / 2;
-	Boolean firstRotate = true;
-	Node testRotate = new Node();
-	int rotationNumber = 0;
-	
-	//Node rightRotate = new Node();
-	
-	
-	
-	public void rotateD(float tpf, ArrayList<Spatial> allCubes) {
-
-		
-		
-		if (firstRotate){
-			//testRotate.attachChild(allCubes.get(4));
-			
-			
-			
-			/*testRotate.attachChild(allCubes.get(0));
-			testRotate.attachChild(allCubes.get(1));
-			testRotate.attachChild(allCubes.get(2));
-			
-			testRotate.attachChild(allCubes.get(9));
-			testRotate.attachChild(allCubes.get(10));
-			testRotate.attachChild(allCubes.get(11));
-			
-			testRotate.attachChild(allCubes.get(18));
-			testRotate.attachChild(allCubes.get(19));
-			testRotate.attachChild(allCubes.get(20));*/
-				
-			
-			testRotate.setLocalTranslation(new Vector3f(0,0,0));
-			rootNode.attachChild(testRotate);
-	}
-		
-		
-		
-		
-		testRotate.rotate(  0f,  0f, 90*FastMath.DEG_TO_RAD );
-		
-		/*
-	
-		
-		/*Quaternion rotationVelocityFPS=new Quaternion();
-	    rotationVelocityFPS.slerp(Quaternion.IDENTITY, rotationVelocity, tpf);
-
-	    rotation.multLocal(rotationVelocityFPS);
-	
-	    testRotate.setLocalRotation(rotation);*/
-		/*degree += FastMath.PI / 2;
-		if (degree > FastMath.PI * 2) {
-			degree = 0;
-		}*/
-		/*Quaternion rotation = (new Quaternion()).fromAngleAxis(degree, new Vector3f(0, 0, 1));
-
-		
-	
-
-		Quaternion rotationVelocityFPS = new Quaternion();
-		rotationVelocityFPS.slerp(Quaternion.IDENTITY, rotationVelocity, tpf);
-
-		rotation.multLocal(rotationVelocityFPS);
-
-		testRotate.setLocalRotation(rotation);*/
-
-		////////////////#######
-		
-		
-		/*Quaternion rotationVelocityFPS = new Quaternion();
-		rotationVelocityFPS.slerp(Quaternion.IDENTITY, rotationVelocity, tpf);
-
-		rotation.multLocal(rotationVelocityFPS);
-		
-		
-		testRotate.setLocalRotation(rotation);
-		testRotate.setLocalTranslation(new Vector3f(-6,0,0));*/
-		
-		/*// for (int i = 0; i < 10; i ++){
-		//Node testRotate = new Node();
-
-		if (firstRotate){
-			for (int i = 0; i < 9; i++) {
-
-				if (!added) {
-					//rootNode.detachChildAt(i);
-					added = !added;
-				}
-
-				//allCubes.get(i).setLocalTranslation(new Vector3f(0, 0, 0));
-				testRotate.attachChild(allCubes.get(i));
-
-			}
-		}
-		
-
-		rootNode.attachChild(testRotate);
-		Quaternion rotation = (new Quaternion()).fromAngleAxis(degree, new Vector3f(0, 0, 1));
-
-		degree += FastMath.PI / 2;
-		if (degree > FastMath.PI * 2) {
-			degree = 0;
-		}
-	
-
-		Quaternion rotationVelocityFPS = new Quaternion();
-		rotationVelocityFPS.slerp(Quaternion.IDENTITY, rotationVelocity, tpf);
-
-		rotation.multLocal(rotationVelocityFPS);
-
-		if (firstRotate){
-			testRotate.setLocalTranslation(-2,-2,0);
-		}
-		//testRotate.setLocalTranslation(new Vector3f(0,0,0));
-		
-		
-
-		
-		
-		testRotate.setLocalRotation(rotation);
-		// }
-		//
-
-		// delay(2000);
-		firstRotate = false;*/
-	}
-	
 	
 	int rotateFrontNormDegrees = -90;
 	public void rotateFrontNorm(){
-		//Node rightRotateNormNode = new Node();
 		
 		Node frontRotateNormNode = new Node();
 		
@@ -243,11 +141,37 @@ public class Main extends SimpleApplication {
 		//edges
 		Collections.swap(cube.getCubesArray(), 1, 3);
 		Collections.swap(cube.getCubesArray(), 1, 7);
-		Collections.swap(cube.getCubesArray(), 1, 5);
-		
+		Collections.swap(cube.getCubesArray(), 1, 5);	
 	}
 	
-	
+	int rotateFrontInverseDegrees = 90;
+	public void rotateFrontInverse(){
+		
+		Node frontRotateInverseNode = new Node();
+		
+		for (int i = 0; i < 9; i++){
+			frontRotateInverseNode.attachChild(cube.getCubesArray().get(i));
+		}
+		
+		rootNode.attachChild(frontRotateInverseNode);
+		frontRotateInverseNode.rotate(  0f,  0f, rotateFrontInverseDegrees*FastMath.DEG_TO_RAD);
+		
+		rotateFrontInverseDegrees += 90;
+		if (rotateFrontInverseDegrees >= 360) {
+			rotateFrontInverseDegrees = 0;
+		}
+		
+		//array restructuring
+		//corners
+		/*Collections.swap(cube.getCubesArray(), 0, 6);
+		Collections.swap(cube.getCubesArray(), 0, 8);
+		Collections.swap(cube.getCubesArray(), 0, 2);
+		
+		//edges
+		Collections.swap(cube.getCubesArray(), 1, 3);
+		Collections.swap(cube.getCubesArray(), 1, 7);
+		Collections.swap(cube.getCubesArray(), 1, 5);	*/
+	}
 	
 	int rotateFrontTopDegrees = -90;
 	public void rotateTopNorm(){
@@ -285,25 +209,5 @@ public class Main extends SimpleApplication {
 		Collections.swap(cube.getCubesArray(), 1, 11);
 		Collections.swap(cube.getCubesArray(), 1, 19);
 		Collections.swap(cube.getCubesArray(), 1, 9);
-	}
-	
-	
-	
-	@Override
-	public void simpleUpdate(float tpf) {
-
-		// rotateD(tpf);
-		// bottomRow.rotate(FastMath.DEG_TO_RAD * 180f, 0f, 0f);
-		// testRow.rotate(rotation);
-
-	}
-
-	
-
-	public static void delay(int time) {
-		long startDelay = System.currentTimeMillis();
-		long endDelay = 0;
-		while (endDelay - startDelay < time)
-			endDelay = System.currentTimeMillis();
 	}
 }

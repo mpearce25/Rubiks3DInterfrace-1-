@@ -1,83 +1,63 @@
 package mygame;
 
+import java.util.ArrayList;
 
 import com.jme3.input.InputManager;
-
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 
 public class InputHandler {
 
-	private ActionListener actionListener = new ActionListener() {
-		public void onAction(String name, boolean pressed, float tpf) {
-			//System.out.println(name + " = " + pressed);
-			System.out.println(name);
-			if (pressed){
-			switch (name){
-			case("right"):{
-				//rotateRightNorm();
-				//rotateFrontNorm();
-				System.out.println("right");
-			}
-			break;
-			
-			case("frontNorm"):{
-				//rotateFrontNorm();
-			}
-			break;
-			
-			case("topNorm"):{
-				//rotateTopNorm();
-			}
-			break;
-			
-			case("left"):{
-			
-			}
-			break;
-			
-			case("bottom"):{
-				
-			}
-			break;
-			
-			case("back"):{
-				
-			}
-			break;
-			}
-			}
-			/*if (pressed) {
-				rotateD(tpf, allCubes);
-			}*/
-		}
-
-		
-	};
-	
-	
 	InputManager inputManager;
-	//ActionListener actionListener;
-	public InputHandler(InputManager inputManager){
-		
+	ActionListener actionListener;
+	ArrayList<String> keysPressed = new ArrayList<String>();
+
+	public InputHandler(InputManager inputManager, ActionListener actionListener) {
 		this.inputManager = inputManager;
-		
-		addKeyListener(KeyInput.KEY_R);
-		/*
-		
-		inputManager.addMapping("rightNorm", new KeyTrigger(KeyInput.KEY_R));
-		inputManager.addListener( actionListener,"right");
-		
-		inputManager.addMapping("frontNorm", new KeyTrigger(KeyInput.KEY_F));
-		inputManager.addListener( actionListener,"frontNorm");
-		
-		inputManager.addMapping("topNorm", new KeyTrigger(KeyInput.KEY_T));
-		inputManager.addListener( actionListener,"topNorm");*/
+		this.actionListener = actionListener;
+	}
+
+	public void addKeyListener(String actionPhrase, int character) {
+		inputManager.addMapping(actionPhrase, new KeyTrigger(character));
+		inputManager.addListener(actionListener, actionPhrase);
 	}
 	
-	public void addKeyListener(int character){
-		inputManager.addMapping("rightNorm", new KeyTrigger(character));
-		inputManager.addListener( actionListener,"right");
+	public void inputEvent(String keyName, boolean pressed){
+		if (pressed){
+			keysPressed.add(keyName);
+		}
+		else{
+			int indexLocation = findKeyLocation(keyName);
+			if (indexLocation == -1){
+				System.out.println("The key was not found in the array");
+			}
+			else{
+				keysPressed.remove(indexLocation);
+			}	
+		}
+	}
+	
+	private int findKeyLocation(String keyName){
+		int indexLocation = -1;
+		for (int i = 0; i < keysPressed.size(); i++){
+			if (keysPressed.get(i).equalsIgnoreCase(keyName)){
+				indexLocation = i;
+			}
+		}
+		
+		return indexLocation;
+	}
+	
+	public String getKeysPressed(){
+		String keys = "";
+		for (String keyString: keysPressed){
+			keys += keyString;
+		}
+		if (keys.contains("x") && keys.indexOf("x") != 0){
+			String tempKeys = keys;
+			keys = "x" + tempKeys.charAt(0);
+		}
+		
+		return keys;
 	}
 }
