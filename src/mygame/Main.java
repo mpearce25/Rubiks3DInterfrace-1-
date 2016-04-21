@@ -102,27 +102,34 @@ public class Main extends SimpleApplication {
 		
 		
 	}
-
-	public void assignCubesToNode(ArrayList<Spatial> cubes) {
+	
+	
+	public void assignCubesToNode2(ArrayList<CustomIndividualCube> cubes){
 		for(int i = 0; i < 27; i++){
 			switch (i){
 			case(0):{
-				float ogRotX = cubes.get(i).getLocalRotation().getX();
-				float ogRotY = cubes.get(i).getLocalRotation().getY();
-				float ogRotZ = cubes.get(i).getLocalRotation().getZ();
-				System.out.println(ogRotX);
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
 				
-				cubes.get(i).setLocalTranslation(new Vector3f(2,2,2));
-				//cubes.get(i).rotate(ogRotX, ogRotY, ogRotZ);
-				System.out.println(cubes.get(i).getLocalRotation().getX());
-				rootNode.attachChild(cubes.get(i));
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(2,2,2));
+				cubes.get(i).getSpatialObject().rotate(ogRotX, ogRotY + (FastMath.DEG_TO_RAD * 180) , ogRotZ);
+				cubes.get(i).setRotX(ogRotX);
+				cubes.get(i).setRotY(ogRotY + 180);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				//System.out.println(cubes.get(i).getSpatialObject().getLocalRotation().getX());
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
 				System.out.println("hi");
 			}
 			break;
 			
 			}
 		}
-		rootNode.attachChild(cubes.get(10));
+	}
+	public void assignCubesToNode(ArrayList<CustomIndividualCube> cubes) {
+		
+		rootNode.attachChild(cubes.get(0).getSpatialObject());
 		
 		//for (Spatial cube : cubes) {
 			//rootNode.attachChild(cube);
@@ -164,7 +171,7 @@ public class Main extends SimpleApplication {
 		Node frontRotateNormNode = new Node();
 		
 		for (int i = 0; i < 9; i++){
-			frontRotateNormNode.attachChild( cube.getCubesArray().get(i));
+			frontRotateNormNode.attachChild( cube.getCubesArray().get(i).getSpatialObject());
 		}
 		
 		rootNode.attachChild(frontRotateNormNode);
@@ -195,7 +202,7 @@ public class Main extends SimpleApplication {
 		
 		delay(500);
 		
-		assignCubesToNode(cube.getCubesArray());
+		assignCubesToNode2(cube.getCubesArray());
 	}
 	
 	int rotateFrontInverseDegrees = 90;
@@ -206,7 +213,7 @@ public class Main extends SimpleApplication {
 		Node frontRotateInverseNode = new Node();
 		
 		for (int i = 0; i < 9; i++){
-			frontRotateInverseNode.attachChild(cube.getCubesArray().get(i));
+			frontRotateInverseNode.attachChild(cube.getCubesArray().get(i).getSpatialObject());
 		}
 		
 		rootNode.attachChild(frontRotateInverseNode);
@@ -237,7 +244,7 @@ public class Main extends SimpleApplication {
 	}
 	
 	
-	int rotateFrontTopDegrees = -90;
+	/*int rotateFrontTopDegrees = -90;
 	public void rotateTopNorm(){
 		//Node rightRotateNormNode = new Node();
 		
@@ -273,5 +280,5 @@ public class Main extends SimpleApplication {
 		Collections.swap(cube.getCubesArray(), 1, 11);
 		Collections.swap(cube.getCubesArray(), 1, 19);
 		Collections.swap(cube.getCubesArray(), 1, 9);
-	}
+	}*/
 }
