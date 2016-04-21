@@ -57,7 +57,7 @@ public class InputHandler {
 			String tempKeys = keys;
 			keys = "x" + tempKeys.charAt(0);
 		}
-		
+		System.out.println(keysPressed);
 		return keys;
 	}
 }

@@ -11,6 +11,7 @@ import java.util.Collections;
 
 public class Main extends SimpleApplication {
 	InputHandler inputHandler;
+	int rotationsFromBaseFront = 0;
 	
 	private  ActionListener actionListener = new ActionListener() {
 	public void onAction(String name, boolean pressed, float tpf) {
@@ -18,7 +19,7 @@ public class Main extends SimpleApplication {
 	inputHandler.inputEvent(name, pressed);	
 	String keysPressed = inputHandler.getKeysPressed();
 	
-		if (pressed){
+		//if (pressed){
 			System.out.println(keysPressed);
 			switch (keysPressed){
 		case("right"):{
@@ -28,8 +29,14 @@ public class Main extends SimpleApplication {
 		
 		case("f"):{
 			
+			//System.out.println(rotateFrontNormDegrees);
 			rotateFrontNorm();
 			
+			/*rotationsFromBaseFront += 1;
+			if (rotationsFromBaseFront > 3){
+				rotationsFromBaseFront = 0;
+			}*/
+			//System.out.println(rotationsFromBaseFront);
 		}
 		break;
 		
@@ -39,8 +46,19 @@ public class Main extends SimpleApplication {
 		}
 		break;
 		
-		case("left"):{
-		
+		case("i"):{
+			System.out.println(rotateFrontInverseDegrees);
+			rotateFrontInverse();
+			/*rotationsFromBaseFront -= 1;
+			if (rotationsFromBaseFront < 0){
+				rotationsFromBaseFront = 3;
+			}*/
+			
+			//rotateFrontNormDegrees += 90;
+			/*if (rotateFrontNormDegrees >= 0){
+				rotateFrontNormDegrees = -270;
+			}*/
+			
 		}
 		break;
 		
@@ -55,7 +73,7 @@ public class Main extends SimpleApplication {
 		break;
 		}
 		
-		}
+		//}
 		
 	}
 	
@@ -86,9 +104,29 @@ public class Main extends SimpleApplication {
 	}
 
 	public void assignCubesToNode(ArrayList<Spatial> cubes) {
-		for (Spatial cube : cubes) {
-			rootNode.attachChild(cube);
+		for(int i = 0; i < 27; i++){
+			switch (i){
+			case(0):{
+				float ogRotX = cubes.get(i).getLocalRotation().getX();
+				float ogRotY = cubes.get(i).getLocalRotation().getY();
+				float ogRotZ = cubes.get(i).getLocalRotation().getZ();
+				System.out.println(ogRotX);
+				
+				cubes.get(i).setLocalTranslation(new Vector3f(2,2,2));
+				//cubes.get(i).rotate(ogRotX, ogRotY, ogRotZ);
+				System.out.println(cubes.get(i).getLocalRotation().getX());
+				rootNode.attachChild(cubes.get(i));
+				System.out.println("hi");
+			}
+			break;
+			
+			}
 		}
+		rootNode.attachChild(cubes.get(10));
+		
+		//for (Spatial cube : cubes) {
+			//rootNode.attachChild(cube);
+		//}
 	}
 
 	public void initInputHandler(){
@@ -96,6 +134,7 @@ public class Main extends SimpleApplication {
 		inputHandler.addKeyListener("f",KeyInput.KEY_F);
 		inputHandler.addKeyListener("right",KeyInput.KEY_R);
 		inputHandler.addKeyListener("x",KeyInput.KEY_LCONTROL);
+		inputHandler.addKeyListener("i", KeyInput.KEY_I);
 	}
 	public void initLighting() {
 		addDirectionalLight(lightingNode, new Vector3f(0f, 0f, 0f));
@@ -115,8 +154,12 @@ public class Main extends SimpleApplication {
 		rootNode.addLight(sun);
 	}
 	
+	
+	
 	int rotateFrontNormDegrees = -90;
 	public void rotateFrontNorm(){
+		
+		
 		
 		Node frontRotateNormNode = new Node();
 		
@@ -132,6 +175,12 @@ public class Main extends SimpleApplication {
 			rotateFrontNormDegrees = 0;
 		}
 		
+		/*for (int i = 0; i < 9; i++){
+			rootNode.detachChildAt(i);
+		}*/
+		frontRotateNormNode.detachAllChildren();
+		//System.out.println(frontRotateNormNode.getLocalRotation());
+		
 		//array restructuring
 		//corners
 		Collections.swap(cube.getCubesArray(), 0, 6);
@@ -141,11 +190,18 @@ public class Main extends SimpleApplication {
 		//edges
 		Collections.swap(cube.getCubesArray(), 1, 3);
 		Collections.swap(cube.getCubesArray(), 1, 7);
-		Collections.swap(cube.getCubesArray(), 1, 5);	
+		Collections.swap(cube.getCubesArray(), 1, 5);
+		
+		
+		delay(500);
+		
+		assignCubesToNode(cube.getCubesArray());
 	}
 	
 	int rotateFrontInverseDegrees = 90;
 	public void rotateFrontInverse(){
+		
+		
 		
 		Node frontRotateInverseNode = new Node();
 		
@@ -172,6 +228,14 @@ public class Main extends SimpleApplication {
 		Collections.swap(cube.getCubesArray(), 1, 7);
 		Collections.swap(cube.getCubesArray(), 1, 5);	*/
 	}
+	
+	public static void delay(int time) {
+		long startDelay = System.currentTimeMillis();
+		long endDelay = 0;
+		while (endDelay - startDelay < time)
+			endDelay = System.currentTimeMillis();
+	}
+	
 	
 	int rotateFrontTopDegrees = -90;
 	public void rotateTopNorm(){
