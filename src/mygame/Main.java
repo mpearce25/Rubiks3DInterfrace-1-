@@ -344,9 +344,9 @@ public class Main extends SimpleApplication {
 		Collections.swap(cube.getCubesArray(), 0, 6);
 		
 		//edges
-		Collections.swap(cube.getCubesArray(), 1, 3);
+		Collections.swap(cube.getCubesArray(), 1, 5);
 		Collections.swap(cube.getCubesArray(), 1, 7);
-		Collections.swap(cube.getCubesArray(), 1, 5);	
+		Collections.swap(cube.getCubesArray(), 1, 3);	
 		assignCubesToNode3(cube.getCubesArray());
 	}
 	
