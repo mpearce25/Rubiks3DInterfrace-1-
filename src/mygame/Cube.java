@@ -48,58 +48,58 @@ public class Cube{
 		CustomIndividualCube cube9 = createSpatial(assetManager, cubeNode,  "Models/C-ryg/C-ryg.j3o", origin.getRelativeVector(-2, -2, 2), 180, 90, 0);
 		cubes.add(cube9);
 
-		/*Spatial cube10 = createSpatial(assetManager, cubeNode,  "Models/E-bw/E-bw.j3o", origin.getRelativeVector(2, 2, 0), 0, 180, 180);
+		/*CustomIndividualCube cube10 = createSpatial(assetManager, cubeNode,  "Models/E-bw/E-bw.j3o", origin.getRelativeVector(2, 2, 0), 0, 180, 180);
 		cubes.add(cube10);
 
-		Spatial cube11 = createSpatial(assetManager, cubeNode,  "Models/S-w/S-w.j3o", origin.getRelativeVector(0, 2, 0), 0, 180, 180);
+		CustomIndividualCube cube11 = createSpatial(assetManager, cubeNode,  "Models/S-w/S-w.j3o", origin.getRelativeVector(0, 2, 0), 0, 180, 180);
 		cubes.add(cube11);
 
-		Spatial cube12 = createSpatial(assetManager, cubeNode,  "Models/E-gw/E-gw.j3o", origin.getRelativeVector(-2, 2, 0), 0, 270, 180);
+		CustomIndividualCube cube12 = createSpatial(assetManager, cubeNode,  "Models/E-gw/E-gw.j3o", origin.getRelativeVector(-2, 2, 0), 0, 270, 180);
 		cubes.add(cube12);
 
-		Spatial cube13 = createSpatial(assetManager, cubeNode,  "Models/S-b/S-b.j3o", origin.getRelativeVector(2, 0, 0), 0, 180, 180);
+		CustomIndividualCube cube13 = createSpatial(assetManager, cubeNode,  "Models/S-b/S-b.j3o", origin.getRelativeVector(2, 0, 0), 0, 180, 180);
 		cubes.add(cube13);
 
-		Spatial cube14 = createSpatial(assetManager, cubeNode,  "Models/S-center/S-center.j3o", origin.getRelativeVector(0, 0, 0), 0, 180, 180);
+		CustomIndividualCube cube14 = createSpatial(assetManager, cubeNode,  "Models/S-center/S-center.j3o", origin.getRelativeVector(0, 0, 0), 0, 180, 180);
 		cubes.add(cube14);
 
-		Spatial cube15 = createSpatial(assetManager, cubeNode,  "Models/S-g/S-g.j3o", origin.getRelativeVector(-2, 0, 0), 0, 270, 180);
+		CustomIndividualCube cube15 = createSpatial(assetManager, cubeNode,  "Models/S-g/S-g.j3o", origin.getRelativeVector(-2, 0, 0), 0, 270, 180);
 		cubes.add(cube15);
 
-		Spatial cube16 = createSpatial(assetManager, cubeNode,  "Models/E-by/E-by.j3o", origin.getRelativeVector(2, -2, 0), 0, 180, 180);
+		CustomIndividualCube cube16 = createSpatial(assetManager, cubeNode,  "Models/E-by/E-by.j3o", origin.getRelativeVector(2, -2, 0), 0, 180, 180);
 		cubes.add(cube16);
 
-		Spatial cube17 = createSpatial(assetManager, cubeNode,  "Models/S-y/S-y.j3o", origin.getRelativeVector(0, -2, 0), 0, 180, 180);
+		CustomIndividualCube cube17 = createSpatial(assetManager, cubeNode,  "Models/S-y/S-y.j3o", origin.getRelativeVector(0, -2, 0), 0, 180, 180);
 		cubes.add(cube17);
 
-		Spatial cube18 = createSpatial(assetManager, cubeNode,  "Models/E-gy/E-gy.j3o", origin.getRelativeVector(-2, -2, 0), 0, 270, 180);
+		CustomIndividualCube cube18 = createSpatial(assetManager, cubeNode,  "Models/E-gy/E-gy.j3o", origin.getRelativeVector(-2, -2, 0), 0, 270, 180);
 		cubes.add(cube18);
 
-		Spatial cube19 = createSpatial(assetManager, cubeNode,  "Models/C-bow/C-bow.j3o", origin.getRelativeVector(2, 2, -2), 0, 180, 180);
+		CustomIndividualCube cube19 = createSpatial(assetManager, cubeNode,  "Models/C-bow/C-bow.j3o", origin.getRelativeVector(2, 2, -2), 0, 180, 180);
 		cubes.add(cube19);
 
-		Spatial cube20 = createSpatial(assetManager, cubeNode,  "Models/E-ow/E-ow.j3o", origin.getRelativeVector(0, 2, -2), 0, 180, 180);
+		CustomIndividualCube cube20 = createSpatial(assetManager, cubeNode,  "Models/E-ow/E-ow.j3o", origin.getRelativeVector(0, 2, -2), 0, 180, 180);
 		cubes.add(cube20);
 
-		Spatial cube21 = createSpatial(assetManager, cubeNode,  "Models/C-gwo/C-gwo.j3o", origin.getRelativeVector(-2, 2, -2), 0, 270, 180);
+		CustomIndividualCube cube21 = createSpatial(assetManager, cubeNode,  "Models/C-gwo/C-gwo.j3o", origin.getRelativeVector(-2, 2, -2), 0, 270, 180);
 		cubes.add(cube21);
 
-		Spatial cube22 = createSpatial(assetManager, cubeNode,  "Models/E-bo/E-bo.j3o", origin.getRelativeVector(2, 0, -2), 0, 180, 180);
+		CustomIndividualCube cube22 = createSpatial(assetManager, cubeNode,  "Models/E-bo/E-bo.j3o", origin.getRelativeVector(2, 0, -2), 0, 180, 180);
 		cubes.add(cube22);
 
-		Spatial cube23 = createSpatial(assetManager, cubeNode,  "Models/S-o/S-o.j3o", origin.getRelativeVector(0, 0, -2), 0, 180, 180);
+		CustomIndividualCube cube23 = createSpatial(assetManager, cubeNode,  "Models/S-o/S-o.j3o", origin.getRelativeVector(0, 0, -2), 0, 180, 180);
 		cubes.add(cube23);
 
-		Spatial cube24 = createSpatial(assetManager, cubeNode,  "Models/E-go/E-go.j3o", origin.getRelativeVector(-2, 0, -2), 0, 270, 180);
+		CustomIndividualCube cube24 = createSpatial(assetManager, cubeNode,  "Models/E-go/E-go.j3o", origin.getRelativeVector(-2, 0, -2), 0, 270, 180);
 		cubes.add(cube24);
 
-		Spatial cube25 = createSpatial(assetManager, cubeNode,  "Models/C-boy/C-boy.j3o", origin.getRelativeVector(2, -2, -2), 0, 180, 180);
+		CustomIndividualCube cube25 = createSpatial(assetManager, cubeNode,  "Models/C-boy/C-boy.j3o", origin.getRelativeVector(2, -2, -2), 0, 180, 180);
 		cubes.add(cube25);
 
-		Spatial cube26 = createSpatial(assetManager, cubeNode,  "Models/E-oy/E-oy.j3o", origin.getRelativeVector(0, -2, -2), 0, 180, 180);
+		CustomIndividualCube cube26 = createSpatial(assetManager, cubeNode,  "Models/E-oy/E-oy.j3o", origin.getRelativeVector(0, -2, -2), 0, 180, 180);
 		cubes.add(cube26);
 
-		Spatial cube27 = createSpatial(assetManager, cubeNode,  "Models/C-gyo/C-gyo.j3o", origin.getRelativeVector(-2, -2, -2), 0, 270, 180);
+		CustomIndividualCube cube27 = createSpatial(assetManager, cubeNode,  "Models/C-gyo/C-gyo.j3o", origin.getRelativeVector(-2, -2, -2), 0, 270, 180);
 		cubes.add(cube27);*/
 	}
 	

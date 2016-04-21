@@ -113,9 +113,9 @@ public class Main extends SimpleApplication {
 				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
 				
 				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(2,2,2));
-				cubes.get(i).getSpatialObject().rotate(ogRotX, ogRotY + (FastMath.DEG_TO_RAD * 180) , ogRotZ);
-				cubes.get(i).setRotX(ogRotX);
-				cubes.get(i).setRotY(ogRotY + 180);
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 90), 0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
 				cubes.get(i).setRotZ(ogRotZ);
 				
 				//System.out.println(cubes.get(i).getSpatialObject().getLocalRotation().getX());
@@ -123,17 +123,130 @@ public class Main extends SimpleApplication {
 				System.out.println("hi");
 			}
 			break;
+			case(2):{
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
+				
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(-2,2,2));
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 90), 0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
+			}
+			break;
+			
+			case(6):{
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
+				
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(2,-2,2));
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 90),0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
+			}
+			break;
+			
+			case(8):{
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
+				
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(-2,-2,2));
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 90),0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
+			}
+			break;
 			
 			}
 		}
 	}
+	
+	public void assignCubesToNode3(ArrayList<CustomIndividualCube> cubes){
+		for(int i = 0; i < 27; i++){
+			switch (i){
+			case(0):{
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
+				
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(2,2,2));
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 270), 0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				//System.out.println(cubes.get(i).getSpatialObject().getLocalRotation().getX());
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
+				System.out.println("hi");
+			}
+			break;
+			case(2):{
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
+				
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(-2,2,2));
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 270), 0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
+			}
+			break;
+			
+			case(6):{
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
+				
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(2,-2,2));
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 270),0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
+			}
+			break;
+			
+			case(8):{
+				float ogRotX = cubes.get(i).getRotX() * FastMath.DEG_TO_RAD;
+				float ogRotY = cubes.get(i).getRotY()* FastMath.DEG_TO_RAD;
+				float ogRotZ = cubes.get(i).getRotZ()* FastMath.DEG_TO_RAD;
+				
+				cubes.get(i).getSpatialObject().setLocalTranslation(new Vector3f(-2,-2,2));
+				cubes.get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * 270),0 , 0);
+				cubes.get(i).setRotX(ogRotX + 270);
+				cubes.get(i).setRotY(ogRotY + 270);
+				cubes.get(i).setRotZ(ogRotZ);
+				
+				rootNode.attachChild(cubes.get(i).getSpatialObject());
+			}
+			break;
+			
+			}
+		}
+	}
+	
 	public void assignCubesToNode(ArrayList<CustomIndividualCube> cubes) {
 		
-		rootNode.attachChild(cubes.get(0).getSpatialObject());
+		//rootNode.attachChild(cubes.get(0).getSpatialObject());
 		
-		//for (Spatial cube : cubes) {
-			//rootNode.attachChild(cube);
-		//}
+		for (CustomIndividualCube cube : cubes) {
+			rootNode.attachChild(cube.getSpatialObject());
+		}
 	}
 
 	public void initInputHandler(){
@@ -171,21 +284,21 @@ public class Main extends SimpleApplication {
 		Node frontRotateNormNode = new Node();
 		
 		for (int i = 0; i < 9; i++){
-			frontRotateNormNode.attachChild( cube.getCubesArray().get(i).getSpatialObject());
+			frontRotateNormNode.attachChild(cube.getCubesArray().get(i).getSpatialObject());
 		}
 		
-		rootNode.attachChild(frontRotateNormNode);
-		frontRotateNormNode.rotate(  0f,  0f, rotateFrontNormDegrees*FastMath.DEG_TO_RAD);
+		//rootNode.attachChild(frontRotateNormNode);
+		//frontRotateNormNode.rotate(  0f,  0f, rotateFrontNormDegrees*FastMath.DEG_TO_RAD);
 		
-		rotateFrontNormDegrees -= 90;
+		/*rotateFrontNormDegrees -= 90;
 		if (rotateFrontNormDegrees <= -360) {
 			rotateFrontNormDegrees = 0;
-		}
+		}*/
 		
 		/*for (int i = 0; i < 9; i++){
 			rootNode.detachChildAt(i);
 		}*/
-		frontRotateNormNode.detachAllChildren();
+		//frontRotateNormNode.detachAllChildren();
 		//System.out.println(frontRotateNormNode.getLocalRotation());
 		
 		//array restructuring
@@ -200,7 +313,7 @@ public class Main extends SimpleApplication {
 		Collections.swap(cube.getCubesArray(), 1, 5);
 		
 		
-		delay(500);
+		//delay(500);
 		
 		assignCubesToNode2(cube.getCubesArray());
 	}
@@ -216,8 +329,8 @@ public class Main extends SimpleApplication {
 			frontRotateInverseNode.attachChild(cube.getCubesArray().get(i).getSpatialObject());
 		}
 		
-		rootNode.attachChild(frontRotateInverseNode);
-		frontRotateInverseNode.rotate(  0f,  0f, rotateFrontInverseDegrees*FastMath.DEG_TO_RAD);
+		//rootNode.attachChild(frontRotateInverseNode);
+		//frontRotateInverseNode.rotate(  0f,  0f, rotateFrontInverseDegrees*FastMath.DEG_TO_RAD);
 		
 		rotateFrontInverseDegrees += 90;
 		if (rotateFrontInverseDegrees >= 360) {
@@ -226,14 +339,15 @@ public class Main extends SimpleApplication {
 		
 		//array restructuring
 		//corners
-		/*Collections.swap(cube.getCubesArray(), 0, 6);
-		Collections.swap(cube.getCubesArray(), 0, 8);
 		Collections.swap(cube.getCubesArray(), 0, 2);
+		Collections.swap(cube.getCubesArray(), 0, 8);
+		Collections.swap(cube.getCubesArray(), 0, 6);
 		
 		//edges
 		Collections.swap(cube.getCubesArray(), 1, 3);
 		Collections.swap(cube.getCubesArray(), 1, 7);
-		Collections.swap(cube.getCubesArray(), 1, 5);	*/
+		Collections.swap(cube.getCubesArray(), 1, 5);	
+		assignCubesToNode3(cube.getCubesArray());
 	}
 	
 	public static void delay(int time) {
