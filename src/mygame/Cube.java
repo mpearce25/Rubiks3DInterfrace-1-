@@ -13,13 +13,20 @@ public class Cube{
 	Node cubeNode = new Node();
 	RelativeVector origin = new RelativeVector(0,0,0);
 	ArrayList<CustomIndividualCube> cubes = new ArrayList<CustomIndividualCube>();
+	ArrayList<Vector3f> individualCubeOffsets = new ArrayList<Vector3f>();
 	
 	public Cube(Vector3f originPoint, AssetManager assetManager){
 		this.origin.setOriginPoint((int)originPoint.getX(), (int)originPoint.getY(), (int)originPoint.getZ());
 		createCubeObject(assetManager);
 		
+		initIndividualCubeOffsets();
 	}
 	
+	private void initIndividualCubeOffsets() {
+		//individualCubeOffsets.add(new Vector)
+		
+	}
+
 	private void createCubeObject(AssetManager assetManager){
 		CustomIndividualCube cube1 = createSpatial(assetManager, cubeNode,  "Models/C-rwb/C-rwb.j3o", origin.getRelativeVector(2, 2, 2), 180, 90, 0);
 		cubes.add(cube1);
@@ -48,7 +55,7 @@ public class Cube{
 		CustomIndividualCube cube9 = createSpatial(assetManager, cubeNode,  "Models/C-ryg/C-ryg.j3o", origin.getRelativeVector(-2, -2, 2), 180, 90, 0);
 		cubes.add(cube9);
 
-		/*CustomIndividualCube cube10 = createSpatial(assetManager, cubeNode,  "Models/E-bw/E-bw.j3o", origin.getRelativeVector(2, 2, 0), 0, 180, 180);
+		CustomIndividualCube cube10 = createSpatial(assetManager, cubeNode,  "Models/E-bw/E-bw.j3o", origin.getRelativeVector(2, 2, 0), 0, 180, 180);
 		cubes.add(cube10);
 
 		CustomIndividualCube cube11 = createSpatial(assetManager, cubeNode,  "Models/S-w/S-w.j3o", origin.getRelativeVector(0, 2, 0), 0, 180, 180);
@@ -100,11 +107,15 @@ public class Cube{
 		cubes.add(cube26);
 
 		CustomIndividualCube cube27 = createSpatial(assetManager, cubeNode,  "Models/C-gyo/C-gyo.j3o", origin.getRelativeVector(-2, -2, -2), 0, 270, 180);
-		cubes.add(cube27);*/
+		cubes.add(cube27);
 	}
 	
 	public ArrayList<CustomIndividualCube> getCubesArray(){
 		return cubes;
+	}
+	
+	public ArrayList<Vector3f> getIndividualCubeOffsets(){
+		return individualCubeOffsets;
 	}
 	public CustomIndividualCube createSpatial(AssetManager assetManager, Node node, String modelPath, Vector3f translation, float rotX, float rotY,
 			float rotZ) {
@@ -113,13 +124,13 @@ public class Cube{
 		object.scale(1, 1, 1);
 		object.rotate(FastMath.DEG_TO_RAD * rotX, FastMath.DEG_TO_RAD * rotY, FastMath.DEG_TO_RAD * rotZ);
 		object.setLocalTranslation(translation);
-		//node.attachChild(object);
 
+		individualCubeOffsets.add(translation);
 		CustomIndividualCube customCubeObject = new CustomIndividualCube(object);
-		customCubeObject.setRotX(rotX);
-		customCubeObject.setRotY(rotY);
-		customCubeObject.setRotZ(rotZ);
+		
 		
 		return customCubeObject;
 	}
+	
+	
 }
