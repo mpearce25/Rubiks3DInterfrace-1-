@@ -12,7 +12,7 @@ public class Cube{
 
 	Node cubeNode = new Node();
 	RelativeVector origin = new RelativeVector(0,0,0);
-	ArrayList<CustomIndividualCube> cubes = new ArrayList<CustomIndividualCube>();
+	public ArrayList<CustomIndividualCube> cubes = new ArrayList<CustomIndividualCube>();
 	ArrayList<Vector3f> individualCubeOffsets = new ArrayList<Vector3f>();
 	
 	public Cube(Vector3f originPoint, AssetManager assetManager){
@@ -113,6 +113,9 @@ public class Cube{
 	public ArrayList<CustomIndividualCube> getCubesArray(){
 		return cubes;
 	}
+	//public void setCubesArray(ArrayList<CustomIndividualCubes> array){
+		
+	//}
 	
 	public ArrayList<Vector3f> getIndividualCubeOffsets(){
 		return individualCubeOffsets;
@@ -132,6 +135,4 @@ public class Cube{
 		object.rotate(FastMath.DEG_TO_RAD * rotX, FastMath.DEG_TO_RAD * rotY, FastMath.DEG_TO_RAD * rotZ);
 		return customCubeObject;
 	}
-	
-	
 }
