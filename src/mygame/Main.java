@@ -26,6 +26,10 @@ public class Main extends SimpleApplication {
 		rotateTopNorm();	
 		}
 		break;
+		case("xt"):{
+			rotateTopInverse();	
+			}
+			break;
 		
 		case("f"):{
 			rotateFrontNorm();
@@ -170,6 +174,27 @@ public class Main extends SimpleApplication {
 		Collections.swap(cube.getCubesArray(), 1, 9);
 		
 		rotateCubes(cube.getCubesArray(), 0,90,0);
-
+	}
+	
+	public void rotateTopInverse(){
+		List<Integer> cubesAffected = Arrays.asList(0,1,2,9,10,11,18,19,20);
+		for(int i = 0; i < cube.getCubesArray().size(); i ++){
+			if (cubesAffected.contains(i)){
+				cube.getCubesArray().get(i).setRotate(true);
+			}
+		}
+		
+		//array restructuring
+		//corners
+		Collections.swap(cube.getCubesArray(), 0, 18);
+		Collections.swap(cube.getCubesArray(), 0, 20);
+		Collections.swap(cube.getCubesArray(), 0, 2);
+		
+		//edges
+		Collections.swap(cube.getCubesArray(), 1, 9);
+		Collections.swap(cube.getCubesArray(), 1, 19);
+		Collections.swap(cube.getCubesArray(), 1, 11);
+		
+		rotateCubes(cube.getCubesArray(), 0,-90,0);
 	}
 }

@@ -122,13 +122,14 @@ public class Cube{
 
 		Spatial object = assetManager.loadModel(modelPath);
 		object.scale(1, 1, 1);
-		object.rotate(FastMath.DEG_TO_RAD * rotX, FastMath.DEG_TO_RAD * rotY, FastMath.DEG_TO_RAD * rotZ);
+		
 		object.setLocalTranslation(translation);
 
 		individualCubeOffsets.add(translation);
+		
 		CustomIndividualCube customCubeObject = new CustomIndividualCube(object);
 		
-		
+		object.rotate(FastMath.DEG_TO_RAD * rotX, FastMath.DEG_TO_RAD * rotY, FastMath.DEG_TO_RAD * rotZ);
 		return customCubeObject;
 	}
 	
