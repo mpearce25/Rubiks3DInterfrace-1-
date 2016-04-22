@@ -69,17 +69,32 @@ public class Main extends SimpleApplication {
 		}
 	}
 	
+	
 	public void rotateCubes(ArrayList<CustomIndividualCube> cubes, float rotX, float rotY, float rotZ){
 		//rootNode.detachAllChildren();
 		
-		for(int i = 0; i < cubes.size(); i++){
-			System.out.println(cubes.get(i).getRotate());
-			if (cubes.get(i).getRotate()){
+		for(int i = 0; i < cube.getCubesArray().size(); i++){
+			//System.out.println(cube.getCubesArray().get(i).getRotate());
+			if (cube.getCubesArray().get(i).getRotate()){
 				
-				cubes.get(i).getSpatialObject().setLocalTranslation(cube.getIndividualCubeOffsets().get(i));
+				float initialRotationX = cube.getCubesArray().get(i).getRotX();
+				float initialRotationY = cube.getCubesArray().get(i).getRotY();
+				float initialRotationZ = cube.getCubesArray().get(i).getRotZ();
+				System.out.println(initialRotationX + ", " + initialRotationY + ", " + initialRotationZ + "\n");
 				
-				cubes.get(i).getSpatialObject().rotate(FastMath.DEG_TO_RAD * rotX, FastMath.DEG_TO_RAD * rotY , FastMath.DEG_TO_RAD * rotZ);
-				cubes.get(i).setRotate(false);
+				
+				cube.getCubesArray().get(i).getSpatialObject().setLocalTranslation(cube.getIndividualCubeOffsets().get(i));
+				
+				cube.getCubesArray().get(i).getSpatialObject().rotate((FastMath.DEG_TO_RAD * rotX) + (FastMath.DEG_TO_RAD * initialRotationX), FastMath.DEG_TO_RAD * rotY + (FastMath.DEG_TO_RAD * initialRotationY) , FastMath.DEG_TO_RAD * rotZ + (FastMath.DEG_TO_RAD * initialRotationZ));
+				cube.getCubesArray().get(i).setRotate(false);
+				cube.getCubesArray().get(i).getSpatialObject().updateGeometricState();
+				cube.getCubesArray().get(i).setRotX(20f);
+				cube.getCubesArray().get(i).setRotX(initialRotationY + rotY);
+				cube.getCubesArray().get(i).setRotX(initialRotationZ + rotZ);
+				cube.getCubesArray().get(i).getSpatialObject().updateGeometricState();
+				//System.out.println(initialRotationX + ", " + initialRotationY + ", " + initialRotationZ);
+				//System.out.println(cubes.get(i).getSpatialObject().getWorldRotation());
+				
 				//rootNode.attachChild(cubes.get(i).getSpatialObject());
 			}
 		}
@@ -159,9 +174,12 @@ public class Main extends SimpleApplication {
 		for(int i = 0; i < cube.getCubesArray().size(); i ++){
 			if (cubesAffected.contains(i)){
 				cube.getCubesArray().get(i).setRotate(true);
+				cube.getCubesArray().get(i).setRotX(00);
+				
 			}
 		}
-		
+		cube.getCubesArray().get(10).setRotX(cube.getCubesArray().get(10).getRotX() + 10);
+		System.out.println(cube.getCubesArray().get(10).getRotX());
 		//array restructuring
 		//corners
 		Collections.swap(cube.getCubesArray(), 0, 2);

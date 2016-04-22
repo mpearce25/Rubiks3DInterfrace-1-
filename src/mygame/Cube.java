@@ -127,7 +127,7 @@ public class Cube{
 
 		individualCubeOffsets.add(translation);
 		
-		CustomIndividualCube customCubeObject = new CustomIndividualCube(object);
+		CustomIndividualCube customCubeObject = new CustomIndividualCube(object, rotX, rotY, rotZ);
 		
 		object.rotate(FastMath.DEG_TO_RAD * rotX, FastMath.DEG_TO_RAD * rotY, FastMath.DEG_TO_RAD * rotZ);
 		return customCubeObject;

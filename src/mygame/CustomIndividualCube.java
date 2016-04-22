@@ -5,14 +5,17 @@ import com.jme3.scene.Spatial;
 public class CustomIndividualCube {
 
 	Spatial spatialObject;
-	float rotX;
-	float rotY;
-	float rotZ;
+	float rotX = 0;
+	float rotY= 0;
+	float rotZ= 0;
 	private Boolean rotate = false;
 	
 	
-	public CustomIndividualCube(Spatial spatialObject){
+	public CustomIndividualCube(Spatial spatialObject, Float rotX, Float rotY, Float rotZ){
 		this.spatialObject = spatialObject;
+		//this.rotX = rotX;
+		//this.rotY = rotY;
+		//this.rotZ = rotZ;
 	}
 	
 	public Spatial getSpatialObject(){
