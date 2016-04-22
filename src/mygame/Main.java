@@ -200,6 +200,10 @@ public class Main extends SimpleApplication {
 		//System.out.println(cube.getCubesArray().get(10).getRotX());
 		//System.out.println(cube.getCubesArray().get(10).getRotate());
 		//array restructuring
+		
+		
+		ArrayList<CustomIndividualCube> tempCubes = cube.getCubesArray();
+		
 		//corners
 		Collections.swap(cube.getCubesArray(), 0, 2);
 		Collections.swap(cube.getCubesArray(), 0, 20);
@@ -210,7 +214,7 @@ public class Main extends SimpleApplication {
 		Collections.swap(cube.getCubesArray(), 1, 19);
 		Collections.swap(cube.getCubesArray(), 1, 9);
 		
-		ArrayList<CustomIndividualCube> tempCube = cube.getCubesArray();
+		
 		//System.out.println("\n\n" + cube.getCubesArray().get(10).getRotate());
 		//System.out.println(cube.getCubesArray().get(10).getRotX());
 		rotateCubes(0,90,0);
