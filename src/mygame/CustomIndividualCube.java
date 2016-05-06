@@ -1,58 +1,39 @@
 package mygame;
+import java.util.ArrayList;
 
+import com.jme3.math.Quaternion;
 import com.jme3.scene.Spatial;
 
 public class CustomIndividualCube {
 
 	Spatial spatialObject;
-	float rotX = 0;
-	float rotY= 0;
-	float rotZ= 0;
 	private Boolean rotate = false;
+	public ArrayList<Quaternion> rotations = new ArrayList<Quaternion>();
 	
-	
-	public CustomIndividualCube(Spatial spatialObject, Float rotX, Float rotY, Float rotZ){
+	public CustomIndividualCube(Spatial spatialObject){
 		this.spatialObject = spatialObject;
-		//this.rotX = rotX;
-		//this.rotY = rotY;
-		//this.rotZ = rotZ;
 	}
-	
-	public Spatial getSpatialObject(){
+
+	public Spatial getSpatialObject() {
 		return spatialObject;
-		
 	}
-	
-	public void setRotate(Boolean rotate){
-		this.rotate = rotate;
+
+	public void setSpatialObject(Spatial spatialObject) {
+		this.spatialObject = spatialObject;
 	}
-	public Boolean getRotate(){
+
+	public Boolean getRotate() {
 		return rotate;
 	}
 
-	public float getRotX() {
-		return rotX;
-	}
-
-	public void setRotX(float rotX) {
-		this.rotX = rotX;
-	}
-
-	public float getRotY() {
-		return rotY;
-	}
-
-	public void setRotY(float rotY) {
-		this.rotY = rotY;
-	}
-
-	public float getRotZ() {
-		return rotZ;
-	}
-
-	public void setRotZ(float rotZ) {
-		this.rotZ = rotZ;
+	public void setRotate(Boolean rotate) {
+		this.rotate = rotate;
 	}
 	
-	
+	public ArrayList<Quaternion> getRotationsHistory(){
+		return rotations;
+	}
+	public void addRotation(Quaternion rotation){
+		rotations.add(rotation);
+	}
 }
