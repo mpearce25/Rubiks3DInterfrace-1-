@@ -29,7 +29,7 @@ public class InputHandler {
 		else{
 			int indexLocation = findKeyLocation(keyName);
 			if (indexLocation == -1){
-				System.out.println("The key was not found in the array");
+				//System.out.println("The key was not found in the array");
 			}
 			else{
 				keysPressed.remove(indexLocation);
@@ -57,7 +57,7 @@ public class InputHandler {
 			String tempKeys = keys;
 			keys = "x" + tempKeys.charAt(0);
 		}
-		System.out.println(keysPressed);
+		//System.out.println(keysPressed);
 		return keys;
 	}
 }
