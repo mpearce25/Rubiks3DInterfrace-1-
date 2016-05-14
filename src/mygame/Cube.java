@@ -26,8 +26,8 @@ public class Cube{
 		//cube 0 = top right corner - red blue white
 		//front slice cubes 0 - 8
 		cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(2, 2, 2), 180, 90, 0));
-		cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(0, 2, 2), 180, 90, 0));
-		cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(-2, 2, 2), 180, 90, 0));
+		//cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(0, 2, 2), 180, 90, 0));
+		//cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(-2, 2, 2), 180, 90, 0));
 		
 		/*cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(2, 0, 2), 180, 90, 0));
 		cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(0, 0, 2), 180, 90, 0));

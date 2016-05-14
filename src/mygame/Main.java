@@ -52,6 +52,10 @@ public class Main extends SimpleApplication {
 				rotateRightInverse();
 			}
 				break;
+			case ("p"): {
+				matchCubes();
+			}
+				break;
 			}
 		}
 	};
@@ -85,45 +89,30 @@ public class Main extends SimpleApplication {
 		}
 		
 		//System.out.println(cube.getCubes().get(0).fullCubeMatch(cube.getCubes().get(1).getColorOrientation()));
+		//System.out.println("\n\n" + cube.getCubes().get(0).getColorOrientation() + "\n" + cube.getCubes().get(2).getColorOrientation());
 	}
 
 	Boolean secondTurn = false;
-	public void rotateCubes(int rotX, int rotY, int rotZ/*, ArrayList<Integer> cubesAffected*/) {
-		Quaternion q = new Quaternion();
-		
-//
-		System.out.println("\n\n" + rotX + ", " + rotY + ", " + rotZ);
-		
+	public void rotateCubes(int rotX, int rotY, int rotZ) {
 		for (int i = 0; i < cube.getCubes().size(); i++) {
 			if (cube.getCubes().get(i).getRotate()) {
-				
-				/*cube.getCubes().get(i).setRotX(cube.getCubes().get(i).getRotX() + rotX);
-				System.out.println(cube.getCubes().get(i).getRotX());
-				cube.getCubes().get(i).setRotY(cube.getCubes().get(i).getRotY() + rotX);
-				System.out.println(cube.getCubes().get(i).getRotX());
-				cube.getCubes().get(i).setRotZ(cube.getCubes().get(i).getRotZ() + rotX);
-				System.out.println(cube.getCubes().get(i).getRotX());*/
-				
-				//q.fromAngles(cube.getCubes().get(i).getRotX()* FastMath.DEG_TO_RAD, cube.getCubes().get(i).getRotY()* FastMath.DEG_TO_RAD, cube.getCubes().get(i).getRotZ()* FastMath.DEG_TO_RAD);
-				
-				//q.fromAngles((rotX * FastMath.DEG_TO_RAD)/* + ogX */, (rotY * FastMath.DEG_TO_RAD) /* + ogY*/, (rotZ * FastMath.DEG_TO_RAD) /* + ogZ*/);
-
-				
-				
-				//cube.getCubes().get(i).getSpatialObject()
-					//.setLocalTranslation(cube.getIndividualCubeOffsets().get(i));
-				
-				//cube.getCubes().get(i).getSpatialObject().rotate(q);
+			
 				cube.getCubes().get(i).getSpatialObject().rotate(rotX * FastMath.DEG_TO_RAD, rotY * FastMath.DEG_TO_RAD, rotZ * FastMath.DEG_TO_RAD);
-				//cube.getCubes().get(i).getSpatialObject().setLocalRotation(q);
-				cube.getCubes().get(i).getSpatialObject().updateGeometricState();
-				cube.getCubes().get(i).getSpatialObject().updateModelBound();
-				//cube.getCubes().get(i).getSpatialObject().setLocalRotation(q);
+				//cube.getCubes().get(i).getSpatialObject().updateGeometricState();
+				//cube.getCubes().get(i).getSpatialObject().updateModelBound();
 				cube.getCubes().get(i).setRotate(false);
 			}
 		}	
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	public void rotateFrontNorm() {
@@ -134,8 +123,8 @@ public class Main extends SimpleApplication {
 				cube.getCubes().get(i).frontNormalRotateColors();
 			}
 		}
-		
 		rotateCubes(0, 0, -90);
+		//System.out.println("\n\n" + cube.getCubes().get(0).getColorOrientation() + "\n" + cube.getCubes().get(2).getColorOrientation());
 	}
 
 	public void rotateFrontInverse() {
@@ -146,17 +135,12 @@ public class Main extends SimpleApplication {
 				cube.getCubes().get(i).frontInverseRotateColors();
 			}
 		}
-		
 		rotateCubes(0, 0, 90);
+		//System.out.println("\n\n" + cube.getCubes().get(0).getColorOrientation() + "\n" + cube.getCubes().get(2).getColorOrientation());
 	}
 
-	public static void delay(int time) {
-		long startDelay = System.currentTimeMillis();
-		long endDelay = 0;
-		while (endDelay - startDelay < time)
-			endDelay = System.currentTimeMillis();
-	}
-
+	
+	
 	public void rotateTopNorm() {
 		List<Integer> cubesAffected = Arrays.asList(0, 1, 2, 9, 10, 11, 18, 19, 20);
 		for (int i = 0; i < cube.getCubes().size(); i++) {
@@ -165,8 +149,8 @@ public class Main extends SimpleApplication {
 				cube.getCubes().get(i).topNormalRotateColors();
 			}
 		}
-		
-		rotateCubes( 0, -90, 0);	
+		rotateCubes( 0, -90, 0);
+		//System.out.println("\n\n" + cube.getCubes().get(0).getColorOrientation() + "\n" + cube.getCubes().get(2).getColorOrientation());
 	}
 
 	public void rotateTopInverse() {
@@ -177,9 +161,9 @@ public class Main extends SimpleApplication {
 				cube.getCubes().get(i).topInverseRotateColors();
 			}
 		}
-		
 		rotateCubes(0, 90, 0);
 	}
+	
 	
 	
 	public void rotateRightNorm(){
@@ -190,11 +174,8 @@ public class Main extends SimpleApplication {
 				cube.getCubes().get(i).rightNormalRotateColors();
 			}
 		}
-		
 		rotateCubes(-90, 0, 0);
-		
-		delay(500);
-		cube.getCubes().get(2).matchOrientation(cube.getCubes().get(0).getColorOrientation());
+		//System.out.println("\n\n" + cube.getCubes().get(0).getColorOrientation() + "\n" + cube.getCubes().get(2).getColorOrientation());
 	}
 	public void rotateRightInverse(){
 		List<Integer> cubesAffected = Arrays.asList(0,3,6,9,12,15,18,21,24);
@@ -204,9 +185,26 @@ public class Main extends SimpleApplication {
 				cube.getCubes().get(i).rightInverseRotateColors();
 			}
 		}
-		
 		rotateCubes(90, 0, 0);
 	}
+	
+	
+	
+	
+	
+	
+	
+	public void matchCubes(){
+		cube.getCubes().get(0).matchOrientation(cube.getCubes().get(2).getColorOrientation());
+	}
+	
+	public static void delay(int time) {
+		long startDelay = System.currentTimeMillis();
+		long endDelay = 0;
+		while (endDelay - startDelay < time)
+			endDelay = System.currentTimeMillis();
+	}
+	
 	
 	public void initInputHandler() {
 		inputHandler = new InputHandler(inputManager, actionListener);
@@ -215,6 +213,7 @@ public class Main extends SimpleApplication {
 		inputHandler.addKeyListener("x", KeyInput.KEY_LCONTROL);
 		inputHandler.addKeyListener("t", KeyInput.KEY_T);
 		inputHandler.addKeyListener("r", KeyInput.KEY_R);
+		inputHandler.addKeyListener("p", KeyInput.KEY_P);
 	}
 
 	public void initLighting() {

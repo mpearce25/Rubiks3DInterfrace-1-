@@ -37,15 +37,15 @@ public class CustomIndividualCube {
 		Collections.swap(colorOrientation, 0, 4);
 		Collections.swap(colorOrientation, 0, 5);
 		Collections.swap(colorOrientation, 0, 2);
-		System.out.println(colorOrientation);
+		//System.out.println(colorOrientation);
 	}
 	public void frontInverseRotateColors(){
 		Collections.swap(colorOrientation, 0, 2);
 		Collections.swap(colorOrientation, 0, 5);
 		Collections.swap(colorOrientation, 0, 4);
-		System.out.println(colorOrientation);
+		//System.out.println(colorOrientation);
 		
-		System.out.println(fullCubeMatch(this.colorOrientation));
+		//System.out.println(fullCubeMatch(this.colorOrientation));
 	}
 	
 	
@@ -53,13 +53,13 @@ public class CustomIndividualCube {
 		Collections.swap(colorOrientation, 1, 2);
 		Collections.swap(colorOrientation, 1, 3);
 		Collections.swap(colorOrientation, 1, 4);
-		System.out.println(colorOrientation);
+		//System.out.println(colorOrientation);
 	}
 	public void topInverseRotateColors(){
 		Collections.swap(colorOrientation, 1, 4);
 		Collections.swap(colorOrientation, 1, 3);
 		Collections.swap(colorOrientation, 1, 2);
-		System.out.println(colorOrientation);
+		//System.out.println(colorOrientation);
 	}
 	
 	
@@ -67,23 +67,24 @@ public class CustomIndividualCube {
 		Collections.swap(colorOrientation, 1, 0);
 		Collections.swap(colorOrientation, 1, 3);
 		Collections.swap(colorOrientation, 1, 5);
-		System.out.println(colorOrientation);
+		//System.out.println(colorOrientation);
 	}
 	public void rightInverseRotateColors(){
 		Collections.swap(colorOrientation, 1, 5);
 		Collections.swap(colorOrientation, 1, 3);
 		Collections.swap(colorOrientation, 1, 0);
-		System.out.println(colorOrientation);
+		//System.out.println(colorOrientation);
 	}
 	
 	
 	
-	public void matchOrientation(ArrayList<String> colorOrientation){
+	public void matchOrientation(ArrayList<String> colorOrientationToMatch){
 		
 		Boolean fullMatch = false;
-		if(!fullCubeMatch(colorOrientation)){
+		if(!fullCubeMatch(colorOrientationToMatch)){
 			
-			matchTopBot(colorOrientation);
+			matchTopBot(colorOrientationToMatch);
+			//System.out.println("full cube match? " + fullCubeMatch(colorOrientationToMatch));
 			}
 			
 		/*for(int i = 0; i < 3; i ++){
@@ -102,38 +103,40 @@ public class CustomIndividualCube {
 	
 	}
 	
-	private void matchTopBot(ArrayList<String> colorOrientation){
+	private void matchTopBot(ArrayList<String> colorOrientationToMatch){
 		//add in database updates
-		if(!this.colorOrientation.get(0).equals(colorOrientation.get(0))){
+		if(!this.colorOrientation.get(0).equals(colorOrientationToMatch.get(0))){
 		
-			System.out.println(findMatchLocation(colorOrientation, this.colorOrientation.get(0)));
-			switch(findMatchLocation(colorOrientation, this.colorOrientation.get(0))){
+			//System.out.println(findMatchLocation(colorOrientation, this.colorOrientation.get(0)));
+			switch(findMatchLocation(colorOrientationToMatch.get(0))){ //flipping these fies things
 			case(-1):{
 				System.out.println("match location not found");
 			}
 			case(1):{
 				this.spatialObject.rotate(FastMath.DEG_TO_RAD * 90, 0,0);
 				rightNormalRotateColors();
-				System.out.println("Does top match: " + singleColorMatchTest(colorOrientation, 0));	
-				//System.out.println(colorOrientation.);
+				//System.out.println("Does top match: " + singleColorMatchTest(colorOrientationToMatch, 0));	
+				//System.out.println("hey");
 			}
 			break;
 			case(2):{
 				this.spatialObject.rotate(0,0,FastMath.DEG_TO_RAD * -90);
 				frontNormalRotateColors();
-				System.out.println("Does top match: " + singleColorMatchTest(colorOrientation, 0));	
+				//System.out.println("Does top match: " + singleColorMatchTest(colorOrientationToMatch, 0));	
 			}
 			break;
 			case(3):{
+				//System.out.println(colorOrientationToMatch.get(0) + " " + this.colorOrientation.get(3));
 				this.spatialObject.rotate(FastMath.DEG_TO_RAD * -90,0, 0);
 				rightInverseRotateColors();
-				System.out.println("Does top match: " + singleColorMatchTest(colorOrientation, 0));	
+				//System.out.println("Does top match: " + singleColorMatchTest(colorOrientationToMatch, 0));	
+				
 			}
 			break;
 			case(4):{
 				this.spatialObject.rotate(0,0,FastMath.DEG_TO_RAD * 90);
 				frontInverseRotateColors();
-				System.out.println("Does top match: " + singleColorMatchTest(colorOrientation, 0));	
+				//System.out.println("Does top match: " + singleColorMatchTest(colorOrientationToMatch, 0));	
 			}
 			break;
 			
@@ -141,27 +144,29 @@ public class CustomIndividualCube {
 				this.spatialObject.rotate(FastMath.DEG_TO_RAD * 180,0, 0);
 				rightNormalRotateColors();
 				rightNormalRotateColors();//not a typo having this twice
-				System.out.println("Does top match: " + singleColorMatchTest(colorOrientation, 0));	
+				//System.out.println("Does top match: " + singleColorMatchTest(colorOrientationToMatch, 0));	
 			}
 			break;
 			
 			}
 		}
-		System.out.println("Does top match: " + singleColorMatchTest(colorOrientation, 0));	
+		System.out.println("Does top match: " + singleColorMatchTest(colorOrientationToMatch, 0));	
 	}
 	
-	public Boolean singleColorMatchTest(ArrayList<String> colorOrientation, int index){
-		return colorOrientation.get(index).equals(this.colorOrientation.get(index));
+	public Boolean singleColorMatchTest(ArrayList<String> colorOrientationToMatch, int index){
+		System.out.println(colorOrientationToMatch.get(index) + "                   " + colorOrientationToMatch.get(index).toString());
+		return colorOrientationToMatch.get(index).toString().equals(this.colorOrientation.get(index).toString());
 	}
-	public int findMatchLocation(ArrayList<String> colorOrientation, String color){
+	public int findMatchLocation(String color){
 		int matchLocation = -1;
 		for (int i = 0; i < 6; i++){
-			if(color.equals(colorOrientation.get(i))){
+			//System.out.println(color + "     " + this.colorOrientation.get(i));
+			if(color.equals(this.colorOrientation.get(i))){
 				matchLocation = i;
 			}
 		}
 		if (matchLocation == -1){
-			System.out.println("no match location found");
+			//System.out.println("no match location found");
 		}
 		return matchLocation;
 	}
