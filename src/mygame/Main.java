@@ -88,6 +88,12 @@ public class Main extends SimpleApplication {
 			rootNode.attachChild(cube.getSpatialObject());
 		}
 		
+		/*System.out.println("\n\n" +cube.getCubes().get(0).getRotX() + ", " + cube.getCubes().get(0).getRotY() + ", " + cube.getCubes().get(0).getRotZ());
+		cube.getCubes().get(0).setRotX(155);
+		cube.getCubes().get(0).setRotY(155);
+		cube.getCubes().get(0).setRotZ(155);
+		System.out.println("\n\n" +cube.getCubes().get(0).getRotX() + ", " + cube.getCubes().get(0).getRotY() + ", " + cube.getCubes().get(0).getRotZ());
+		*/
 		//System.out.println(cube.getCubes().get(0).fullCubeMatch(cube.getCubes().get(1).getColorOrientation()));
 		//System.out.println("\n\n" + cube.getCubes().get(0).getColorOrientation() + "\n" + cube.getCubes().get(2).getColorOrientation());
 	}
@@ -97,7 +103,65 @@ public class Main extends SimpleApplication {
 		for (int i = 0; i < cube.getCubes().size(); i++) {
 			if (cube.getCubes().get(i).getRotate()) {
 			
-				cube.getCubes().get(i).getSpatialObject().rotate(rotX * FastMath.DEG_TO_RAD, rotY * FastMath.DEG_TO_RAD, rotZ * FastMath.DEG_TO_RAD);
+				
+				
+				Quaternion q = new Quaternion();/*
+				if(rotX != 0){
+					q.fromAngleAxis(rotX, Vector3f.UNIT_X);
+				}
+				else if(rotY != 0){
+					q.fromAngleAxis(rotY * FastMath.DEG_TO_RAD, new Vector3f(0,1,0));
+				}
+				else if(rotZ != 0){
+					q.fromAngleAxis(rotZ * FastMath.DEG_TO_RAD, new Vector3f(0,0,1));
+				}*/
+				System.out.println("rotation to be made" + rotX + ", " + rotY + ", "+ rotZ) ;
+				System.out.println("\n\n" +cube.getCubes().get(i).getRotX() + ", " + cube.getCubes().get(i).getRotY() + ", " + cube.getCubes().get(i).getRotZ());
+				if (rotX < 0){
+					rotX *= -3;
+				}
+				if (rotY < 0){
+					rotY *= -3;
+				}
+				if (rotZ < 0){
+					rotZ *= -3;
+				}
+				
+				
+				
+				
+				if(rotX != 0){
+					cube.getCubes().get(i).setRotX(cube.getCubes().get(i).getRotX() + rotX);
+				}
+				
+				if(rotY != 0){
+					cube.getCubes().get(i).setRotY(cube.getCubes().get(i).getRotY() + rotY);
+				}
+				if (rotZ != 0){
+					cube.getCubes().get(i).setRotZ(cube.getCubes().get(i).getRotZ() + rotZ);
+					
+					
+				}
+				
+				int x = cube.getCubes().get(i).getRotX();
+				int y = cube.getCubes().get(i).getRotY();
+				int z = cube.getCubes().get(i).getRotZ();
+				
+				q.fromAngles(cube.getCubes().get(i).getRotX() * FastMath.DEG_TO_RAD, cube.getCubes().get(i).getRotY() * FastMath.DEG_TO_RAD, cube.getCubes().get(i).getRotZ() * FastMath.DEG_TO_RAD);
+				
+				cube.getCubes().set(i, Cube.createSpatial(assetManager, rootNode,  "Models/masterCube/masterCube.j3o", new RelativeVector(0,0,0).getRelativeVector(2, 2, 2), 0, 0, 0));
+				rootNode.detachAllChildren();
+				assignCubesToNode(cube.getCubes());
+				
+				cube.getCubes().get(i).setRotX(x);
+				cube.getCubes().get(i).setRotY(y);
+				cube.getCubes().get(i).setRotZ(z);
+				System.out.println(cube.getCubes().get(i).getRotX() + ", " + cube.getCubes().get(i).getRotY() + ", " + cube.getCubes().get(i).getRotZ());
+				//cube.getCubes().get(i).getSpatialObject().rotate(rotX * FastMath.DEG_TO_RAD, rotY * FastMath.DEG_TO_RAD, rotZ * FastMath.DEG_TO_RAD);
+				//cube.getCubes().get(i).getSpatialObject().rotate(q);
+				//cube.getCubes().get(i).getSpatialObject().setLocalRotation(new Quaternion().fromAngles(0, 0, 0));
+				cube.getCubes().get(i).getSpatialObject().setLocalRotation(q);
+				cube.getCubes().get(i).getSpatialObject().getLocalRotation().set(q);
 				//cube.getCubes().get(i).getSpatialObject().updateGeometricState();
 				//cube.getCubes().get(i).getSpatialObject().updateModelBound();
 				cube.getCubes().get(i).setRotate(false);

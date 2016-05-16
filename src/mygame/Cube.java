@@ -25,7 +25,7 @@ public class Cube{
 	public Cube(AssetManager assetManager){
 		//cube 0 = top right corner - red blue white
 		//front slice cubes 0 - 8
-		cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(2, 2, 2), 180, 90, 0));
+		cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(2, 2, 2), 0, 270, 180));
 		//cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(0, 2, 2), 180, 90, 0));
 		//cubes.add(createSpatial(assetManager, cubeNode,  "Models/masterCube/masterCube.j3o", origin.getRelativeVector(-2, 2, 2), 180, 90, 0));
 		
@@ -68,12 +68,14 @@ public class Cube{
 	
 	
 	
-	public CustomIndividualCube createSpatial(AssetManager assetManager, Node node, String modelPath, Vector3f translation, float rotX, float rotY,
+	public static CustomIndividualCube createSpatial(AssetManager assetManager, Node node, String modelPath, Vector3f translation, float rotX, float rotY,
 			float rotZ) {
 
 		Spatial object = assetManager.loadModel(modelPath);
 		object.scale(1, 1, 1);	
 		object.setLocalTranslation(translation);
+		//Quaternion q = new Quaternion
+		//object.setLocalRotation(new Quaternion().fromAngles(rotX * FastMath.DEG_TO_RAD, rotY* FastMath.DEG_TO_RAD, rotZ* FastMath.DEG_TO_RAD));
 		
 		CustomIndividualCube customCubeObject = new CustomIndividualCube(object);
 		

@@ -11,9 +11,9 @@ public class CustomIndividualCube {
 	Spatial spatialObject;
 	private Boolean rotate = false;
 	public ArrayList<Quaternion> rotations = new ArrayList<Quaternion>();
-	int rotX = 0;
-	int rotY = 0;
-	int rotZ = 0;
+	int rotX;
+	int rotY;
+	int rotZ;
 	private ArrayList<String> colorOrientation = new ArrayList<String>();
 	
 	
@@ -26,6 +26,23 @@ public class CustomIndividualCube {
 		colorOrientation.add("blue");
 		colorOrientation.add("orange");
 		colorOrientation.add("white");
+		
+		rotX = 0;
+		rotY = 0;
+		rotZ = 0;
+	}
+	public CustomIndividualCube(Spatial spatialObject, int rotX, int rotY, int rotZ){
+		this.spatialObject = spatialObject;
+		colorOrientation.add("yellow");
+		colorOrientation.add("green");
+		colorOrientation.add("red");
+		colorOrientation.add("blue");
+		colorOrientation.add("orange");
+		colorOrientation.add("white");
+		
+		this.rotX = rotX;
+		this.rotY = rotY;
+		this.rotZ = rotZ;
 	}
 	
 	public ArrayList<String> getColorOrientation(){
@@ -212,14 +229,21 @@ public class CustomIndividualCube {
 
 	public void setRotX(int rotX) {
 		this.rotX = rotX;
+		if (this.rotX >= 360){
+			this.rotX -= 360;
+		}
 	}
 
 	public int getRotY() {
 		return rotY;
+		
 	}
 
 	public void setRotY(int rotY) {
 		this.rotY = rotY;
+		if (this.rotY >= 360){
+			this.rotY -= 360;
+		}
 	}
 
 	public int getRotZ() {
@@ -228,6 +252,9 @@ public class CustomIndividualCube {
 
 	public void setRotZ(int rotZ) {
 		this.rotZ = rotZ;
+		if (this.rotZ >= 360){
+			this.rotZ -= 360;
+		}
 	}
 	
 	
