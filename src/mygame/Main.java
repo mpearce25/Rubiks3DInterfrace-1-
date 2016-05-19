@@ -76,7 +76,7 @@ public class Main extends SimpleApplication {
 		flyCam.setMoveSpeed(10);
 		initInputHandler();
 
-		cube = new Cube(new Vector3f(0,0,0),assetManager);
+		cube = new Cube(new Vector3f(0,0,0),assetManager, rootNode);
 		assignCubesToNode(cube);
 	}
 

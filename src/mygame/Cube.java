@@ -24,6 +24,7 @@ public class Cube {
 	private Material orange;
 	private Material blue;
 	private Material yellow;
+	private Material black;
 
 	private ArrayList<Geometry> topFace = new ArrayList<Geometry>();
 	private ArrayList<Geometry> frontFace = new ArrayList<Geometry>();
@@ -51,19 +52,33 @@ public class Cube {
 	Quaternion bottomFaceRotation = new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 0, 0);
 	ArrayList<Vector3f> bottomFaceOffSets = new ArrayList<Vector3f>();
 
-	public Cube(Vector3f cubeCenter, AssetManager assetManager) {
+	public Cube(Vector3f cubeCenter, AssetManager assetManager, Node rootNode) {
 
 		this.cubeCenter = new RelativeVector(cubeCenter);
+		
 		initMaterials(assetManager);
+		
 		initOffSets();
 		initFaces();
+		initFaceGrids(rootNode);
 
 		
 	}
+	private void initFaceGrids(Node rootNode){
+		Geometry tempGeo = new Geometry("grid1", new Quad(2, 6));
+		tempGeo.setMaterial(black);
+		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(-2f), cubeCenter.getFloatYOffset(0f),cubeCenter.getFloatZOffset(2.0001f));
+		tempGeo.setLocalRotation(frontFaceRotation);
+		tempGeo.setLocalScale(.05f, 1f, 1f);
+		rootNode.attachChild(tempGeo);
+		}
 
 	private void initMaterials(AssetManager assetManager) {
 		white = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		white.setColor("Color", ColorRGBA.White);
+		
+		black = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		black.setColor("Color", ColorRGBA.Black);
 
 		green = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		green.setColor("Color", ColorRGBA.Green);

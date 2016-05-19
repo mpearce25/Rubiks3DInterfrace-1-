@@ -31,4 +31,15 @@ public class RelativeVector {
 	public Vector3f getOffset(int x, int y, int z){
 		return new Vector3f(baseVectorX + x, baseVectorY + y, baseVectorZ + z);
 	}
+	
+	public float getFloatXOffset(float x){
+		return baseVectorX + x;
+	}
+	public float getFloatYOffset(float y){
+		return baseVectorY + y;
+	}
+	
+	public float getFloatZOffset(float z){
+		return baseVectorZ + z;
+	}
 }
