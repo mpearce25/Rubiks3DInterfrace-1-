@@ -107,11 +107,13 @@ public class Main extends SimpleApplication {
 	
 	
 	public void rotateTopNorm() {
-		
+		cube.rotateTopNorm();
+		assignCubesToNode(cube);
 	}
 
 	public void rotateTopInverse() {
-		
+		cube.rotateTopInverse();
+		assignCubesToNode(cube);
 	}
 	
 	
