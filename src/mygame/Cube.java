@@ -291,7 +291,7 @@ public class Cube {
 			rightFace.add(tempGeo);
 		}
 
-		// right face - blue
+		// bottom face - yellow
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
 			tempGeo.setMaterial(yellow);
@@ -520,6 +520,154 @@ public class Cube {
 		swapMaterials(leftFace, 1, leftFace, 5);
 		swapMaterials(leftFace, 1, leftFace, 7);
 		swapMaterials(leftFace, 1, leftFace, 3);
+	}
+	
+	public void rotateBackNorm(){
+		swapMaterials(topFace,6, leftFace, 2);
+		swapMaterials(topFace, 6, bottomFace, 8);
+		swapMaterials(topFace, 6, rightFace, 8);
+		
+		swapMaterials(topFace, 7, leftFace, 5);
+		swapMaterials(topFace, 7, bottomFace, 7);
+		swapMaterials(topFace, 7, rightFace, 5);
+		
+		swapMaterials(topFace, 8, leftFace, 8);
+		swapMaterials(topFace, 8, bottomFace, 6);
+		swapMaterials(topFace, 8, rightFace, 2);
+		
+		
+		//back face
+		swapMaterials(backFace, 0, backFace, 2);
+		swapMaterials(backFace, 0, backFace, 8);
+		swapMaterials(backFace, 0, backFace, 6);
+		
+		swapMaterials(backFace, 1, backFace, 5);
+		swapMaterials(backFace, 1, backFace, 7);
+		swapMaterials(backFace, 1, backFace, 3);	
+	}
+	public void rotateBackInverse(){
+		swapMaterials(topFace,6, rightFace, 8);
+		swapMaterials(topFace, 6, bottomFace, 8);
+		swapMaterials(topFace, 6, leftFace, 2);
+		
+		swapMaterials(topFace, 7, rightFace, 5);
+		swapMaterials(topFace, 7, bottomFace, 7);
+		swapMaterials(topFace, 7, leftFace, 5);
+		
+		swapMaterials(topFace, 8, rightFace, 2);
+		swapMaterials(topFace, 8, bottomFace, 6);
+		swapMaterials(topFace, 8, leftFace, 8);
+		
+		
+		//back face
+		swapMaterials(backFace, 0, backFace, 6);
+		swapMaterials(backFace, 0, backFace, 8);
+		swapMaterials(backFace, 0, backFace, 2);
+		
+		swapMaterials(backFace, 1, backFace, 3);
+		swapMaterials(backFace, 1, backFace, 7);
+		swapMaterials(backFace, 1, backFace, 5);	
+	}
+	
+	public void rotateBottonNorm(){
+		swapMaterials(frontFace, 8, rightFace, 6);
+		swapMaterials(frontFace, 8, backFace, 6);
+		swapMaterials(frontFace, 8, leftFace, 8);
+		
+		swapMaterials(frontFace, 7, rightFace, 7);
+		swapMaterials(frontFace, 7, backFace, 7);
+		swapMaterials(frontFace, 7, leftFace, 7);
+		
+		swapMaterials(frontFace, 6, rightFace, 8);
+		swapMaterials(frontFace, 6, backFace, 8);
+		swapMaterials(frontFace, 6, leftFace, 6);	
+		
+		//bottom face
+		swapMaterials(bottomFace, 0, bottomFace, 6);
+		swapMaterials(bottomFace, 0, bottomFace, 8);
+		swapMaterials(bottomFace, 0, bottomFace, 2);
+		
+		swapMaterials(bottomFace, 1, bottomFace, 3);
+		swapMaterials(bottomFace, 1, bottomFace, 7);
+		swapMaterials(bottomFace, 1, bottomFace, 5);
+	}
+	
+	public void rotateBottomInverse(){
+		swapMaterials(frontFace, 8,leftFace, 8 );
+		swapMaterials(frontFace, 8, backFace, 6);
+		swapMaterials(frontFace, 8, rightFace, 6);
+		
+		swapMaterials(frontFace, 7, leftFace, 7);
+		swapMaterials(frontFace, 7, backFace, 7);
+		swapMaterials(frontFace, 7, rightFace, 7);
+		
+		swapMaterials(frontFace, 6, leftFace, 6);
+		swapMaterials(frontFace, 6, backFace, 8);
+		swapMaterials(frontFace, 6, rightFace, 8);	
+		
+		//bottom face
+		swapMaterials(bottomFace, 0, bottomFace, 2);
+		swapMaterials(bottomFace, 0, bottomFace, 8);
+		swapMaterials(bottomFace, 0, bottomFace, 6);
+		
+		swapMaterials(bottomFace, 1, bottomFace, 5);
+		swapMaterials(bottomFace, 1, bottomFace, 7);
+		swapMaterials(bottomFace, 1, bottomFace, 3);
+	}
+
+	public void rotateMiddleVerticalNorm(){
+		swapMaterials(frontFace, 1, topFace, 7);
+		swapMaterials(frontFace, 1, backFace, 7);
+		swapMaterials(frontFace, 1, bottomFace, 1);
+		
+		swapMaterials(frontFace, 4, topFace, 4);
+		swapMaterials(frontFace, 4, backFace, 4);
+		swapMaterials(frontFace, 4, bottomFace, 4);
+		
+		swapMaterials(frontFace, 7, topFace, 1);
+		swapMaterials(frontFace, 7, backFace, 1);
+		swapMaterials(frontFace, 7, bottomFace, 7);	
+	}
+	public void rotateMiddleVerticalInverse(){
+		swapMaterials(frontFace, 1, bottomFace, 1);
+		swapMaterials(frontFace, 1, backFace, 7);
+		swapMaterials(frontFace, 1, topFace, 7);
+		
+		swapMaterials(frontFace, 4, bottomFace, 4);
+		swapMaterials(frontFace, 4, backFace, 4);
+		swapMaterials(frontFace, 4, topFace, 4);
+		
+		swapMaterials(frontFace, 7, bottomFace, 7);
+		swapMaterials(frontFace, 7, backFace, 1);
+		swapMaterials(frontFace, 7, topFace, 1);	
+	}
+	
+	public void rotateMiddleHorizontalNorm(){
+		swapMaterials(frontFace, 5, rightFace, 3);
+		swapMaterials(frontFace, 5, backFace, 3);
+		swapMaterials(frontFace, 5, leftFace, 5);
+		
+		swapMaterials(frontFace, 4, rightFace, 4);
+		swapMaterials(frontFace, 4, backFace, 4);
+		swapMaterials(frontFace, 4, leftFace, 4);
+		
+		swapMaterials(frontFace, 3, rightFace, 5);
+		swapMaterials(frontFace, 3, backFace, 5);
+		swapMaterials(frontFace, 3, leftFace, 3);
+	}
+	
+	public void rotateMiddleHorizontalInverse(){
+		swapMaterials(frontFace, 5, leftFace, 5);
+		swapMaterials(frontFace, 5, backFace, 3);
+		swapMaterials(frontFace, 5, rightFace, 3);
+		
+		swapMaterials(frontFace, 4, leftFace, 4);
+		swapMaterials(frontFace, 4, backFace, 4);
+		swapMaterials(frontFace, 4, rightFace, 4);
+		
+		swapMaterials(frontFace, 3, leftFace, 3);
+		swapMaterials(frontFace, 3, backFace, 5);
+		swapMaterials(frontFace, 3, rightFace, 5);
 	}
 	
 	private void swapMaterials(ArrayList<Geometry> array1, int index1, ArrayList<Geometry> array2, int index2){
