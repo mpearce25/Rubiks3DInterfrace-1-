@@ -56,8 +56,7 @@ public class Cube {
 
 		this.cubeCenter = new RelativeVector(cubeCenter);
 		
-		initMaterials(assetManager);
-		
+		initMaterials(assetManager);		
 		initOffSets();
 		initFaces();
 		initFaceGrids(rootNode);
@@ -65,13 +64,36 @@ public class Cube {
 		
 	}
 	private void initFaceGrids(Node rootNode){
+		//front face
+		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, 2f, 2.0001f));
+		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, 0f, 2.0001f));
+		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, -2f, 2.0001f));
+		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, -3.90f, 2.0001f));
+		
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), -2f, -4f, 2.0001f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 0f, -4f, 2.0001f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 2f, -4f, 2.0001f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 3.9f, -4f, 2.0001f));
+		
+		//top face
+		
+		}
+	private Geometry generateHorizontalRuler(Quaternion rotation, float x, float y, float z){
 		Geometry tempGeo = new Geometry("grid1", new Quad(2, 6));
 		tempGeo.setMaterial(black);
-		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(-2f), cubeCenter.getFloatYOffset(0f),cubeCenter.getFloatZOffset(2.0001f));
-		tempGeo.setLocalRotation(frontFaceRotation);
+		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(x), cubeCenter.getFloatYOffset(y),cubeCenter.getFloatZOffset(z));
+		tempGeo.setLocalRotation(rotation);
 		tempGeo.setLocalScale(.05f, 1f, 1f);
-		rootNode.attachChild(tempGeo);
-		}
+		return tempGeo;
+	}
+	private Geometry generateVerticalRuler(Quaternion rotation, float x, float y, float z){
+		Geometry tempGeo = new Geometry("grid1", new Quad(2, 6));
+		tempGeo.setMaterial(black);
+		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(x), cubeCenter.getFloatYOffset(y),cubeCenter.getFloatZOffset(z));
+		tempGeo.setLocalRotation(rotation);
+		tempGeo.setLocalScale(.05f, 1f, 1f);
+		return tempGeo;
+	}
 
 	private void initMaterials(AssetManager assetManager) {
 		white = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
