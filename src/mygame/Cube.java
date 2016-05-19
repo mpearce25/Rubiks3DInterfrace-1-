@@ -76,6 +76,59 @@ public class Cube {
 		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 3.9f, -4f, 2.0001f));
 		
 		//top face
+		rootNode.attachChild(generateVerticalRuler(topFaceRotation, -2f, 2.0001f, 2f));
+		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 0f, 2.0001f, 2f));
+		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 2f, 2.0001f, 2f));
+		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 3.9f, 2.0001f, 2f));
+		
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, 0f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, -2f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, -3.9f));
+		
+		//left Face
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,1.9f));
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,-.1f));
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,-2.1f));
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,-4f));
+		
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, -4f, 2f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, -2.1f, 2f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, -.1f, 2f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, 1.9f, 2f));
+		
+		//back face
+		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, 2f, -4.0001f));
+		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, 0f, -4.0001f));
+		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, -2f, -4.0001f));
+		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, -3.9f, -4.0001f));
+		
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), -2f, 2f, -4.0001f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), 0f, 2f, -4.0001f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), 2f, 2f, -4.0001f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), 3.9f, 2f, -4.0001f));
+				
+		//rightFace
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,2f));//these are actually the vertical ones
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,0f));
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,-2f));
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,-3.9f));
+		
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, 2f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, 0f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, -2f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, -3.9f, 2f));
+		
+		//bottom face
+		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 3.9f, -4.0001f, -4));
+		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 2f, -4.0001f, -4));
+		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 0f, -4.0001f, -4));
+		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, -2f, -4.0001f, -4));
+		
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, 0f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, -2f));
+		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, -3.9f));
 		
 		}
 	private Geometry generateHorizontalRuler(Quaternion rotation, float x, float y, float z){
