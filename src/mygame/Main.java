@@ -25,31 +25,33 @@ public class Main extends SimpleApplication {
 
 			switch (keysPressed) {
 			case ("t"): {
-				rotateTopNorm();
+				cube.rotateTopNorm();
+				assignCubesToNode(cube);
 			}
 				break;
 			case ("xt"): {
-				rotateTopInverse();
+				cube.rotateTopInverse();
+				assignCubesToNode(cube);
 			}
 				break;
 
 			case ("f"): {
-				rotateFrontNorm();
+				
 			}
 				break;
 
 			case ("xf"): {
-				rotateFrontInverse();
+				
 			}
 				break;
 				
 			case ("r"): {
-				rotateRightNorm();
+				
 			}
 				break;
 				
 			case ("xr"): {
-				rotateRightInverse();
+				
 			}
 				break;
 			case ("p"): {
@@ -77,8 +79,6 @@ public class Main extends SimpleApplication {
 
 		cube = new Cube(new Vector3f(0,0,0),assetManager);
 		assignCubesToNode(cube);
-		
-	
 	}
 
 	public void assignCubesToNode(Cube cube) {
@@ -90,56 +90,7 @@ public class Main extends SimpleApplication {
 		}
 	}
 
-	Boolean secondTurn = false;
-	public void rotateCubes(int rotX, int rotY, int rotZ) {
-		
-		
-	}
 
-	public void rotateFrontNorm() {
-		
-	}
-
-	public void rotateFrontInverse() {
-		
-	}
-
-	
-	
-	public void rotateTopNorm() {
-		cube.rotateTopNorm();
-		assignCubesToNode(cube);
-	}
-
-	public void rotateTopInverse() {
-		cube.rotateTopInverse();
-		assignCubesToNode(cube);
-	}
-	
-	
-	
-	public void rotateRightNorm(){
-		
-	}
-	public void rotateRightInverse(){
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-
-	
-	public static void delay(int time) {
-		long startDelay = System.currentTimeMillis();
-		long endDelay = 0;
-		while (endDelay - startDelay < time)
-			endDelay = System.currentTimeMillis();
-	}
-	
 	
 	public void initInputHandler() {
 		inputHandler = new InputHandler(inputManager, actionListener);

@@ -16,6 +16,8 @@ import java.awt.color.*;
 
 public class Cube {
 
+	private RelativeVector cubeCenter;
+	
 	private Material white;
 	private Material green;
 	private Material red;
@@ -51,13 +53,12 @@ public class Cube {
 
 	public Cube(Vector3f cubeCenter, AssetManager assetManager) {
 
+		this.cubeCenter = new RelativeVector(cubeCenter);
 		initMaterials(assetManager);
 		initOffSets();
 		initFaces();
 
-		Geometry mouseRect = new Geometry("MouseRect", new Quad(10, 10));
-		mouseRect.setMaterial(green);
-		new Geometry();
+		
 	}
 
 	private void initMaterials(AssetManager assetManager) {
@@ -80,82 +81,82 @@ public class Cube {
 		yellow.setColor("Color", ColorRGBA.Yellow);
 	}
 	private void initOffSets(){
-		topFaceOffSets.add(new Vector3f(2, 2, 2));
-		topFaceOffSets.add(new Vector3f(0, 2, 2));
-		topFaceOffSets.add(new Vector3f(-2, 2, 2));
+		topFaceOffSets.add(cubeCenter.getOffset(2, 2, 2));
+		topFaceOffSets.add(cubeCenter.getOffset(0, 2, 2));
+		topFaceOffSets.add(cubeCenter.getOffset(-2, 2, 2));
 
-		topFaceOffSets.add(new Vector3f(2, 2, 0));
-		topFaceOffSets.add(new Vector3f(0, 2, 0));
-		topFaceOffSets.add(new Vector3f(-2, 2, 0));
+		topFaceOffSets.add(cubeCenter.getOffset(2, 2, 0));
+		topFaceOffSets.add(cubeCenter.getOffset(0, 2, 0));
+		topFaceOffSets.add(cubeCenter.getOffset(-2, 2, 0));
 
-		topFaceOffSets.add(new Vector3f(2, 2, -2));
-		topFaceOffSets.add(new Vector3f(0, 2, -2));
-		topFaceOffSets.add(new Vector3f(-2, 2, -2));
+		topFaceOffSets.add(cubeCenter.getOffset(2, 2, -2));
+		topFaceOffSets.add(cubeCenter.getOffset(0, 2, -2));
+		topFaceOffSets.add(cubeCenter.getOffset(-2, 2, -2));
 		
 		////////////////////////////////////////////
-		frontFaceOffSets.add(new Vector3f(2, 2, 2));
-		frontFaceOffSets.add(new Vector3f(0, 2, 2));
-		frontFaceOffSets.add(new Vector3f(-2, 2, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(2, 2, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(0, 2, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(-2, 2, 2));
 
-		frontFaceOffSets.add(new Vector3f(2, 0, 2));
-		frontFaceOffSets.add(new Vector3f(0, 0, 2));
-		frontFaceOffSets.add(new Vector3f(-2, 0, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(2, 0, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(0, 0, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(-2, 0, 2));
 
-		frontFaceOffSets.add(new Vector3f(2, -2, 2));
-		frontFaceOffSets.add(new Vector3f(0, -2, 2));
-		frontFaceOffSets.add(new Vector3f(-2, -2, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(2, -2, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(0, -2, 2));
+		frontFaceOffSets.add(cubeCenter.getOffset(-2, -2, 2));
 		////////////////////////////////////////////
 		
-		leftFaceOffSets.add(new Vector3f(-2, 0, 0));
-		leftFaceOffSets.add(new Vector3f(-2, 0, -2));
-		leftFaceOffSets.add(new Vector3f(-2, 0, -4));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, 0, 0));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, 0, -2));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, 0, -4));
 
-		leftFaceOffSets.add(new Vector3f(-2, -2, 0));
-		leftFaceOffSets.add(new Vector3f(-2, -2, -2));
-		leftFaceOffSets.add(new Vector3f(-2, -2, -4));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, -2, 0));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, -2, -2));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, -2, -4));
 
-		leftFaceOffSets.add(new Vector3f(-2, -4, 0));
-		leftFaceOffSets.add(new Vector3f(-2, -4, -2));
-		leftFaceOffSets.add(new Vector3f(-2, -4, -4));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, -4, 0));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, -4, -2));
+		leftFaceOffSets.add(cubeCenter.getOffset(-2, -4, -4));
 		////////////////////////////////////////////
 		
-		backFaceOffSets.add(new Vector3f(4, 2, -4));
-		backFaceOffSets.add(new Vector3f(2, 2, -4));
-		backFaceOffSets.add(new Vector3f(0, 2, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(4, 2, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(2, 2, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(0, 2, -4));
 
-		backFaceOffSets.add(new Vector3f(4, 0, -4));
-		backFaceOffSets.add(new Vector3f(2, 0, -4));
-		backFaceOffSets.add(new Vector3f(0, 0, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(4, 0, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(2, 0, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(0, 0, -4));
 
-		backFaceOffSets.add(new Vector3f(4, -2, -4));
-		backFaceOffSets.add(new Vector3f(2, -2, -4));
-		backFaceOffSets.add(new Vector3f(0, -2, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(4, -2, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(2, -2, -4));
+		backFaceOffSets.add(cubeCenter.getOffset(0, -2, -4));
 		////////////////////////////////////////////
 		
-		rightFaceOffSets.add(new Vector3f(4, 0, 2));
-		rightFaceOffSets.add(new Vector3f(4, 0, 0));
-		rightFaceOffSets.add(new Vector3f(4, 0, -2));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, 0, 2));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, 0, 0));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, 0, -2));
 
-		rightFaceOffSets.add(new Vector3f(4, -2, 2));
-		rightFaceOffSets.add(new Vector3f(4, -2, 0));
-		rightFaceOffSets.add(new Vector3f(4, -2, -2));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, -2, 2));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, -2, 0));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, -2, -2));
 
-		rightFaceOffSets.add(new Vector3f(4, -4, 2));
-		rightFaceOffSets.add(new Vector3f(4, -4, 0));
-		rightFaceOffSets.add(new Vector3f(4, -4, -2));		
+		rightFaceOffSets.add(cubeCenter.getOffset(4, -4, 2));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, -4, 0));
+		rightFaceOffSets.add(cubeCenter.getOffset(4, -4, -2));		
 		////////////////////////////////////////////
 		
-		bottomFaceOffSets.add(new Vector3f(2, -4, 0));
-		bottomFaceOffSets.add(new Vector3f(0, -4, 0));
-		bottomFaceOffSets.add(new Vector3f(-2, -4, 0));
+		bottomFaceOffSets.add(cubeCenter.getOffset(2, -4, 0));
+		bottomFaceOffSets.add(cubeCenter.getOffset(0, -4, 0));
+		bottomFaceOffSets.add(cubeCenter.getOffset(-2, -4, 0));
 
-		bottomFaceOffSets.add(new Vector3f(2, -4, -2));
-		bottomFaceOffSets.add(new Vector3f(0, -4, -2));
-		bottomFaceOffSets.add(new Vector3f(-2, -4, -2));
+		bottomFaceOffSets.add(cubeCenter.getOffset(2, -4, -2));
+		bottomFaceOffSets.add(cubeCenter.getOffset(0, -4, -2));
+		bottomFaceOffSets.add(cubeCenter.getOffset(-2, -4, -2));
 
-		bottomFaceOffSets.add(new Vector3f(2, -4, -4));
-		bottomFaceOffSets.add(new Vector3f(0, -4, -4));
-		bottomFaceOffSets.add(new Vector3f(-2, -4, -4));
+		bottomFaceOffSets.add(cubeCenter.getOffset(2, -4, -4));
+		bottomFaceOffSets.add(cubeCenter.getOffset(0, -4, -4));
+		bottomFaceOffSets.add(cubeCenter.getOffset(-2, -4, -4));
 	}
 	
 	private void initFaces() {
