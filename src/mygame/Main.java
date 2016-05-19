@@ -36,12 +36,14 @@ public class Main extends SimpleApplication {
 				break;
 
 			case ("f"): {
-				
+				cube.rotateFrontNorm();
+				assignCubesToNode(cube);
 			}
 				break;
 
 			case ("xf"): {
-				
+				cube.rotateFrontInverse();
+				assignCubesToNode(cube);
 			}
 				break;
 				
