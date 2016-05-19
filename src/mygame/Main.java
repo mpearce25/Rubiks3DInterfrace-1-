@@ -26,34 +26,30 @@ public class Main extends SimpleApplication {
 			switch (keysPressed) {
 			case ("t"): {
 				cube.rotateTopNorm();
-				assignCubesToNode(cube);
 			}
 				break;
 			case ("xt"): {
 				cube.rotateTopInverse();
-				assignCubesToNode(cube);
 			}
 				break;
 
 			case ("f"): {
 				cube.rotateFrontNorm();
-				assignCubesToNode(cube);
 			}
 				break;
 
 			case ("xf"): {
 				cube.rotateFrontInverse();
-				assignCubesToNode(cube);
 			}
 				break;
 				
 			case ("r"): {
-				
+				cube.rotateRightNorm();
 			}
 				break;
 				
 			case ("xr"): {
-				
+				cube.rotateRightInverse();
 			}
 				break;
 			case ("p"): {
@@ -61,6 +57,7 @@ public class Main extends SimpleApplication {
 			}
 				break;
 			}
+			assignCubesToNode(cube);
 		}
 	};
 

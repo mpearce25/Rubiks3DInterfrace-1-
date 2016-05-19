@@ -319,7 +319,6 @@ public class Cube {
 		swapMaterials(frontFace, 1, frontFace, 7);
 		swapMaterials(frontFace, 1, frontFace, 5);
 	}
-	
 	public void rotateFrontInverse(){
 		swapMaterials(rightFace, 0, topFace, 2);
 		swapMaterials(rightFace, 0, leftFace, 6);
@@ -341,6 +340,51 @@ public class Cube {
 		swapMaterials(frontFace, 1, frontFace, 5);
 		swapMaterials(frontFace, 1, frontFace, 7);
 		swapMaterials(frontFace, 1, frontFace, 3);
+	}
+	
+	public void rotateRightNorm(){
+		swapMaterials(topFace, 0, backFace, 0);
+		swapMaterials(topFace,0,  bottomFace, 6);
+		swapMaterials(topFace, 0, frontFace, 6); 
+		
+		swapMaterials(frontFace, 0, topFace, 6);
+		swapMaterials(frontFace, 0, backFace, 6);
+		swapMaterials(frontFace, 0, bottomFace, 0);
+		
+		swapMaterials(frontFace, 3, topFace, 3);
+		swapMaterials(frontFace, 3, backFace, 3);
+		swapMaterials(frontFace, 3, bottomFace, 3);
+		
+		//right face
+		swapMaterials(rightFace, 0, rightFace, 2);
+		swapMaterials(rightFace, 0, rightFace, 8);
+		swapMaterials(rightFace, 0, rightFace, 6);
+		
+		swapMaterials(rightFace, 1, rightFace, 5);
+		swapMaterials(rightFace, 1, rightFace, 7);
+		swapMaterials(rightFace, 1, rightFace, 3);
+	}
+	public void rotateRightInverse(){
+		swapMaterials(topFace, 0, frontFace, 6);
+		swapMaterials(topFace,0,  bottomFace, 6);
+		swapMaterials(topFace, 0, backFace, 0); 
+		
+		swapMaterials(frontFace, 0, bottomFace, 0);
+		swapMaterials(frontFace, 0, backFace, 6);
+		swapMaterials(frontFace, 0, topFace, 6);
+		
+		swapMaterials(frontFace, 3, bottomFace, 3);
+		swapMaterials(frontFace, 3, backFace, 3);
+		swapMaterials(frontFace, 3, topFace, 3);
+		
+		//right face
+		swapMaterials(rightFace, 0, rightFace, 6);
+		swapMaterials(rightFace, 0, rightFace, 8);
+		swapMaterials(rightFace, 0, rightFace, 2);
+		
+		swapMaterials(rightFace, 1, rightFace, 3);
+		swapMaterials(rightFace, 1, rightFace, 7);
+		swapMaterials(rightFace, 1, rightFace, 5);
 	}
 	
 	private void swapMaterials(ArrayList<Geometry> array1, int index1, ArrayList<Geometry> array2, int index2){
