@@ -424,6 +424,51 @@ public class Cube {
 		swapMaterials(rightFace, 1, rightFace, 5);
 	}
 	
+	public void rotateLeftNorm(){
+		swapMaterials(topFace, 2, frontFace, 8);
+		swapMaterials(topFace, 2, bottomFace, 8);
+		swapMaterials(topFace, 2, backFace, 2);
+		
+		swapMaterials(topFace, 5, frontFace, 5);
+		swapMaterials(topFace, 5, bottomFace, 5);
+		swapMaterials(topFace, 5, backFace, 5);
+		
+		swapMaterials(topFace, 8, frontFace, 2);
+		swapMaterials(topFace, 8, bottomFace, 2);
+		swapMaterials(topFace, 8, backFace, 8);
+		
+		//left front face
+		swapMaterials(leftFace, 2, leftFace, 0);
+		swapMaterials(leftFace, 2, leftFace, 6);
+		swapMaterials(leftFace, 2, leftFace, 8);
+		
+		swapMaterials(leftFace, 1, leftFace, 3);
+		swapMaterials(leftFace, 1, leftFace, 7);
+		swapMaterials(leftFace, 1, leftFace, 5);
+	}
+	public void rotateLeftInverse(){
+		swapMaterials(topFace, 2, backFace, 2);
+		swapMaterials(topFace, 2, bottomFace, 8);
+		swapMaterials(topFace, 2, frontFace, 8);
+		
+		swapMaterials(topFace, 5,backFace, 5 );
+		swapMaterials(topFace, 5, bottomFace, 5);
+		swapMaterials(topFace, 5, frontFace, 5);
+		
+		swapMaterials(topFace, 8, backFace, 8);
+		swapMaterials(topFace, 8, bottomFace, 2);
+		swapMaterials(topFace, 8, frontFace, 2);
+		
+		//left front face
+		swapMaterials(leftFace, 2, leftFace, 8);
+		swapMaterials(leftFace, 2, leftFace, 6);
+		swapMaterials(leftFace, 2, leftFace, 0);
+		
+		swapMaterials(leftFace, 1, leftFace, 5);
+		swapMaterials(leftFace, 1, leftFace, 7);
+		swapMaterials(leftFace, 1, leftFace, 3);
+	}
+	
 	private void swapMaterials(ArrayList<Geometry> array1, int index1, ArrayList<Geometry> array2, int index2){
 		Material tempMaterial = array1.get(index1).getMaterial();
 		array1.get(index1).setMaterial(array2.get(index2).getMaterial());

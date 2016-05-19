@@ -52,8 +52,8 @@ public class Main extends SimpleApplication {
 				cube.rotateRightInverse();
 			}
 				break;
-			case ("p"): {
-				//matchCubes();
+			case ("l"): {
+				cube.rotateLeftNorm();
 			}
 				break;
 			}
@@ -98,7 +98,7 @@ public class Main extends SimpleApplication {
 		inputHandler.addKeyListener("x", KeyInput.KEY_LCONTROL);
 		inputHandler.addKeyListener("t", KeyInput.KEY_T);
 		inputHandler.addKeyListener("r", KeyInput.KEY_R);
-		inputHandler.addKeyListener("p", KeyInput.KEY_P);
+		inputHandler.addKeyListener("l", KeyInput.KEY_L);
 	}
 
 	public void initLighting() {
