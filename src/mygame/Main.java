@@ -13,6 +13,7 @@ import com.jme3.material.Material;
 import com.jme3.math.*;
 import com.jme3.scene.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -236,6 +237,12 @@ public class Main extends SimpleApplication {
 					cube.rotateMiddleVerticalNorm();
 					cube.rotateMiddleHorizontalInverse();
 					cube.rotateMiddleVerticalInverse();
+					/*try {
+						//Solver.solve(cube);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}*/
 				}
 			}
 			break;

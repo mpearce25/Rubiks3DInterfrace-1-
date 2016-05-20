@@ -6,7 +6,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 
-public class Rubiks extends Cube
+public class RubiksNoExtend 
 {
    protected char[] back;
    protected char[] front;
@@ -24,9 +24,9 @@ public class Rubiks extends Cube
    protected BufferedWriter buffer;
    protected boolean recordSteps;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   public Rubiks(Vector3f cubeCenter, AssetManager assetManager, Node rootNode, String topFaceColor, String frontFaceColor, String leftFaceColor)
+   public RubiksNoExtend()
    {
-	  super(cubeCenter, assetManager, rootNode, topFaceColor, frontFaceColor, leftFaceColor);
+	  //super(cubeCenter, assetManager, rootNode, topFaceColor, frontFaceColor, leftFaceColor);
       back  = new char[9];
       for (int k = 0; k < 9; k++)
          back[k] = 'g';
@@ -201,7 +201,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void F(int inv) 
    {
-	  super.F(inv);
+	  //super.F(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);     
       int k;
@@ -232,7 +232,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    public void B(int inv) 
    {
-	  super.B(inv);
+	  //super.B(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);      
       int k;
@@ -264,7 +264,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void R(int inv) 
    {
-	  super.R(inv);
+	  //super.R(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);      
       int k;
@@ -295,7 +295,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    public void L(int inv)
    {
-	  super.L(inv);
+	  //super.L(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);      
       int k;
@@ -326,7 +326,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
    public void U(int inv) 
    {
-	  super.U(inv);
+	 // super.U(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);
       int k;
@@ -357,7 +357,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
    public void D(int inv)
    {
-	  super.D(inv);
+	 // super.D(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);
       int k;
@@ -388,7 +388,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void X(int inv) 
    {
-	  super.X(inv);
+	  //super.X(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);
       int k;
@@ -418,7 +418,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void Y(int inv) 
    {
-	  super.Y(inv);
+	  //super.Y(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);
       int k;
@@ -448,7 +448,7 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void Z(int inv) 
    {
-	  super.Z(inv);
+	  //super.Z(inv);
       char[] temp = new char[9];
       boolean inverse = (inv > 0);
       int k;
