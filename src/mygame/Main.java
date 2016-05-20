@@ -40,12 +40,14 @@ public class Main extends SimpleApplication {
 		viewPort.setBackgroundColor(new ColorRGBA(.7f,.7f,.7f, 0f));
 		rootNode.attachChild(lightingNode);
 		initLighting();
-		flyCam.setMoveSpeed(10);
+		flyCam.setMoveSpeed(15);
 		initInputHandler();
 
-		cube = new Cube(new Vector3f(0, 0, 0), assetManager, rootNode);
+		cube = new Cube(new Vector3f(0, 0, 0), assetManager, rootNode, "yellow", "blue", "orange");
 		assignCubesToNode(cube);
 
+		
+		
 		flyCam.setEnabled(true);
 		inputManager.setCursorVisible(true);
 		

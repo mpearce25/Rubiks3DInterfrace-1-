@@ -17,7 +17,11 @@ import java.awt.color.*;
 public class Cube {
 
 	private RelativeVector cubeCenter;
-
+	private String topFaceColor = "";
+	private String frontFaceColor = "";
+	private String leftFaceColor = "";
+	
+	
 	private Material white;
 	private Material green;
 	private Material red;
@@ -53,10 +57,13 @@ public class Cube {
 	Quaternion bottomFaceRotation = new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 0, 0);
 	ArrayList<Vector3f> bottomFaceOffSets = new ArrayList<Vector3f>();
 
-	public Cube(Vector3f cubeCenter, AssetManager assetManager, Node rootNode) {
+	public Cube(Vector3f cubeCenter, AssetManager assetManager, Node rootNode, String topFaceColor, String frontFaceColor, String leftFaceColor) {
 
 		this.cubeCenter = new RelativeVector(cubeCenter);
-
+		this.topFaceColor = topFaceColor;
+		this.frontFaceColor = frontFaceColor;
+		this.leftFaceColor = leftFaceColor;
+		
 		initMaterials(assetManager);
 		initOffSets();
 		initFaces();
@@ -304,42 +311,53 @@ public class Cube {
 	}
 
 	private void initFaces() {
-		// top face - white
+		//face materials order - top, front. left, back, right, bottom
+		ArrayList<String> faceMaterialsInOrder = new ArrayList<String>();
+		faceMaterialsInOrder.add(topFaceColor);
+		faceMaterialsInOrder.add(frontFaceColor);
+		faceMaterialsInOrder.add(leftFaceColor);
+		faceMaterialsInOrder.add(getOppositeColor(frontFaceColor));
+		faceMaterialsInOrder.add(getOppositeColor(leftFaceColor));
+		faceMaterialsInOrder.add(getOppositeColor(topFaceColor));
+		
+		
+		
+		// top face 
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
-			tempGeo.setMaterial(white);
+			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(0)));
 			tempGeo.setLocalTranslation(topFaceOffSets.get(i));
 			tempGeo.setLocalRotation(topFaceRotation);
 			topFace.add(tempGeo);
 		}
-		// front face - red
+		// front face
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
-			tempGeo.setMaterial(red);
+			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(1)));
 			tempGeo.setLocalTranslation(frontFaceOffSets.get(i));
 			tempGeo.setLocalRotation(frontFaceRotation);
 			frontFace.add(tempGeo);
 		}
-		// left face - green
+		// left face 
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
-			tempGeo.setMaterial(green);
+			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(2)));
 			tempGeo.setLocalTranslation(leftFaceOffSets.get(i));
 			tempGeo.setLocalRotation(leftFaceRotation);
 			leftFace.add(tempGeo);
 		}
-		// back face - orange
+		// back face 
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
-			tempGeo.setMaterial(orange);
+			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(3)));
 			tempGeo.setLocalTranslation(backFaceOffSets.get(i));
 			tempGeo.setLocalRotation(backFaceRotation);
 			backFace.add(tempGeo);
 		}
-		// right face - blue
+		// right face
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
-			tempGeo.setMaterial(blue);
+			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(4)));
 			tempGeo.setLocalTranslation(rightFaceOffSets.get(i));
 			tempGeo.setLocalRotation(rightFaceRotation);
 			rightFace.add(tempGeo);
@@ -348,7 +366,7 @@ public class Cube {
 		// bottom face - yellow
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
-			tempGeo.setMaterial(yellow);
+			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(5)));
 			tempGeo.setLocalTranslation(bottomFaceOffSets.get(i));
 			tempGeo.setLocalRotation(bottomFaceRotation);
 			bottomFace.add(tempGeo);
@@ -819,5 +837,37 @@ public class Cube {
 	
 	public Material getRandomMaterial(){
 		return materials.get((int)(Math.random() * materials.size()));
+	}
+	
+	private String getOppositeColor(String color){
+		switch(color){
+		case("white"): return "yellow";
+		case("yellow"): return "white";
+
+		case("blue"): return "green";
+		case("green"): return "blue";
+		
+		case("red"): return "orange";
+		case("orange"): return "red";
+		
+		}
+		System.out.println("oppisite could not be determined");
+		return null;
+	}
+	
+	private Material getCorrespondingMaterial(String color){
+		switch(color){
+		case("white"): return white;
+		case("yellow"): return yellow;
+
+		case("blue"): return blue;
+		case("green"): return green;
+		
+		case("red"): return red;
+		case("orange"): return orange;
+		
+		}
+		System.out.println("material could not be found");
+		return null;
 	}
 }
