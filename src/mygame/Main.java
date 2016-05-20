@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.lwjgl.input.Mouse;
+
 public class Main extends SimpleApplication {
 	InputHandler inputHandler;
 
@@ -26,6 +28,7 @@ public class Main extends SimpleApplication {
 
 	@Override
 	public void simpleInitApp() {
+		viewPort.setBackgroundColor(new ColorRGBA(.7f,.7f,.7f, 0f));
 		rootNode.attachChild(lightingNode);
 		initLighting();
 		flyCam.setMoveSpeed(10);
@@ -33,6 +36,8 @@ public class Main extends SimpleApplication {
 
 		cube = new Cube(new Vector3f(0, 0, 0), assetManager, rootNode);
 		assignCubesToNode(cube);
+
+		inputManager.setCursorVisible(true);
 	}
 
 	public void assignCubesToNode(Cube cube) {
@@ -56,6 +61,7 @@ public class Main extends SimpleApplication {
 		inputHandler.addKeyListener("u", KeyInput.KEY_U);
 		inputHandler.addKeyListener("v", KeyInput.KEY_V);
 		inputHandler.addKeyListener("c", KeyInput.KEY_C);
+		inputHandler.addKeyListener("q", KeyInput.KEY_Q);
 	}
 
 	public void initLighting() {
@@ -146,6 +152,11 @@ public class Main extends SimpleApplication {
 				break;
 			case ("xc"): {
 				cube.rotateMiddleHorizontalInverse();
+			}
+				break;
+			case ("q"): {
+				cube.scramble(1000);
+				
 			}
 				break;
 

@@ -17,7 +17,7 @@ import java.awt.color.*;
 public class Cube {
 
 	private RelativeVector cubeCenter;
-	
+
 	private Material white;
 	private Material green;
 	private Material red;
@@ -32,117 +32,153 @@ public class Cube {
 	private ArrayList<Geometry> backFace = new ArrayList<Geometry>();
 	private ArrayList<Geometry> rightFace = new ArrayList<Geometry>();
 	private ArrayList<Geometry> bottomFace = new ArrayList<Geometry>();
-	
+
 	private Quaternion topFaceRotation = new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 0, 0);
 	private ArrayList<Vector3f> topFaceOffSets = new ArrayList<Vector3f>();
-	
+
 	Quaternion frontFaceRotation = new Quaternion().fromAngles(0, 0, -90 * FastMath.DEG_TO_RAD);
 	ArrayList<Vector3f> frontFaceOffSets = new ArrayList<Vector3f>();
-	
+
 	Quaternion leftFaceRotation = new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 0);
 	ArrayList<Vector3f> leftFaceOffSets = new ArrayList<Vector3f>();
-	
-	Quaternion backFaceRotation = new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0,
-			-90 * FastMath.DEG_TO_RAD);
+
+	Quaternion backFaceRotation = new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, -90 * FastMath.DEG_TO_RAD);
 	ArrayList<Vector3f> backFaceOffSets = new ArrayList<Vector3f>();
-	
+
 	Quaternion rightFaceRotation = new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, 0);
 	ArrayList<Vector3f> rightFaceOffSets = new ArrayList<Vector3f>();
-	
+
 	Quaternion bottomFaceRotation = new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 0, 0);
 	ArrayList<Vector3f> bottomFaceOffSets = new ArrayList<Vector3f>();
 
 	public Cube(Vector3f cubeCenter, AssetManager assetManager, Node rootNode) {
 
 		this.cubeCenter = new RelativeVector(cubeCenter);
-		
-		initMaterials(assetManager);		
+
+		initMaterials(assetManager);
 		initOffSets();
 		initFaces();
 		initFaceGrids(rootNode);
 
-		
 	}
-	private void initFaceGrids(Node rootNode){
-		//front face
+
+	private void initFaceGrids(Node rootNode) {
+		// front face
 		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, 2f, 2.0001f));
 		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, 0f, 2.0001f));
 		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, -2f, 2.0001f));
 		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, -3.90f, 2.0001f));
-		
+
 		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), -2f, -4f, 2.0001f));
 		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 0f, -4f, 2.0001f));
 		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 2f, -4f, 2.0001f));
 		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 3.9f, -4f, 2.0001f));
-		
-		//top face
+
+		// top face
 		rootNode.attachChild(generateVerticalRuler(topFaceRotation, -2f, 2.0001f, 2f));
 		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 0f, 2.0001f, 2f));
 		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 2f, 2.0001f, 2f));
 		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 3.9f, 2.0001f, 2f));
-		
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, 0f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, -2f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD,0), 4f, 2.0001f, -3.9f));
-		
-		//left Face
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,1.9f));
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,-.1f));
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,-2.1f));
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f,-4f,-4f));
-		
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, -4f, 2f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, -2.1f, 2f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, -.1f, 2f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0,-90 * FastMath.DEG_TO_RAD,90 * FastMath.DEG_TO_RAD), -2.0001f, 1.9f, 2f));
-		
-		//back face
+
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f, 0f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f, -2f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f,
+				-3.9f));
+
+		// left Face
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, 1.9f));
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -.1f));
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -2.1f));
+		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -4f));
+
+		rootNode.attachChild(generateVerticalRuler(
+				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, -4f,
+				2f));
+		rootNode.attachChild(generateVerticalRuler(
+				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, -2.1f,
+				2f));
+		rootNode.attachChild(generateVerticalRuler(
+				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, -.1f,
+				2f));
+		rootNode.attachChild(generateVerticalRuler(
+				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, 1.9f,
+				2f));
+
+		// back face
 		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, 2f, -4.0001f));
 		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, 0f, -4.0001f));
 		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, -2f, -4.0001f));
 		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, -3.9f, -4.0001f));
-		
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), -2f, 2f, -4.0001f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), 0f, 2f, -4.0001f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), 2f, 2f, -4.0001f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD,0, 0), 3.9f, 2f, -4.0001f));
-				
-		//rightFace
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,2f));//these are actually the vertical ones
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,0f));
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,-2f));
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f,-3.9f));
-		
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, 2f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, 0f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, -2f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(0,90 * FastMath.DEG_TO_RAD,-90 * FastMath.DEG_TO_RAD),4.001f, -3.9f, 2f));
-		
-		//bottom face
+
+		rootNode.attachChild(
+				generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), -2f, 2f, -4.0001f));
+		rootNode.attachChild(
+				generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), 0f, 2f, -4.0001f));
+		rootNode.attachChild(
+				generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), 2f, 2f, -4.0001f));
+		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), 3.9f,
+				2f, -4.0001f));
+
+		// rightFace
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, 2f));// these
+																							// are
+																							// actually
+																							// the
+																							// vertical
+																							// ones
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, 0f));
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, -2f));
+		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, -3.9f));
+
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, 2f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, 0f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, -2f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, -3.9f,
+				2f));
+
+		// bottom face
 		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 3.9f, -4.0001f, -4));
 		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 2f, -4.0001f, -4));
 		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 0f, -4.0001f, -4));
 		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, -2f, -4.0001f, -4));
-		
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, 0f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, -2f));
-		rootNode.attachChild(generateHorizontalRuler(new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD,  90 * FastMath.DEG_TO_RAD, 0), -2f,-4.0001f, -3.9f));
-		
-		}
-	private Geometry generateHorizontalRuler(Quaternion rotation, float x, float y, float z){
+
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f, 2f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f, 0f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f,
+				-2f));
+		rootNode.attachChild(generateHorizontalRuler(
+				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f,
+				-3.9f));
+
+	}
+
+	private Geometry generateHorizontalRuler(Quaternion rotation, float x, float y, float z) {
 		Geometry tempGeo = new Geometry("grid1", new Quad(2, 6));
 		tempGeo.setMaterial(black);
-		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(x), cubeCenter.getFloatYOffset(y),cubeCenter.getFloatZOffset(z));
+		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(x), cubeCenter.getFloatYOffset(y),
+				cubeCenter.getFloatZOffset(z));
 		tempGeo.setLocalRotation(rotation);
 		tempGeo.setLocalScale(.05f, 1f, 1f);
 		return tempGeo;
 	}
-	private Geometry generateVerticalRuler(Quaternion rotation, float x, float y, float z){
+
+	private Geometry generateVerticalRuler(Quaternion rotation, float x, float y, float z) {
 		Geometry tempGeo = new Geometry("grid1", new Quad(2, 6));
 		tempGeo.setMaterial(black);
-		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(x), cubeCenter.getFloatYOffset(y),cubeCenter.getFloatZOffset(z));
+		tempGeo.setLocalTranslation(cubeCenter.getFloatXOffset(x), cubeCenter.getFloatYOffset(y),
+				cubeCenter.getFloatZOffset(z));
 		tempGeo.setLocalRotation(rotation);
 		tempGeo.setLocalScale(.05f, 1f, 1f);
 		return tempGeo;
@@ -151,7 +187,7 @@ public class Cube {
 	private void initMaterials(AssetManager assetManager) {
 		white = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		white.setColor("Color", ColorRGBA.White);
-		
+
 		black = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		black.setColor("Color", ColorRGBA.Black);
 
@@ -170,7 +206,8 @@ public class Cube {
 		yellow = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		yellow.setColor("Color", ColorRGBA.Yellow);
 	}
-	private void initOffSets(){
+
+	private void initOffSets() {
 		topFaceOffSets.add(cubeCenter.getOffset(2, 2, 2));
 		topFaceOffSets.add(cubeCenter.getOffset(0, 2, 2));
 		topFaceOffSets.add(cubeCenter.getOffset(-2, 2, 2));
@@ -182,7 +219,7 @@ public class Cube {
 		topFaceOffSets.add(cubeCenter.getOffset(2, 2, -2));
 		topFaceOffSets.add(cubeCenter.getOffset(0, 2, -2));
 		topFaceOffSets.add(cubeCenter.getOffset(-2, 2, -2));
-		
+
 		////////////////////////////////////////////
 		frontFaceOffSets.add(cubeCenter.getOffset(2, 2, 2));
 		frontFaceOffSets.add(cubeCenter.getOffset(0, 2, 2));
@@ -196,7 +233,7 @@ public class Cube {
 		frontFaceOffSets.add(cubeCenter.getOffset(0, -2, 2));
 		frontFaceOffSets.add(cubeCenter.getOffset(-2, -2, 2));
 		////////////////////////////////////////////
-		
+
 		leftFaceOffSets.add(cubeCenter.getOffset(-2, 0, 0));
 		leftFaceOffSets.add(cubeCenter.getOffset(-2, 0, -2));
 		leftFaceOffSets.add(cubeCenter.getOffset(-2, 0, -4));
@@ -209,7 +246,7 @@ public class Cube {
 		leftFaceOffSets.add(cubeCenter.getOffset(-2, -4, -2));
 		leftFaceOffSets.add(cubeCenter.getOffset(-2, -4, -4));
 		////////////////////////////////////////////
-		
+
 		backFaceOffSets.add(cubeCenter.getOffset(4, 2, -4));
 		backFaceOffSets.add(cubeCenter.getOffset(2, 2, -4));
 		backFaceOffSets.add(cubeCenter.getOffset(0, 2, -4));
@@ -222,7 +259,7 @@ public class Cube {
 		backFaceOffSets.add(cubeCenter.getOffset(2, -2, -4));
 		backFaceOffSets.add(cubeCenter.getOffset(0, -2, -4));
 		////////////////////////////////////////////
-		
+
 		rightFaceOffSets.add(cubeCenter.getOffset(4, 0, 2));
 		rightFaceOffSets.add(cubeCenter.getOffset(4, 0, 0));
 		rightFaceOffSets.add(cubeCenter.getOffset(4, 0, -2));
@@ -233,9 +270,9 @@ public class Cube {
 
 		rightFaceOffSets.add(cubeCenter.getOffset(4, -4, 2));
 		rightFaceOffSets.add(cubeCenter.getOffset(4, -4, 0));
-		rightFaceOffSets.add(cubeCenter.getOffset(4, -4, -2));		
+		rightFaceOffSets.add(cubeCenter.getOffset(4, -4, -2));
 		////////////////////////////////////////////
-		
+
 		bottomFaceOffSets.add(cubeCenter.getOffset(2, -4, 0));
 		bottomFaceOffSets.add(cubeCenter.getOffset(0, -4, 0));
 		bottomFaceOffSets.add(cubeCenter.getOffset(-2, -4, 0));
@@ -248,7 +285,7 @@ public class Cube {
 		bottomFaceOffSets.add(cubeCenter.getOffset(0, -4, -4));
 		bottomFaceOffSets.add(cubeCenter.getOffset(-2, -4, -4));
 	}
-	
+
 	private void initFaces() {
 		// top face - white
 		for (int i = 0; i < 9; i++) {
@@ -340,339 +377,426 @@ public class Cube {
 	private ColorRGBA convertToColorRGBA(int r, int g, int b, int a) {
 		return new ColorRGBA(r / 255f, g / 255f, b / 255f, a * 1f);
 	}
-	
-	//rotation methods
-	public void rotateTopNorm(){
+
+	// rotation methods
+	public void rotateTopNorm() {
 		swapMaterials(rightFace, 2, frontFace, 0);
 		swapMaterials(rightFace, 2, leftFace, 0);
-		swapMaterials(rightFace, 2, backFace,2);
-		
+		swapMaterials(rightFace, 2, backFace, 2);
+
 		swapMaterials(rightFace, 1, frontFace, 1);
 		swapMaterials(rightFace, 1, leftFace, 1);
 		swapMaterials(rightFace, 1, backFace, 1);
-		
-		swapMaterials(rightFace,0, frontFace, 2);
+
+		swapMaterials(rightFace, 0, frontFace, 2);
 		swapMaterials(rightFace, 0, leftFace, 2);
-		swapMaterials(rightFace, 0, backFace, 0);	
-		
-		//top part of top face
-		swapMaterials(topFace,0, topFace, 2);
+		swapMaterials(rightFace, 0, backFace, 0);
+
+		// top part of top face
+		swapMaterials(topFace, 0, topFace, 2);
 		swapMaterials(topFace, 0, topFace, 8);
 		swapMaterials(topFace, 0, topFace, 6);
-		
+
 		swapMaterials(topFace, 1, topFace, 5);
 		swapMaterials(topFace, 1, topFace, 7);
 		swapMaterials(topFace, 1, topFace, 3);
-	}	
-	public void rotateTopInverse(){
-		swapMaterials(rightFace, 2, backFace,2);
+	}
+
+	public void rotateTopInverse() {
+		swapMaterials(rightFace, 2, backFace, 2);
 		swapMaterials(rightFace, 2, leftFace, 0);
 		swapMaterials(rightFace, 2, frontFace, 0);
-		
+
 		swapMaterials(rightFace, 1, backFace, 1);
 		swapMaterials(rightFace, 1, leftFace, 1);
 		swapMaterials(rightFace, 1, frontFace, 1);
-		
+
 		swapMaterials(rightFace, 0, backFace, 0);
 		swapMaterials(rightFace, 0, leftFace, 2);
-		swapMaterials(rightFace, 0, frontFace, 2);	
-		
-		//top part
-		swapMaterials(topFace,0, topFace, 6);
+		swapMaterials(rightFace, 0, frontFace, 2);
+
+		// top part
+		swapMaterials(topFace, 0, topFace, 6);
 		swapMaterials(topFace, 0, topFace, 8);
 		swapMaterials(topFace, 0, topFace, 2);
-		
+
 		swapMaterials(topFace, 1, topFace, 3);
 		swapMaterials(topFace, 1, topFace, 7);
 		swapMaterials(topFace, 1, topFace, 5);
 	}
-	
-	public void rotateFrontNorm(){
+
+	public void rotateFrontNorm() {
 		swapMaterials(rightFace, 0, bottomFace, 0);
 		swapMaterials(rightFace, 0, leftFace, 6);
 		swapMaterials(rightFace, 0, topFace, 2);
-		
+
 		swapMaterials(rightFace, 3, bottomFace, 1);
 		swapMaterials(rightFace, 3, leftFace, 3);
 		swapMaterials(rightFace, 3, topFace, 1);
-		
+
 		swapMaterials(rightFace, 6, bottomFace, 2);
 		swapMaterials(rightFace, 6, leftFace, 0);
 		swapMaterials(rightFace, 6, topFace, 0);
-		
-		//front front 
+
+		// front front
 		swapMaterials(frontFace, 0, frontFace, 6);
 		swapMaterials(frontFace, 0, frontFace, 8);
 		swapMaterials(frontFace, 0, frontFace, 2);
-		
+
 		swapMaterials(frontFace, 1, frontFace, 3);
 		swapMaterials(frontFace, 1, frontFace, 7);
 		swapMaterials(frontFace, 1, frontFace, 5);
 	}
-	public void rotateFrontInverse(){
+
+	public void rotateFrontInverse() {
 		swapMaterials(rightFace, 0, topFace, 2);
 		swapMaterials(rightFace, 0, leftFace, 6);
 		swapMaterials(rightFace, 0, bottomFace, 0);
-		
+
 		swapMaterials(rightFace, 3, topFace, 1);
 		swapMaterials(rightFace, 3, leftFace, 3);
 		swapMaterials(rightFace, 3, bottomFace, 1);
-		
+
 		swapMaterials(rightFace, 6, topFace, 0);
 		swapMaterials(rightFace, 6, leftFace, 0);
 		swapMaterials(rightFace, 6, bottomFace, 2);
-		
-		//front front 
+
+		// front front
 		swapMaterials(frontFace, 0, frontFace, 2);
 		swapMaterials(frontFace, 0, frontFace, 8);
 		swapMaterials(frontFace, 0, frontFace, 6);
-		
+
 		swapMaterials(frontFace, 1, frontFace, 5);
 		swapMaterials(frontFace, 1, frontFace, 7);
 		swapMaterials(frontFace, 1, frontFace, 3);
 	}
-	
-	public void rotateRightNorm(){
+
+	public void rotateRightNorm() {
 		swapMaterials(topFace, 0, backFace, 0);
-		swapMaterials(topFace,0,  bottomFace, 6);
-		swapMaterials(topFace, 0, frontFace, 6); 
-		
-		swapMaterials(frontFace, 0, topFace, 6);
-		swapMaterials(frontFace, 0, backFace, 6);
-		swapMaterials(frontFace, 0, bottomFace, 0);
-		
-		swapMaterials(frontFace, 3, topFace, 3);
-		swapMaterials(frontFace, 3, backFace, 3);
-		swapMaterials(frontFace, 3, bottomFace, 3);
-		
-		//right face
-		swapMaterials(rightFace, 0, rightFace, 2);
-		swapMaterials(rightFace, 0, rightFace, 8);
-		swapMaterials(rightFace, 0, rightFace, 6);
-		
-		swapMaterials(rightFace, 1, rightFace, 5);
-		swapMaterials(rightFace, 1, rightFace, 7);
-		swapMaterials(rightFace, 1, rightFace, 3);
-	}
-	public void rotateRightInverse(){
+		swapMaterials(topFace, 0, bottomFace, 6);
 		swapMaterials(topFace, 0, frontFace, 6);
-		swapMaterials(topFace,0,  bottomFace, 6);
-		swapMaterials(topFace, 0, backFace, 0); 
-		
+
+		swapMaterials(frontFace, 0, topFace, 6);
+		swapMaterials(frontFace, 0, backFace, 6);
+		swapMaterials(frontFace, 0, bottomFace, 0);
+
+		swapMaterials(frontFace, 3, topFace, 3);
+		swapMaterials(frontFace, 3, backFace, 3);
+		swapMaterials(frontFace, 3, bottomFace, 3);
+
+		// right face
+		swapMaterials(rightFace, 0, rightFace, 2);
+		swapMaterials(rightFace, 0, rightFace, 8);
+		swapMaterials(rightFace, 0, rightFace, 6);
+
+		swapMaterials(rightFace, 1, rightFace, 5);
+		swapMaterials(rightFace, 1, rightFace, 7);
+		swapMaterials(rightFace, 1, rightFace, 3);
+	}
+
+	public void rotateRightInverse() {
+		swapMaterials(topFace, 0, frontFace, 6);
+		swapMaterials(topFace, 0, bottomFace, 6);
+		swapMaterials(topFace, 0, backFace, 0);
+
 		swapMaterials(frontFace, 0, bottomFace, 0);
 		swapMaterials(frontFace, 0, backFace, 6);
 		swapMaterials(frontFace, 0, topFace, 6);
-		
+
 		swapMaterials(frontFace, 3, bottomFace, 3);
 		swapMaterials(frontFace, 3, backFace, 3);
 		swapMaterials(frontFace, 3, topFace, 3);
-		
-		//right face
+
+		// right face
 		swapMaterials(rightFace, 0, rightFace, 6);
 		swapMaterials(rightFace, 0, rightFace, 8);
 		swapMaterials(rightFace, 0, rightFace, 2);
-		
+
 		swapMaterials(rightFace, 1, rightFace, 3);
 		swapMaterials(rightFace, 1, rightFace, 7);
 		swapMaterials(rightFace, 1, rightFace, 5);
 	}
-	
-	public void rotateLeftNorm(){
+
+	public void rotateLeftNorm() {
 		swapMaterials(topFace, 2, frontFace, 8);
 		swapMaterials(topFace, 2, bottomFace, 8);
 		swapMaterials(topFace, 2, backFace, 2);
-		
+
 		swapMaterials(topFace, 5, frontFace, 5);
 		swapMaterials(topFace, 5, bottomFace, 5);
 		swapMaterials(topFace, 5, backFace, 5);
-		
+
 		swapMaterials(topFace, 8, frontFace, 2);
 		swapMaterials(topFace, 8, bottomFace, 2);
 		swapMaterials(topFace, 8, backFace, 8);
-		
-		//left front face
+
+		// left front face
 		swapMaterials(leftFace, 2, leftFace, 0);
 		swapMaterials(leftFace, 2, leftFace, 6);
 		swapMaterials(leftFace, 2, leftFace, 8);
-		
+
 		swapMaterials(leftFace, 1, leftFace, 3);
 		swapMaterials(leftFace, 1, leftFace, 7);
 		swapMaterials(leftFace, 1, leftFace, 5);
 	}
-	public void rotateLeftInverse(){
+
+	public void rotateLeftInverse() {
 		swapMaterials(topFace, 2, backFace, 2);
 		swapMaterials(topFace, 2, bottomFace, 8);
 		swapMaterials(topFace, 2, frontFace, 8);
-		
-		swapMaterials(topFace, 5,backFace, 5 );
+
+		swapMaterials(topFace, 5, backFace, 5);
 		swapMaterials(topFace, 5, bottomFace, 5);
 		swapMaterials(topFace, 5, frontFace, 5);
-		
+
 		swapMaterials(topFace, 8, backFace, 8);
 		swapMaterials(topFace, 8, bottomFace, 2);
 		swapMaterials(topFace, 8, frontFace, 2);
-		
-		//left front face
+
+		// left front face
 		swapMaterials(leftFace, 2, leftFace, 8);
 		swapMaterials(leftFace, 2, leftFace, 6);
 		swapMaterials(leftFace, 2, leftFace, 0);
-		
+
 		swapMaterials(leftFace, 1, leftFace, 5);
 		swapMaterials(leftFace, 1, leftFace, 7);
 		swapMaterials(leftFace, 1, leftFace, 3);
 	}
-	
-	public void rotateBackNorm(){
-		swapMaterials(topFace,6, leftFace, 2);
+
+	public void rotateBackNorm() {
+		swapMaterials(topFace, 6, leftFace, 2);
 		swapMaterials(topFace, 6, bottomFace, 8);
 		swapMaterials(topFace, 6, rightFace, 8);
-		
+
 		swapMaterials(topFace, 7, leftFace, 5);
 		swapMaterials(topFace, 7, bottomFace, 7);
 		swapMaterials(topFace, 7, rightFace, 5);
-		
+
 		swapMaterials(topFace, 8, leftFace, 8);
 		swapMaterials(topFace, 8, bottomFace, 6);
 		swapMaterials(topFace, 8, rightFace, 2);
-		
-		
-		//back face
+
+		// back face
 		swapMaterials(backFace, 0, backFace, 2);
 		swapMaterials(backFace, 0, backFace, 8);
 		swapMaterials(backFace, 0, backFace, 6);
-		
+
 		swapMaterials(backFace, 1, backFace, 5);
 		swapMaterials(backFace, 1, backFace, 7);
-		swapMaterials(backFace, 1, backFace, 3);	
+		swapMaterials(backFace, 1, backFace, 3);
 	}
-	public void rotateBackInverse(){
-		swapMaterials(topFace,6, rightFace, 8);
+
+	public void rotateBackInverse() {
+		swapMaterials(topFace, 6, rightFace, 8);
 		swapMaterials(topFace, 6, bottomFace, 8);
 		swapMaterials(topFace, 6, leftFace, 2);
-		
+
 		swapMaterials(topFace, 7, rightFace, 5);
 		swapMaterials(topFace, 7, bottomFace, 7);
 		swapMaterials(topFace, 7, leftFace, 5);
-		
+
 		swapMaterials(topFace, 8, rightFace, 2);
 		swapMaterials(topFace, 8, bottomFace, 6);
 		swapMaterials(topFace, 8, leftFace, 8);
-		
-		
-		//back face
+
+		// back face
 		swapMaterials(backFace, 0, backFace, 6);
 		swapMaterials(backFace, 0, backFace, 8);
 		swapMaterials(backFace, 0, backFace, 2);
-		
+
 		swapMaterials(backFace, 1, backFace, 3);
 		swapMaterials(backFace, 1, backFace, 7);
-		swapMaterials(backFace, 1, backFace, 5);	
+		swapMaterials(backFace, 1, backFace, 5);
 	}
-	
-	public void rotateBottonNorm(){
+
+	public void rotateBottonNorm() {
 		swapMaterials(frontFace, 8, rightFace, 6);
 		swapMaterials(frontFace, 8, backFace, 6);
 		swapMaterials(frontFace, 8, leftFace, 8);
-		
+
 		swapMaterials(frontFace, 7, rightFace, 7);
 		swapMaterials(frontFace, 7, backFace, 7);
 		swapMaterials(frontFace, 7, leftFace, 7);
-		
+
 		swapMaterials(frontFace, 6, rightFace, 8);
 		swapMaterials(frontFace, 6, backFace, 8);
-		swapMaterials(frontFace, 6, leftFace, 6);	
-		
-		//bottom face
+		swapMaterials(frontFace, 6, leftFace, 6);
+
+		// bottom face
 		swapMaterials(bottomFace, 0, bottomFace, 6);
 		swapMaterials(bottomFace, 0, bottomFace, 8);
 		swapMaterials(bottomFace, 0, bottomFace, 2);
-		
+
 		swapMaterials(bottomFace, 1, bottomFace, 3);
 		swapMaterials(bottomFace, 1, bottomFace, 7);
 		swapMaterials(bottomFace, 1, bottomFace, 5);
 	}
-	
-	public void rotateBottomInverse(){
-		swapMaterials(frontFace, 8,leftFace, 8 );
+
+	public void rotateBottomInverse() {
+		swapMaterials(frontFace, 8, leftFace, 8);
 		swapMaterials(frontFace, 8, backFace, 6);
 		swapMaterials(frontFace, 8, rightFace, 6);
-		
+
 		swapMaterials(frontFace, 7, leftFace, 7);
 		swapMaterials(frontFace, 7, backFace, 7);
 		swapMaterials(frontFace, 7, rightFace, 7);
-		
+
 		swapMaterials(frontFace, 6, leftFace, 6);
 		swapMaterials(frontFace, 6, backFace, 8);
-		swapMaterials(frontFace, 6, rightFace, 8);	
-		
-		//bottom face
+		swapMaterials(frontFace, 6, rightFace, 8);
+
+		// bottom face
 		swapMaterials(bottomFace, 0, bottomFace, 2);
 		swapMaterials(bottomFace, 0, bottomFace, 8);
 		swapMaterials(bottomFace, 0, bottomFace, 6);
-		
+
 		swapMaterials(bottomFace, 1, bottomFace, 5);
 		swapMaterials(bottomFace, 1, bottomFace, 7);
 		swapMaterials(bottomFace, 1, bottomFace, 3);
 	}
 
-	public void rotateMiddleVerticalNorm(){
+	public void rotateMiddleVerticalNorm() {
 		swapMaterials(frontFace, 1, topFace, 7);
 		swapMaterials(frontFace, 1, backFace, 7);
 		swapMaterials(frontFace, 1, bottomFace, 1);
-		
+
 		swapMaterials(frontFace, 4, topFace, 4);
 		swapMaterials(frontFace, 4, backFace, 4);
 		swapMaterials(frontFace, 4, bottomFace, 4);
-		
+
 		swapMaterials(frontFace, 7, topFace, 1);
 		swapMaterials(frontFace, 7, backFace, 1);
-		swapMaterials(frontFace, 7, bottomFace, 7);	
+		swapMaterials(frontFace, 7, bottomFace, 7);
 	}
-	public void rotateMiddleVerticalInverse(){
+
+	public void rotateMiddleVerticalInverse() {
 		swapMaterials(frontFace, 1, bottomFace, 1);
 		swapMaterials(frontFace, 1, backFace, 7);
 		swapMaterials(frontFace, 1, topFace, 7);
-		
+
 		swapMaterials(frontFace, 4, bottomFace, 4);
 		swapMaterials(frontFace, 4, backFace, 4);
 		swapMaterials(frontFace, 4, topFace, 4);
-		
+
 		swapMaterials(frontFace, 7, bottomFace, 7);
 		swapMaterials(frontFace, 7, backFace, 1);
-		swapMaterials(frontFace, 7, topFace, 1);	
+		swapMaterials(frontFace, 7, topFace, 1);
 	}
-	
-	public void rotateMiddleHorizontalNorm(){
+
+	public void rotateMiddleHorizontalNorm() {
 		swapMaterials(frontFace, 5, rightFace, 3);
 		swapMaterials(frontFace, 5, backFace, 3);
 		swapMaterials(frontFace, 5, leftFace, 5);
-		
+
 		swapMaterials(frontFace, 4, rightFace, 4);
 		swapMaterials(frontFace, 4, backFace, 4);
 		swapMaterials(frontFace, 4, leftFace, 4);
-		
+
 		swapMaterials(frontFace, 3, rightFace, 5);
 		swapMaterials(frontFace, 3, backFace, 5);
 		swapMaterials(frontFace, 3, leftFace, 3);
 	}
-	
-	public void rotateMiddleHorizontalInverse(){
+
+	public void rotateMiddleHorizontalInverse() {
 		swapMaterials(frontFace, 5, leftFace, 5);
 		swapMaterials(frontFace, 5, backFace, 3);
 		swapMaterials(frontFace, 5, rightFace, 3);
-		
+
 		swapMaterials(frontFace, 4, leftFace, 4);
 		swapMaterials(frontFace, 4, backFace, 4);
 		swapMaterials(frontFace, 4, rightFace, 4);
-		
+
 		swapMaterials(frontFace, 3, leftFace, 3);
 		swapMaterials(frontFace, 3, backFace, 5);
 		swapMaterials(frontFace, 3, rightFace, 5);
 	}
-	
-	private void swapMaterials(ArrayList<Geometry> array1, int index1, ArrayList<Geometry> array2, int index2){
+
+	private void swapMaterials(ArrayList<Geometry> array1, int index1, ArrayList<Geometry> array2, int index2) {
 		Material tempMaterial = array1.get(index1).getMaterial();
 		array1.get(index1).setMaterial(array2.get(index2).getMaterial());
 		array2.get(index2).setMaterial(tempMaterial);
+	}
+
+	public void scramble(int rotations) {
+		char[] potentialRotations = { 'r', 't', 'f', 'l', 'b', 'u', 'c', 'v' };
+
+		for (int i = 0; i < rotations; i++) {
+			String keysPressed = "";
+
+			if (Math.random() <= .5) {
+				keysPressed += "x";
+			}
+
+			keysPressed += potentialRotations[(int) (Math.random() * potentialRotations.length)];
+
+			switch (keysPressed) {
+			case ("t"): {
+				rotateTopNorm();
+			}
+				break;
+			case ("xt"): {
+				rotateTopInverse();
+			}
+				break;
+
+			case ("f"): {
+				rotateFrontNorm();
+			}
+				break;
+
+			case ("xf"): {
+				rotateFrontInverse();
+			}
+				break;
+
+			case ("r"): {
+				rotateRightNorm();
+			}
+				break;
+
+			case ("xr"): {
+				rotateRightInverse();
+			}
+				break;
+			case ("l"): {
+				rotateLeftNorm();
+			}
+				break;
+			case ("b"): {
+				rotateBackNorm();
+			}
+				break;
+			case ("xb"): {
+				rotateBackNorm();
+			}
+				break;
+			case ("u"): {
+				rotateBottonNorm();
+			}
+				break;
+			case ("xu"): {
+				rotateBottomInverse();
+			}
+				break;
+			case ("v"): {
+				rotateMiddleVerticalNorm();
+			}
+				break;
+			case ("xv"): {
+				rotateMiddleVerticalInverse();
+			}
+				break;
+
+			case ("c"): {
+				rotateMiddleHorizontalNorm();
+			}
+				break;
+			case ("xc"): {
+				rotateMiddleHorizontalInverse();
+			}
+				break;
+
+			}
+		}
 	}
 }
