@@ -1,6 +1,8 @@
 package mygame;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -13,6 +15,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
 import com.sun.prism.paint.Color;
 import java.awt.color.*;
+import java.math.BigInteger;
 
 public class Cube {
 
@@ -21,6 +24,7 @@ public class Cube {
 	private String frontFaceColor = "";
 	private String leftFaceColor = "";
 	
+	private Node rootNode;
 	
 	private Material white;
 	private Material green;
@@ -63,12 +67,21 @@ public class Cube {
 		this.topFaceColor = topFaceColor;
 		this.frontFaceColor = frontFaceColor;
 		this.leftFaceColor = leftFaceColor;
-		
+		this.rootNode = rootNode;
 		initMaterials(assetManager);
 		initOffSets();
 		initFaces();
 		initFaceGrids(rootNode);
 
+	}
+	
+	public void assignCubesToNode(Cube cube) {
+
+		for (ArrayList<Geometry> tempArray : cube.getAllFaces()) {
+			for (Geometry tempGeo : tempArray) {
+				rootNode.attachChild(tempGeo);
+			}
+		}
 	}
 
 	private void initFaceGrids(Node rootNode) {
@@ -336,6 +349,7 @@ public class Cube {
 			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(1)));
 			tempGeo.setLocalTranslation(frontFaceOffSets.get(i));
 			tempGeo.setLocalRotation(frontFaceRotation);
+			tempGeo.setName(generateUniqueName());
 			frontFace.add(tempGeo);
 		}
 		// left face 
@@ -644,7 +658,7 @@ public class Cube {
 		swapMaterials(backFace, 1, backFace, 5);
 	}
 
-	public void rotateBottonNorm() {
+	public void rotateBottomNorm() {
 		swapMaterials(frontFace, 8, rightFace, 6);
 		swapMaterials(frontFace, 8, backFace, 6);
 		swapMaterials(frontFace, 8, leftFace, 8);
@@ -834,7 +848,7 @@ public class Cube {
 			}
 				break;
 			case ("u"): {
-				rotateBottonNorm();
+				rotateBottomNorm();
 			}
 				break;
 			case ("xu"): {
@@ -899,13 +913,99 @@ public class Cube {
 		return null;
 	}
 	
-	public void coolPatern1(){
-		
-	}
+	
 	public void delay(int time) {
 		long startDelay = System.currentTimeMillis();
 		long endDelay = 0;
 		while (endDelay - startDelay < time)
 			endDelay = System.currentTimeMillis();
+	}
+	
+	public String getEnclosingFace(Material material){
+		//for()
+		return null;
+	}
+	ArrayList<String> geometryNamesTaken = new ArrayList<String>();
+	private String generateUniqueName(){
+		String randomName = "";
+		do{
+			randomName = UUID.randomUUID().toString();
+		}while(geometryNamesTaken.contains(randomName));
+		
+		geometryNamesTaken.add(randomName);
+		return randomName;
+	}
+	
+	public void F(int inv)
+	{
+		if (inv == 0)
+			rotateFrontNorm();
+		else
+			rotateFrontInverse();
+	}
+	
+	public void B(int inv)
+	{
+		if (inv == 0)
+			rotateBackNorm();
+		else
+			rotateBackInverse();
+	}
+	
+	public void L(int inv)
+	{
+		if (inv == 0)
+			rotateLeftNorm();
+		else
+			rotateLeftInverse();
+	}
+	
+	public void R(int inv)
+	{
+		if (inv == 0)
+			rotateRightNorm();
+		else
+			rotateRightInverse();
+	}
+	
+	public void U(int inv)
+	{
+		if (inv == 0)
+			rotateTopNorm();
+		else
+			rotateTopInverse();
+	}
+	
+	public void D(int inv)
+	{
+		if (inv == 0)
+			rotateBottomNorm();
+		else
+			rotateBottomInverse();
+	}
+	
+	public void X(int inv)
+	{
+		inv = -inv + 1;
+		if (inv == 0)
+			rotateMiddleHorizontalNorm();
+		else
+			rotateMiddleHorizontalInverse();
+	}
+	
+	public void Y(int inv)
+	{
+		if (inv == 0)
+			rotateMiddleVerticalNorm();
+		else
+			rotateMiddleVerticalInverse();
+	}
+	
+	public void Z(int inv)
+	{
+		if (inv == 0)
+			rotateCenterSliceNorm();
+		else
+			rotateCenterSliceInverse();
 	}
 }

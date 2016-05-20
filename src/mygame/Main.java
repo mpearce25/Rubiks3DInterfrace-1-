@@ -23,7 +23,7 @@ import org.lwjgl.input.Mouse;
 public class Main extends SimpleApplication {
 	InputHandler inputHandler;
 
-	Cube cube;
+	Rubiks cube;
 	Node lightingNode = new Node();
 
 	
@@ -43,7 +43,7 @@ public class Main extends SimpleApplication {
 		flyCam.setMoveSpeed(15);
 		initInputHandler();
 
-		cube = new Cube(new Vector3f(0, 0, 0), assetManager, rootNode, "yellow", "blue", "orange");
+		cube = new Rubiks(new Vector3f(0, 0, 0), assetManager, rootNode, "yellow", "blue", "orange");
 		assignCubesToNode(cube);
 
 		
@@ -112,8 +112,28 @@ public class Main extends SimpleApplication {
 			inputHandler.inputEvent(name, pressed);
 			String keysPressed = inputHandler.getKeysPressed();
 
+			//converting to relative faces
+			CollisionResults faceCollisionResults = new CollisionResults();
+			Ray faceCollisionRay = new Ray();
+			
+			rootNode.collideWith(faceCollisionRay, faceCollisionResults);
+			if(faceCollisionResults.size() > 0){
+				Geometry faceCollisionGeometry = faceCollisionResults.getClosestCollision().getGeometry();
+				System.out.println(faceCollisionGeometry.getName());
+				System.out.println(cube.getFrontFace().get(4).getName());
+				if (faceCollisionGeometry.getName().equals(cube.getFrontFace().get(4).getName())){ //Something's screwy
+					System.out.println("match maybe found");
+				}
+				
+			}
+			
+			////////////
+			
+			
 			switch (keysPressed) {
 			case("click"):{
+				
+				
 				CollisionResults results  = new CollisionResults();
 				Ray ray = new Ray(cam.getLocation(), cam.getDirection());
 				
@@ -173,7 +193,7 @@ public class Main extends SimpleApplication {
 			}
 				break;
 			case ("u"): {
-				cube.rotateBottonNorm();
+				cube.rotateBottomNorm();
 			}
 				break;
 			case ("xu"): {
