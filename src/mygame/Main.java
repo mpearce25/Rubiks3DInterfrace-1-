@@ -120,8 +120,7 @@ public class Main extends SimpleApplication {
 						do{
 							randomMaterial = cube.getRandomMaterial();
 						}while(randomMaterial.getName().equals("black"));
-						target.setMaterial(randomMaterial);
-						
+						target.setMaterial(randomMaterial);	
 					}
 				}
 			}

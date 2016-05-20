@@ -205,8 +205,7 @@ public class Cube {
 		red = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		red.setColor("Color", ColorRGBA.Red);
 		red.setName("red");
-		materials.add(red);
-		
+		materials.add(red);	
 
 		orange = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		orange.setColor("Color", ColorRGBA.Orange);
