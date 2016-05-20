@@ -745,6 +745,34 @@ public class Cube {
 		swapMaterials(frontFace, 3, backFace, 5);
 		swapMaterials(frontFace, 3, rightFace, 5);
 	}
+	
+	public void rotateCenterSliceNorm(){
+		swapMaterials(topFace, 5, rightFace, 1);
+		swapMaterials(topFace, 5,bottomFace, 3);
+		swapMaterials(topFace, 5, leftFace, 7);
+		
+		swapMaterials(topFace, 4, rightFace, 4);
+		swapMaterials(topFace, 4, bottomFace, 4);
+		swapMaterials(topFace, 4, leftFace, 4);
+		
+		swapMaterials(topFace, 3, rightFace, 7);
+		swapMaterials(topFace, 3, bottomFace, 5);
+		swapMaterials(topFace, 3,leftFace, 1);	
+	}
+	
+	public void rotateCenterSliceInverse(){
+		swapMaterials(topFace, 5, leftFace, 7);
+		swapMaterials(topFace, 5,bottomFace, 3);
+		swapMaterials(topFace, 5, rightFace, 1);
+		
+		swapMaterials(topFace, 4, leftFace, 4);
+		swapMaterials(topFace, 4, bottomFace, 4);
+		swapMaterials(topFace, 4, rightFace, 4);
+		
+		swapMaterials(topFace, 3, leftFace, 1);
+		swapMaterials(topFace, 3, bottomFace, 5);
+		swapMaterials(topFace, 3,rightFace, 7);	
+	}
 
 	private void swapMaterials(ArrayList<Geometry> array1, int index1, ArrayList<Geometry> array2, int index2) {
 		Material tempMaterial = array1.get(index1).getMaterial();
