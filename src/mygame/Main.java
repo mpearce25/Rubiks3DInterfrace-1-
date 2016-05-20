@@ -2,9 +2,14 @@ package mygame;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
+import com.jme3.collision.CollisionResults;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.light.*;
+import com.jme3.material.Material;
 import com.jme3.math.*;
 import com.jme3.scene.*;
 
@@ -21,6 +26,8 @@ public class Main extends SimpleApplication {
 	Cube cube;
 	Node lightingNode = new Node();
 
+	
+	
 	public static void main(String[] args) {
 		Main app = new Main();
 		app.start();// triggers the simpleInitApp() method
@@ -28,6 +35,8 @@ public class Main extends SimpleApplication {
 
 	@Override
 	public void simpleInitApp() {
+		
+		inputManager.deleteMapping(SimpleApplication.INPUT_MAPPING_MEMORY);
 		viewPort.setBackgroundColor(new ColorRGBA(.7f,.7f,.7f, 0f));
 		rootNode.attachChild(lightingNode);
 		initLighting();
@@ -37,7 +46,13 @@ public class Main extends SimpleApplication {
 		cube = new Cube(new Vector3f(0, 0, 0), assetManager, rootNode);
 		assignCubesToNode(cube);
 
+		flyCam.setEnabled(true);
 		inputManager.setCursorVisible(true);
+		
+		
+		
+		
+		//inputManager.setCursorVisible(true);
 	}
 
 	public void assignCubesToNode(Cube cube) {
@@ -62,6 +77,8 @@ public class Main extends SimpleApplication {
 		inputHandler.addKeyListener("v", KeyInput.KEY_V);
 		inputHandler.addKeyListener("c", KeyInput.KEY_C);
 		inputHandler.addKeyListener("q", KeyInput.KEY_Q);
+		inputHandler.addMouseListener("click", MouseInput.BUTTON_LEFT);
+
 	}
 
 	public void initLighting() {
@@ -89,6 +106,25 @@ public class Main extends SimpleApplication {
 			String keysPressed = inputHandler.getKeysPressed();
 
 			switch (keysPressed) {
+			case("click"):{
+				CollisionResults results  = new CollisionResults();
+				Ray ray = new Ray(cam.getLocation(), cam.getDirection());
+				
+				rootNode.collideWith(ray, results);
+				
+				if (results.size() > 0){
+					Geometry target = results.getClosestCollision().getGeometry();
+					if (!target.getMaterial().getName().equals("black")){
+						Material randomMaterial = null;
+						do{
+							randomMaterial = cube.getRandomMaterial();
+						}while(!randomMaterial.equals("black"));
+						target.setMaterial(randomMaterial);
+						
+					}
+				}
+			}
+			break;
 			case ("t"): {
 				cube.rotateTopNorm();
 			}

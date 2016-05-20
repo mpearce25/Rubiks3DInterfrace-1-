@@ -32,6 +32,8 @@ public class Cube {
 	private ArrayList<Geometry> backFace = new ArrayList<Geometry>();
 	private ArrayList<Geometry> rightFace = new ArrayList<Geometry>();
 	private ArrayList<Geometry> bottomFace = new ArrayList<Geometry>();
+	
+	private ArrayList<Material> materials = new ArrayList<Material>();
 
 	private Quaternion topFaceRotation = new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 0, 0);
 	private ArrayList<Vector3f> topFaceOffSets = new ArrayList<Vector3f>();
@@ -187,24 +189,40 @@ public class Cube {
 	private void initMaterials(AssetManager assetManager) {
 		white = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		white.setColor("Color", ColorRGBA.White);
-
+		white.setName("white");
+		materials.add(white);
+		
 		black = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		black.setColor("Color", ColorRGBA.Black);
+		black.setName("black");
+		materials.add(black);
 
 		green = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		green.setColor("Color", ColorRGBA.Green);
+		green.setName("green");
+		materials.add(green);
 
 		red = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		red.setColor("Color", ColorRGBA.Red);
+		red.setName("red");
+		materials.add(red);
+		
 
 		orange = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		orange.setColor("Color", ColorRGBA.Orange);
+		orange.setName("orange");
+		materials.add(orange);
 
 		blue = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		blue.setColor("Color", convertToColorRGBA(20, 100, 227, 0));
+		blue.setName("blue");
+		materials.add(blue);
 
 		yellow = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		yellow.setColor("Color", ColorRGBA.Yellow);
+		yellow.setName("yellow");
+		materials.add(yellow);
+		
 	}
 
 	private void initOffSets() {
@@ -798,5 +816,9 @@ public class Cube {
 
 			}
 		}
+	}
+	
+	public Material getRandomMaterial(){
+		return materials.get((int)(Math.random() * materials.size()));
 	}
 }

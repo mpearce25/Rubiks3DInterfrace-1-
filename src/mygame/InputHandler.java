@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
 
 public class InputHandler {
 
 	InputManager inputManager;
 	ActionListener actionListener;
+
 	ArrayList<String> keysPressed = new ArrayList<String>();
 
 	public InputHandler(InputManager inputManager, ActionListener actionListener) {
@@ -19,6 +22,11 @@ public class InputHandler {
 
 	public void addKeyListener(String actionPhrase, int character) {
 		inputManager.addMapping(actionPhrase, new KeyTrigger(character));
+		inputManager.addListener(actionListener, actionPhrase);
+	}
+	
+	public void addMouseListener(String actionPhrase, int mouse) {
+		inputManager.addMapping(actionPhrase, new MouseButtonTrigger(mouse));
 		inputManager.addListener(actionListener, actionPhrase);
 	}
 	
