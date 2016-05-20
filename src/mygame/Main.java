@@ -116,9 +116,10 @@ public class Main extends SimpleApplication {
 					Geometry target = results.getClosestCollision().getGeometry();
 					if (!target.getMaterial().getName().equals("black")){
 						Material randomMaterial = null;
+						
 						do{
 							randomMaterial = cube.getRandomMaterial();
-						}while(!randomMaterial.equals("black"));
+						}while(randomMaterial.getName().equals("black"));
 						target.setMaterial(randomMaterial);
 						
 					}
