@@ -79,6 +79,7 @@ public class Main extends SimpleApplication {
 		inputHandler.addKeyListener("v", KeyInput.KEY_V);
 		inputHandler.addKeyListener("c", KeyInput.KEY_C);
 		inputHandler.addKeyListener("q", KeyInput.KEY_Q);
+		inputHandler.addKeyListener("1", KeyInput.KEY_1);
 		inputHandler.addMouseListener("click", MouseInput.BUTTON_LEFT);
 
 	}
@@ -197,6 +198,19 @@ public class Main extends SimpleApplication {
 				
 			}
 				break;
+			case("1"):{
+				for(int i = 0; i < 1; i ++){
+					cube.rotateRightNorm();
+					assignCubesToNode(cube);
+					cube.rotateTopNorm();
+					assignCubesToNode(cube);
+					cube.rotateRightInverse();
+					assignCubesToNode(cube);
+					cube.rotateTopInverse();
+					assignCubesToNode(cube);
+				}
+			}
+			break;
 
 			}
 			assignCubesToNode(cube);

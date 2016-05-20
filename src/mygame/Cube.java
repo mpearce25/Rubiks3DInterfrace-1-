@@ -870,4 +870,14 @@ public class Cube {
 		System.out.println("material could not be found");
 		return null;
 	}
+	
+	public void coolPatern1(){
+		
+	}
+	public void delay(int time) {
+		long startDelay = System.currentTimeMillis();
+		long endDelay = 0;
+		while (endDelay - startDelay < time)
+			endDelay = System.currentTimeMillis();
+	}
 }
