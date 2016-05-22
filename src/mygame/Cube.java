@@ -16,6 +16,7 @@ import com.jme3.scene.shape.Quad;
 import com.sun.prism.paint.Color;
 import java.awt.color.*;
 import java.math.BigInteger;
+import java.security.SecureRandom;
 
 public class Cube {
 
@@ -23,9 +24,9 @@ public class Cube {
 	private String topFaceColor = "";
 	private String frontFaceColor = "";
 	private String leftFaceColor = "";
-	
+
 	private Node rootNode;
-	
+
 	private Material white;
 	private Material green;
 	private Material red;
@@ -40,7 +41,7 @@ public class Cube {
 	private ArrayList<Geometry> backFace = new ArrayList<Geometry>();
 	private ArrayList<Geometry> rightFace = new ArrayList<Geometry>();
 	private ArrayList<Geometry> bottomFace = new ArrayList<Geometry>();
-	
+
 	private ArrayList<Material> materials = new ArrayList<Material>();
 
 	private Quaternion topFaceRotation = new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 0, 0);
@@ -61,7 +62,8 @@ public class Cube {
 	Quaternion bottomFaceRotation = new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 0, 0);
 	ArrayList<Vector3f> bottomFaceOffSets = new ArrayList<Vector3f>();
 
-	public Cube(Vector3f cubeCenter, AssetManager assetManager, Node rootNode, String topFaceColor, String frontFaceColor, String leftFaceColor) {
+	public Cube(Vector3f cubeCenter, AssetManager assetManager, Node rootNode, String topFaceColor,
+			String frontFaceColor, String leftFaceColor) {
 
 		this.cubeCenter = new RelativeVector(cubeCenter);
 		this.topFaceColor = topFaceColor;
@@ -74,116 +76,143 @@ public class Cube {
 		initFaceGrids(rootNode);
 
 	}
-	
-	public void assignCubesToNode(Cube cube) {
 
-		for (ArrayList<Geometry> tempArray : cube.getAllFaces()) {
+	public void assignCubesToNode() {
+
+		for (ArrayList<Geometry> tempArray : getAllFaces()) {
 			for (Geometry tempGeo : tempArray) {
 				rootNode.attachChild(tempGeo);
 			}
 		}
 	}
 
+	private ArrayList<Geometry> topFaceGrids = new ArrayList<Geometry>();
+	private ArrayList<Geometry> frontFaceGrids = new ArrayList<Geometry>();
+	private ArrayList<Geometry> leftFaceGrids = new ArrayList<Geometry>();
+	private ArrayList<Geometry> backFaceGrids = new ArrayList<Geometry>();
+	private ArrayList<Geometry> rightFaceGrids = new ArrayList<Geometry>();
+	private ArrayList<Geometry> bottomFaceGrids = new ArrayList<Geometry>();
+	
+	private ArrayList<ArrayList<Geometry>> getAllGrids(){
+		ArrayList<ArrayList<Geometry>> allGrids = new ArrayList<ArrayList<Geometry>>();
+		allGrids.add(topFaceGrids);
+		allGrids.add(frontFaceGrids);
+		allGrids.add(leftFaceGrids);
+		allGrids.add(backFaceGrids);
+		allGrids.add(rightFaceGrids);
+		allGrids.add(bottomFaceGrids);
+		
+		return allGrids;
+	}
 	private void initFaceGrids(Node rootNode) {
-		// front face
-		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, 2f, 2.0001f));
-		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, 0f, 2.0001f));
-		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, -2f, 2.0001f));
-		rootNode.attachChild(generateHorizontalRuler(frontFaceRotation, -2f, -3.90f, 2.0001f));
-
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), -2f, -4f, 2.0001f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 0f, -4f, 2.0001f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 2f, -4f, 2.0001f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 3.9f, -4f, 2.0001f));
-
+		
 		// top face
-		rootNode.attachChild(generateVerticalRuler(topFaceRotation, -2f, 2.0001f, 2f));
-		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 0f, 2.0001f, 2f));
-		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 2f, 2.0001f, 2f));
-		rootNode.attachChild(generateVerticalRuler(topFaceRotation, 3.9f, 2.0001f, 2f));
+		topFaceGrids.add(generateVerticalRuler(topFaceRotation, -2f, 2.0001f, 2f));
+		topFaceGrids.add(generateVerticalRuler(topFaceRotation, 0f, 2.0001f, 2f));
+		topFaceGrids.add(generateVerticalRuler(topFaceRotation, 2f, 2.0001f, 2f));
+		topFaceGrids.add(generateVerticalRuler(topFaceRotation, 3.9f, 2.0001f, 2f));
 
-		rootNode.attachChild(generateHorizontalRuler(
+		topFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(
+		topFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f, 0f));
-		rootNode.attachChild(generateHorizontalRuler(
+		topFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f, -2f));
-		rootNode.attachChild(generateHorizontalRuler(
+		topFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(-90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), 4f, 2.0001f,
 				-3.9f));
+		
+		// front face
+		
+				frontFaceGrids.add(generateHorizontalRuler(frontFaceRotation, -2f, 2f, 2.0001f));
+				frontFaceGrids.add(generateHorizontalRuler(frontFaceRotation, -2f, 0f, 2.0001f));
+				frontFaceGrids.add(generateHorizontalRuler(frontFaceRotation, -2f, -2f, 2.0001f));
+				frontFaceGrids.add(generateHorizontalRuler(frontFaceRotation, -2f, -3.90f, 2.0001f));
+
+				frontFaceGrids.add(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), -2f, -4f, 2.0001f));
+				frontFaceGrids.add(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 0f, -4f, 2.0001f));
+				frontFaceGrids.add(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 2f, -4f, 2.0001f));
+				frontFaceGrids.add(generateVerticalRuler(new Quaternion().fromAngles(0, 0, 0), 3.9f, -4f, 2.0001f));
 
 		// left Face
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, 1.9f));
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -.1f));
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -2.1f));
-		rootNode.attachChild(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -4f));
+		leftFaceGrids.add(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, 1.9f));
+		leftFaceGrids.add(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -.1f));
+		leftFaceGrids.add(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -2.1f));
+		leftFaceGrids.add(generateHorizontalRuler(leftFaceRotation, -2.0001f, -4f, -4f));
 
-		rootNode.attachChild(generateVerticalRuler(
+		leftFaceGrids.add(generateVerticalRuler(
 				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, -4f,
 				2f));
-		rootNode.attachChild(generateVerticalRuler(
+		leftFaceGrids.add(generateVerticalRuler(
 				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, -2.1f,
 				2f));
-		rootNode.attachChild(generateVerticalRuler(
+		leftFaceGrids.add(generateVerticalRuler(
 				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, -.1f,
 				2f));
-		rootNode.attachChild(generateVerticalRuler(
+		leftFaceGrids.add(generateVerticalRuler(
 				new Quaternion().fromAngles(0, -90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD), -2.0001f, 1.9f,
 				2f));
 
 		// back face
-		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, 2f, -4.0001f));
-		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, 0f, -4.0001f));
-		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, -2f, -4.0001f));
-		rootNode.attachChild(generateHorizontalRuler(backFaceRotation, 4f, -3.9f, -4.0001f));
+		backFaceGrids.add(generateHorizontalRuler(backFaceRotation, 4f, 2f, -4.0001f));
+		backFaceGrids.add(generateHorizontalRuler(backFaceRotation, 4f, 0f, -4.0001f));
+		backFaceGrids.add(generateHorizontalRuler(backFaceRotation, 4f, -2f, -4.0001f));
+		backFaceGrids.add(generateHorizontalRuler(backFaceRotation, 4f, -3.9f, -4.0001f));
 
-		rootNode.attachChild(
+		backFaceGrids.add(
 				generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), -2f, 2f, -4.0001f));
-		rootNode.attachChild(
+		backFaceGrids.add(
 				generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), 0f, 2f, -4.0001f));
-		rootNode.attachChild(
+		backFaceGrids.add(
 				generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), 2f, 2f, -4.0001f));
-		rootNode.attachChild(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), 3.9f,
+		backFaceGrids.add(generateVerticalRuler(new Quaternion().fromAngles(180 * FastMath.DEG_TO_RAD, 0, 0), 3.9f,
 				2f, -4.0001f));
 
 		// rightFace
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, 2f));// these
+		rightFaceGrids.add(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, 2f));// these
 																							// are
 																							// actually
 																							// the
 																							// vertical
 																							// ones
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, 0f));
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, -2f));
-		rootNode.attachChild(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, -3.9f));
+		rightFaceGrids.add(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, 0f));
+		rightFaceGrids.add(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, -2f));
+		rightFaceGrids.add(generateHorizontalRuler(rightFaceRotation, 4.0001f, -4f, -3.9f));
 
-		rootNode.attachChild(generateHorizontalRuler(
+		rightFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, 2f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(
+		rightFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, 0f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(
+		rightFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, -2f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(
+		rightFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(0, 90 * FastMath.DEG_TO_RAD, -90 * FastMath.DEG_TO_RAD), 4.001f, -3.9f,
 				2f));
 
 		// bottom face
-		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 3.9f, -4.0001f, -4));
-		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 2f, -4.0001f, -4));
-		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, 0f, -4.0001f, -4));
-		rootNode.attachChild(generateHorizontalRuler(bottomFaceRotation, -2f, -4.0001f, -4));
+		bottomFaceGrids.add(generateHorizontalRuler(bottomFaceRotation, 3.9f, -4.0001f, -4));
+		bottomFaceGrids.add(generateHorizontalRuler(bottomFaceRotation, 2f, -4.0001f, -4));
+		bottomFaceGrids.add(generateHorizontalRuler(bottomFaceRotation, 0f, -4.0001f, -4));
+		bottomFaceGrids.add(generateHorizontalRuler(bottomFaceRotation, -2f, -4.0001f, -4));
 
-		rootNode.attachChild(generateHorizontalRuler(
+		bottomFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f, 2f));
-		rootNode.attachChild(generateHorizontalRuler(
+		bottomFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f, 0f));
-		rootNode.attachChild(generateHorizontalRuler(
+		bottomFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f,
 				-2f));
-		rootNode.attachChild(generateHorizontalRuler(
+		bottomFaceGrids.add(generateHorizontalRuler(
 				new Quaternion().fromAngles(90 * FastMath.DEG_TO_RAD, 90 * FastMath.DEG_TO_RAD, 0), -2f, -4.0001f,
 				-3.9f));
 
+		
+		for(ArrayList<Geometry> tempArray: getAllGrids()){
+			for (Geometry geo: tempArray){
+				geo.setName(generateUniqueName()); //pep
+				rootNode.attachChild(geo);
+			}
+		}
 	}
 
 	private Geometry generateHorizontalRuler(Quaternion rotation, float x, float y, float z) {
@@ -211,7 +240,7 @@ public class Cube {
 		white.setColor("Color", ColorRGBA.White);
 		white.setName("white");
 		materials.add(white);
-		
+
 		black = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		black.setColor("Color", ColorRGBA.Black);
 		black.setName("black");
@@ -225,7 +254,7 @@ public class Cube {
 		red = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		red.setColor("Color", ColorRGBA.Red);
 		red.setName("red");
-		materials.add(red);	
+		materials.add(red);
 
 		orange = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		orange.setColor("Color", ColorRGBA.Orange);
@@ -241,7 +270,7 @@ public class Cube {
 		yellow.setColor("Color", ColorRGBA.Yellow);
 		yellow.setName("yellow");
 		materials.add(yellow);
-		
+
 	}
 
 	private void initOffSets() {
@@ -324,7 +353,7 @@ public class Cube {
 	}
 
 	private void initFaces() {
-		//face materials order - top, front. left, back, right, bottom
+		// face materials order - top, front. left, back, right, bottom
 		ArrayList<String> faceMaterialsInOrder = new ArrayList<String>();
 		faceMaterialsInOrder.add(topFaceColor);
 		faceMaterialsInOrder.add(frontFaceColor);
@@ -332,15 +361,14 @@ public class Cube {
 		faceMaterialsInOrder.add(getOppositeColor(frontFaceColor));
 		faceMaterialsInOrder.add(getOppositeColor(leftFaceColor));
 		faceMaterialsInOrder.add(getOppositeColor(topFaceColor));
-		
-		
-		
-		// top face 
+
+		// top face
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
 			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(0)));
 			tempGeo.setLocalTranslation(topFaceOffSets.get(i));
 			tempGeo.setLocalRotation(topFaceRotation);
+			tempGeo.setName(generateUniqueName());
 			topFace.add(tempGeo);
 		}
 		// front face
@@ -352,20 +380,22 @@ public class Cube {
 			tempGeo.setName(generateUniqueName());
 			frontFace.add(tempGeo);
 		}
-		// left face 
+		// left face
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
 			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(2)));
 			tempGeo.setLocalTranslation(leftFaceOffSets.get(i));
 			tempGeo.setLocalRotation(leftFaceRotation);
+			tempGeo.setName(generateUniqueName());
 			leftFace.add(tempGeo);
 		}
-		// back face 
+		// back face
 		for (int i = 0; i < 9; i++) {
 			Geometry tempGeo = new Geometry("Rect", new Quad(2, 2));
 			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(3)));
 			tempGeo.setLocalTranslation(backFaceOffSets.get(i));
 			tempGeo.setLocalRotation(backFaceRotation);
+			tempGeo.setName(generateUniqueName());
 			backFace.add(tempGeo);
 		}
 		// right face
@@ -374,6 +404,7 @@ public class Cube {
 			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(4)));
 			tempGeo.setLocalTranslation(rightFaceOffSets.get(i));
 			tempGeo.setLocalRotation(rightFaceRotation);
+			tempGeo.setName(generateUniqueName());
 			rightFace.add(tempGeo);
 		}
 
@@ -383,6 +414,7 @@ public class Cube {
 			tempGeo.setMaterial(getCorrespondingMaterial(faceMaterialsInOrder.get(5)));
 			tempGeo.setLocalTranslation(bottomFaceOffSets.get(i));
 			tempGeo.setLocalRotation(bottomFaceRotation);
+			tempGeo.setName(generateUniqueName());
 			bottomFace.add(tempGeo);
 		}
 	}
@@ -759,33 +791,33 @@ public class Cube {
 		swapMaterials(frontFace, 3, backFace, 5);
 		swapMaterials(frontFace, 3, rightFace, 5);
 	}
-	
-	public void rotateCenterSliceNorm(){
+
+	public void rotateCenterSliceNorm() {
 		swapMaterials(topFace, 5, rightFace, 1);
-		swapMaterials(topFace, 5,bottomFace, 3);
+		swapMaterials(topFace, 5, bottomFace, 3);
 		swapMaterials(topFace, 5, leftFace, 7);
-		
+
 		swapMaterials(topFace, 4, rightFace, 4);
 		swapMaterials(topFace, 4, bottomFace, 4);
 		swapMaterials(topFace, 4, leftFace, 4);
-		
+
 		swapMaterials(topFace, 3, rightFace, 7);
 		swapMaterials(topFace, 3, bottomFace, 5);
-		swapMaterials(topFace, 3,leftFace, 1);	
+		swapMaterials(topFace, 3, leftFace, 1);
 	}
-	
-	public void rotateCenterSliceInverse(){
+
+	public void rotateCenterSliceInverse() {
 		swapMaterials(topFace, 5, leftFace, 7);
-		swapMaterials(topFace, 5,bottomFace, 3);
+		swapMaterials(topFace, 5, bottomFace, 3);
 		swapMaterials(topFace, 5, rightFace, 1);
-		
+
 		swapMaterials(topFace, 4, leftFace, 4);
 		swapMaterials(topFace, 4, bottomFace, 4);
 		swapMaterials(topFace, 4, rightFace, 4);
-		
+
 		swapMaterials(topFace, 3, leftFace, 1);
 		swapMaterials(topFace, 3, bottomFace, 5);
-		swapMaterials(topFace, 3,rightFace, 7);	
+		swapMaterials(topFace, 3, rightFace, 7);
 	}
 
 	private void swapMaterials(ArrayList<Geometry> array1, int index1, ArrayList<Geometry> array2, int index2) {
@@ -876,133 +908,193 @@ public class Cube {
 			}
 		}
 	}
-	
-	public Material getRandomMaterial(){
-		return materials.get((int)(Math.random() * materials.size()));
-	}
-	
-	private String getOppositeColor(String color){
-		switch(color){
-		case("white"): return "yellow";
-		case("yellow"): return "white";
 
-		case("blue"): return "green";
-		case("green"): return "blue";
-		
-		case("red"): return "orange";
-		case("orange"): return "red";
-		
+	public Material getRandomMaterial() {
+		return materials.get((int) (Math.random() * materials.size()));
+	}
+
+	private String getOppositeColor(String color) {
+		switch (color) {
+		case ("white"):
+			return "yellow";
+		case ("yellow"):
+			return "white";
+
+		case ("blue"):
+			return "green";
+		case ("green"):
+			return "blue";
+
+		case ("red"):
+			return "orange";
+		case ("orange"):
+			return "red";
+
 		}
 		System.out.println("oppisite could not be determined");
 		return null;
 	}
-	
-	private Material getCorrespondingMaterial(String color){
-		switch(color){
-		case("white"): return white;
-		case("yellow"): return yellow;
 
-		case("blue"): return blue;
-		case("green"): return green;
-		
-		case("red"): return red;
-		case("orange"): return orange;
-		
+	private Material getCorrespondingMaterial(String color) {
+		switch (color) {
+		case ("white"):
+			return white;
+		case ("yellow"):
+			return yellow;
+
+		case ("blue"):
+			return blue;
+		case ("green"):
+			return green;
+
+		case ("red"):
+			return red;
+		case ("orange"):
+			return orange;
+
 		}
 		System.out.println("material could not be found");
 		return null;
 	}
-	
-	
+
 	public void delay(int time) {
 		long startDelay = System.currentTimeMillis();
 		long endDelay = 0;
 		while (endDelay - startDelay < time)
 			endDelay = System.currentTimeMillis();
 	}
-	
-	public String getEnclosingFace(Material material){
-		//for()
-		return null;
-	}
+
 	ArrayList<String> geometryNamesTaken = new ArrayList<String>();
-	private String generateUniqueName(){
+
+	private String generateUniqueName() {
 		String randomName = "";
-		do{
-			randomName = UUID.randomUUID().toString();
-		}while(geometryNamesTaken.contains(randomName));
-		
+		do {
+			randomName = new BigInteger(100, new SecureRandom()).toString(32);
+		} while (geometryNamesTaken.contains(randomName));
 		geometryNamesTaken.add(randomName);
+
 		return randomName;
 	}
+
+	public String getEncapsulatingFace(String uniqueName) {
+		// using knowledge that the all face array is in particular order
+		int encapsulatingFaceNumber = -1;
+		for (int i = 0; i < getAllFaces().size(); i++) {
+			for (int k = 0; k < getAllFaces().get(i).size(); k++) {
+				if (getAllFaces().get(i).get(k).getName().equals(uniqueName)) {
+					encapsulatingFaceNumber = i;
+				}
+			}
+		}
+		switch (encapsulatingFaceNumber) {
+		case (0):
+			return "top";
+		case (1):
+			return "front";
+		case (2):
+			return "left";
+		case (3):
+			return "back";
+		case (4):
+			return "right";
+		case (5):
+			return "bottom";
+		default: {
+			System.out.println("no encapsulating face was found - colored cubes");
+			//return null;
+		}
+
+		}
+		
+		encapsulatingFaceNumber = -1;
+		for (int i = 0; i < getAllGrids().size(); i++) {
+			for (int k = 0; k < getAllGrids().get(i).size(); k++) {
+				if (getAllGrids().get(i).get(k).getName().equals(uniqueName)) {
+					encapsulatingFaceNumber = i;
+				}
+			}
+		}
+		switch (encapsulatingFaceNumber) {
+		case (0):
+			return "top";
+		case (1):
+			return "front";
+		case (2):
+			return "left";
+		case (3):
+			return "back";
+		case (4):
+			return "right";
+		case (5):
+			return "bottom";
+		default: {
+			System.out.println("no encapsulating face was found - grids");
+			return null;
+		}
+		}
+
 	
-	public void F(int inv)
-	{
+
+	}
+
+	public void F(int inv) {
 		if (inv == 0)
 			rotateFrontNorm();
 		else
 			rotateFrontInverse();
 	}
-	
-	public void B(int inv)
-	{
+
+	public void B(int inv) {
 		if (inv == 0)
 			rotateBackNorm();
 		else
 			rotateBackInverse();
 	}
-	
-	public void L(int inv)
-	{
+
+	public void L(int inv) {
 		if (inv == 0)
 			rotateLeftNorm();
 		else
 			rotateLeftInverse();
 	}
-	
-	public void R(int inv)
-	{
+
+	public void R(int inv) {
 		if (inv == 0)
 			rotateRightNorm();
 		else
 			rotateRightInverse();
 	}
-	
-	public void U(int inv)
-	{
+
+	public void U(int inv) {
 		if (inv == 0)
 			rotateTopNorm();
 		else
 			rotateTopInverse();
 	}
-	
-	public void D(int inv)
-	{
+
+	public void D(int inv) {
 		if (inv == 0)
 			rotateBottomNorm();
 		else
 			rotateBottomInverse();
 	}
-	
-	public void X(int inv)
-	{
+
+	public void X(int inv) {
 		inv = -inv + 1;
 		if (inv == 0)
 			rotateMiddleHorizontalNorm();
 		else
 			rotateMiddleHorizontalInverse();
 	}
-	
-	public void Y(int inv)
-	{
+
+	public void Y(int inv) {
 		if (inv == 0)
 			rotateMiddleVerticalNorm();
 		else
 			rotateMiddleVerticalInverse();
 	}
-	
-	public void Z(int inv)
-	{
+
+	public void Z(int inv) {
 		if (inv == 0)
 			rotateCenterSliceNorm();
 		else

@@ -27,8 +27,6 @@ public class Main extends SimpleApplication {
 	Rubiks cube;
 	Node lightingNode = new Node();
 
-	
-	
 	public static void main(String[] args) {
 		Main app = new Main();
 		app.start();// triggers the simpleInitApp() method
@@ -36,26 +34,21 @@ public class Main extends SimpleApplication {
 
 	@Override
 	public void simpleInitApp() {
-		
+
 		inputManager.deleteMapping(SimpleApplication.INPUT_MAPPING_MEMORY);
-		viewPort.setBackgroundColor(new ColorRGBA(.7f,.7f,.7f, 0f));
+		viewPort.setBackgroundColor(new ColorRGBA(.7f, .7f, .7f, 0f));
 		rootNode.attachChild(lightingNode);
 		initLighting();
 		flyCam.setMoveSpeed(15);
 		initInputHandler();
 
 		cube = new Rubiks(new Vector3f(0, 0, 0), assetManager, rootNode, "yellow", "blue", "orange");
-		assignCubesToNode(cube);
+		cube.assignCubesToNode();
 
-		
-		
 		flyCam.setEnabled(true);
 		inputManager.setCursorVisible(true);
-		
-		
-		
-		
-		//inputManager.setCursorVisible(true);
+
+		// inputManager.setCursorVisible(true);
 	}
 
 	public void assignCubesToNode(Cube cube) {
@@ -80,7 +73,7 @@ public class Main extends SimpleApplication {
 		inputHandler.addKeyListener("v", KeyInput.KEY_V);
 		inputHandler.addKeyListener("c", KeyInput.KEY_C);
 		inputHandler.addKeyListener("i", KeyInput.KEY_I);
-		
+
 		inputHandler.addKeyListener("q", KeyInput.KEY_Q);
 		inputHandler.addKeyListener("1", KeyInput.KEY_1);
 		inputHandler.addKeyListener("2", KeyInput.KEY_2);
@@ -113,46 +106,34 @@ public class Main extends SimpleApplication {
 			inputHandler.inputEvent(name, pressed);
 			String keysPressed = inputHandler.getKeysPressed();
 
-			//converting to relative faces
-			CollisionResults faceCollisionResults = new CollisionResults();
-			Ray faceCollisionRay = new Ray();
-			
-			rootNode.collideWith(faceCollisionRay, faceCollisionResults);
-			if(faceCollisionResults.size() > 0){
-				Geometry faceCollisionGeometry = faceCollisionResults.getClosestCollision().getGeometry();
-				System.out.println(faceCollisionGeometry.getName());
-				System.out.println(cube.getFrontFace().get(4).getName());
-				if (faceCollisionGeometry.getName().equals(cube.getFrontFace().get(4).getName())){ //Something's screwy
-					System.out.println("match maybe found");
-				}
-				
+			// converting to relative faces
+			if (!keysPressed.equals("")) {
+				getRelativeFaces();
 			}
-			
 			////////////
-			
-			
+
 			switch (keysPressed) {
-			case("click"):{
-				
-				
-				CollisionResults results  = new CollisionResults();
+			case ("click"): {
+				CollisionResults results = new CollisionResults();
 				Ray ray = new Ray(cam.getLocation(), cam.getDirection());
-				
+
 				rootNode.collideWith(ray, results);
-				
-				if (results.size() > 0){
+
+				if (results.size() > 0) {
 					Geometry target = results.getClosestCollision().getGeometry();
-					if (!target.getMaterial().getName().equals("black")){
+
+					if (!target.getMaterial().getName().equals("black")) {
 						Material randomMaterial = null;
-						
-						do{
+
+						do {
 							randomMaterial = cube.getRandomMaterial();
-						}while(randomMaterial.getName().equals("black"));
-						target.setMaterial(randomMaterial);	
+						} while (randomMaterial.getName().equals("black"));
+						target.setMaterial(randomMaterial);
 					}
 				}
+
 			}
-			break;
+				break;
 			case ("t"): {
 				cube.rotateTopNorm();
 			}
@@ -203,6 +184,7 @@ public class Main extends SimpleApplication {
 				break;
 			case ("v"): {
 				cube.rotateMiddleVerticalNorm();
+
 			}
 				break;
 			case ("xv"): {
@@ -218,35 +200,42 @@ public class Main extends SimpleApplication {
 				cube.rotateMiddleHorizontalInverse();
 			}
 				break;
-				
-			case("i"):{
+
+			case ("i"): {
 				cube.rotateCenterSliceNorm();
 			}
-			break;
-			case("xi"):{
+				break;
+			case ("xi"): {
 				cube.rotateCenterSliceInverse();
 			}
 			case ("q"): {
 				cube.scramble(1000);
-				
+
 			}
 				break;
-			case("1"):{
-				for(int i = 0; i < 1; i ++){
-					cube.rotateMiddleHorizontalNorm();
-					cube.rotateMiddleVerticalNorm();
-					cube.rotateMiddleHorizontalInverse();
-					cube.rotateMiddleVerticalInverse();
-					/*try {
-						//Solver.solve(cube);
+			case ("1"): {
+				for (int i = 0; i < 1; i++) {
+					/*
+					 * cube.rotateMiddleHorizontalNorm();
+					 * cube.rotateMiddleVerticalNorm();
+					 * cube.rotateMiddleHorizontalInverse();
+					 * cube.rotateMiddleVerticalInverse();
+					 */
+					/*
+					 * try { //Solver.solve(cube); } catch (IOException e) { //
+					 * TODO Auto-generated catch block e.printStackTrace(); }
+					 */
+
+					try {
+						Solver.solve(cube);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}*/
+					}
 				}
 			}
-			break;
-			case("2"):{
+				break;
+			case ("2"): {
 				cube.rotateCenterSliceNorm();
 				cube.rotateCenterSliceNorm();
 				cube.rotateMiddleHorizontalNorm();
@@ -254,9 +243,9 @@ public class Main extends SimpleApplication {
 				cube.rotateMiddleVerticalNorm();
 				cube.rotateMiddleVerticalNorm();
 			}
-			break;
-			
-			case("3"):{
+				break;
+
+			case ("3"): {
 				cube.rotateMiddleVerticalNorm();
 				cube.rotateMiddleHorizontalNorm();
 				cube.rotateMiddleHorizontalNorm();
@@ -264,9 +253,28 @@ public class Main extends SimpleApplication {
 				cube.rotateMiddleHorizontalInverse();
 				cube.rotateMiddleHorizontalInverse();
 			}
-			break;}
-			
-			assignCubesToNode(cube);
+				break;
+			}
+
+			cube.assignCubesToNode();
 		}
 	};
+
+	private String getRelativeFaces() {
+		CollisionResults results = new CollisionResults();
+		Ray ray = new Ray(cam.getLocation(), cam.getDirection());
+
+		rootNode.collideWith(ray, results);
+
+		if (results.size() > 0) {
+			Geometry target = results.getClosestCollision().getGeometry();
+
+			if (target.getName().equals(cube.getFrontFace().get(5).getName())) { // Something's
+																					// screwy
+				System.out.println("match maybe found");
+			}
+			System.out.println(cube.getEncapsulatingFace(target.getName()));
+		}
+		return null;
+	}
 }
