@@ -12,6 +12,7 @@ import com.jme3.light.*;
 import com.jme3.material.Material;
 import com.jme3.math.*;
 import com.jme3.scene.*;
+import com.jme3.scene.shape.Quad;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -254,6 +255,9 @@ public class Main extends SimpleApplication {
 				cube.rotateMiddleHorizontalInverse();
 			}
 				break;
+			case("4"):{
+				
+			}
 			}
 
 			cube.assignCubesToNode();
@@ -261,20 +265,49 @@ public class Main extends SimpleApplication {
 	};
 
 	private String getRelativeFaces() {
+		//getting face user is facing
 		CollisionResults results = new CollisionResults();
 		Ray ray = new Ray(cam.getLocation(), cam.getDirection());
-
+		
 		rootNode.collideWith(ray, results);
 
 		if (results.size() > 0) {
 			Geometry target = results.getClosestCollision().getGeometry();
-
-			if (target.getName().equals(cube.getFrontFace().get(5).getName())) { // Something's
-																					// screwy
-				System.out.println("match maybe found");
-			}
 			System.out.println(cube.getEncapsulatingFace(target.getName()));
 		}
+		////////
+		//getting face that is on top for user -- will be done by quickly rotating user 90 degrees to one side and getting that face
+		
+		//cam.lookAtDirection(direction, up);
+		Material black = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		black.setColor("Color", ColorRGBA.randomColor());
+		black.setName("black");
+		
+		Geometry detector = new Geometry("detector", new Quad(10,10));
+		detector.setMaterial(black);
+		
+		rootNode.attachChild(detector);
+		detector.lookAt(cam.getLocation(), Vector3f.UNIT_Y);
+		System.out.println(cam.getDirection());
+		//System.out.println(detector.get);
+		//
+		detector.rotate(new Quaternion().fromAngles(0,270 * FastMath.DEG_TO_RAD , 0));
+		detector.setLocalTranslation(detector.getLocalTranslation().getX() + 15, detector.getLocalTranslation().getY(), detector.getLocalTranslation().getZ());
+		
+		//cam.setLocation((new Vector3f(detector.getLocation().getX(), cam.getLocation().getX() + 20, cam.getLocation().getZ())));
+		//cam.lookAt(new Vector3f(0,0,0), Vector3f.UNIT_Y);
+		
+		CollisionResults results2 = new CollisionResults();
+		//Ray ray2 = new Ray(detector.getLocalTranslation());
+		
+		
+		rootNode.collideWith(ray, results);
+
+		if (results.size() > 0) {
+			Geometry target = results.getClosestCollision().getGeometry();
+			System.out.println(cube.getEncapsulatingFace(target.getName()));
+		}
+		////////
 		return null;
 	}
 }

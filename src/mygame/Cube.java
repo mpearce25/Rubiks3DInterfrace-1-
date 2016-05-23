@@ -1032,9 +1032,6 @@ public class Cube {
 			return null;
 		}
 		}
-
-	
-
 	}
 
 	public void F(int inv) {
