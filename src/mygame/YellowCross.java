@@ -73,6 +73,7 @@ public class YellowCross extends Solver
 	   }
 	   for (int k = 0; k < 4; k++)
 	   {
+		   
 		   if (((cube.getU(3) == target.getU(1) && cube.getL(1) == target.getB(1)) ||
 			    (cube.getU(3) == target.getU(3) && cube.getL(1) == target.getL(1)) ||
 				(cube.getU(3) == target.getU(5) && cube.getL(1) == target.getR(1)) ||

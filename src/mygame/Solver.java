@@ -19,7 +19,7 @@ public class Solver
 	   WhiteCross.solve(cube);
 	   WhiteCorners.solve(cube);
 	   SecondLayer.solve(cube);
-	   //YellowCross.solve(cube);
+	   YellowCross.solve(cube);
 	   //YellowFace.solve(cube);
 	   //FinalLayer.solve(cube);
 	   target.setFace(f, t);
@@ -37,6 +37,7 @@ public class Solver
     	  cases = 9;
       for (int k = 0; k < turns; k++)
       {
+    	
     	 face = rand.nextInt(cases);
          
          direction = rand.nextInt(2);
