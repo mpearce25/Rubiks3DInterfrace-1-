@@ -54,11 +54,12 @@ public class RubiksNoExtend
       x = 10;
       y = 10;
       s = 10;
-      try{
+     /* try{
       file = new File("steps.dat");
       writer = new FileWriter(file);
       buffer = new BufferedWriter(writer);
-      }catch(IOException e){}
+      }catch(IOException  | StackOverflowError e){System.out.println("some error in rubiks no extend");}*/
+      
       recordSteps = false;
    }
    
@@ -201,7 +202,7 @@ public class RubiksNoExtend
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void F(int inv) 
    {
-	  //super.F(inv);
+	  
       char[] temp = new char[9];
       boolean inverse = (inv > 0);     
       int k;

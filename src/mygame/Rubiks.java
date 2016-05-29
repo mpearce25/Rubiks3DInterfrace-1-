@@ -58,7 +58,7 @@ public class Rubiks extends Cube
       file = new File("steps.dat");
       writer = new FileWriter(file);
       buffer = new BufferedWriter(writer);
-      }catch(IOException e){}
+      }catch(IOException  | StackOverflowError e){System.out.println("some error in rubiks no extend");}
       recordSteps = false;
    }
    
@@ -202,6 +202,7 @@ public class Rubiks extends Cube
    public void F(int inv) 
    {
 	  super.F(inv);
+	  System.out.println("front face rotation");
       char[] temp = new char[9];
       boolean inverse = (inv > 0);     
       int k;

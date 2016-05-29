@@ -1000,7 +1000,7 @@ public class Cube {
 		case (5):
 			return "bottom";
 		default: {
-			System.out.println("no encapsulating face was found - colored cubes");
+			//System.out.println("no encapsulating face was found - colored cubes");
 			//return null;
 		}
 
@@ -1028,12 +1028,29 @@ public class Cube {
 		case (5):
 			return "bottom";
 		default: {
-			System.out.println("no encapsulating face was found - grids");
+			//System.out.println("no encapsulating face was found - grids");
 			return null;
 		}
 		}
+		
+		
 	}
-
+	/*public void rotateWholeCube(){
+		
+		Node tempRotateNode = new Node();
+		for (ArrayList<Geometry> tempArray: getAllFaces()){
+			for(Geometry tempGeo: tempArray){
+				//tempGeo.rotate(new Quaternion().fromAngles(90* FastMath.DEG_TO_RAD, 0f,0f));
+				tempRotateNode.attachChild(tempGeo);
+			}
+			rootNode.attachChild(tempRotateNode);
+			tempRotateNode.rotate(new Quaternion().fromAngles(90* FastMath.DEG_TO_RAD, 0f,0f));
+			tempRotateNode.setLocalTranslation(new Vector3f(2,0,2));
+			
+		}
+		//rootNode.attachChild(tempRotateNode);
+		//tempRotateNode
+	}*/
 	public void F(int inv) {
 		if (inv == 0)
 			rotateFrontNorm();
