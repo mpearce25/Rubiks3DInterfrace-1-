@@ -58,8 +58,44 @@ public class Rubiks extends Cube
       file = new File("steps.dat");
       writer = new FileWriter(file);
       buffer = new BufferedWriter(writer);
-      }catch(IOException  | StackOverflowError e){System.out.println("some error in rubiks no extend");}
+      }catch(IOException  | StackOverflowError e){System.out.println("some error in rubiks ");}
       recordSteps = false;
+   }
+   public Rubiks(){
+	   super();
+	   back  = new char[9];
+	      for (int k = 0; k < 9; k++)
+	         back[k] = 'g';
+	         
+	      front   = new char[9];
+	      for (int k = 0; k < 9; k++)
+	         front[k] = 'b';
+	         
+	      right    = new char[9];
+	      for (int k = 0; k < 9; k++)
+	         right[k] = 'r';
+	         
+	      left = new char[9];
+	      for (int k = 0; k < 9; k++)
+	         left[k] = 'o';
+	         
+	      top = new char[9];
+	      for (int k = 0; k < 9; k++)
+	         top[k] = 'y';
+	         
+	      bottom  = new char[9];   
+	      for (int k = 0; k < 9; k++)
+	         bottom[k] = 'w';
+	         
+	      x = 10;
+	      y = 10;
+	      s = 10;
+	      try{
+	      file = new File("steps.dat");
+	      writer = new FileWriter(file);
+	      buffer = new BufferedWriter(writer);
+	      }catch(IOException  | StackOverflowError e){System.out.println("some error in rubiks ");}
+	      recordSteps = false;
    }
    
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
@@ -593,7 +629,8 @@ public class Rubiks extends Cube
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void setFace(String f, String t)
    {
-	  boolean temp = recordSteps;
+System.out.println("this prints setFace: " + t);
+	   boolean temp = recordSteps;
 	  recordSteps = false;
       char fr = stringToChar(f);
       char to   = stringToChar(t);
@@ -607,6 +644,10 @@ public class Rubiks extends Cube
       }
       else
       {
+    	
+    	  //System.out.println(front[4]);
+    	  
+    	  
          while (!(fr == front[4]))
          {
             rotateCubeY(0);

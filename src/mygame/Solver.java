@@ -17,11 +17,11 @@ public class Solver
 	   String t = target.getFaceTop();
 	   System.out.println("Starting solve!");
 	   WhiteCross.solve(cube);
-	   /*WhiteCorners.solve(cube);
+	   WhiteCorners.solve(cube);
 	   SecondLayer.solve(cube);
-	   YellowCross.solve(cube);
-	   YellowFace.solve(cube);
-	   FinalLayer.solve(cube);*/
+	   //YellowCross.solve(cube);
+	   //YellowFace.solve(cube);
+	   //FinalLayer.solve(cube);
 	   target.setFace(f, t);
    }
    

@@ -44,6 +44,13 @@ public class Main extends SimpleApplication {
 		flyCam.setMoveSpeed(15);
 		initInputHandler();
 
+		AssetStorage.setAssetManager(assetManager);
+		AssetStorage.setCubeCenter(new Vector3f(0,0,0));
+		AssetStorage.setRootNode(rootNode);
+		
+		AssetStorage.setTopFaceColor("yellow");
+		AssetStorage.setFrontFaceColor("blue");
+		AssetStorage.setLeftFaceColor("orange");
 		cube = new Rubiks(new Vector3f(0, 0, 0), assetManager, rootNode, "yellow", "blue", "orange");
 		cube.assignCubesToNode();
 
@@ -211,7 +218,13 @@ public class Main extends SimpleApplication {
 				cube.rotateCenterSliceInverse();
 			}
 			case ("q"): {
-				cube.scramble(1000);
+				//cube.scramble(1000);
+				try {
+					Solver.shuffleCube(cube, 100, false, false);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			}
 				break;

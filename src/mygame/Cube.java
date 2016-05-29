@@ -67,7 +67,7 @@ public class Cube {
 
 		this.cubeCenter = new RelativeVector(cubeCenter);
 		this.topFaceColor = topFaceColor;
-		this.frontFaceColor = frontFaceColor;
+		this.frontFaceColor = 	frontFaceColor;
 		this.leftFaceColor = leftFaceColor;
 		this.rootNode = rootNode;
 		initMaterials(assetManager);
@@ -75,6 +75,18 @@ public class Cube {
 		initFaces();
 		initFaceGrids(rootNode);
 
+	}
+	public Cube(){
+		this.cubeCenter = new RelativeVector(AssetStorage.getCubeCenter());
+		this.topFaceColor = AssetStorage.getTopFaceColor();
+		this.frontFaceColor = AssetStorage.getFrontFaceColor();
+		this.leftFaceColor = AssetStorage.getLeftFaceColor();
+		this.rootNode = AssetStorage.getRootNode();
+		
+		initMaterials(AssetStorage.getAssetManager());
+		initOffSets();
+		initFaces();
+		initFaceGrids(rootNode);
 	}
 
 	public void assignCubesToNode() {
